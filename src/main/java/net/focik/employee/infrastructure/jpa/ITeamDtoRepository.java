@@ -1,7 +1,11 @@
 package net.focik.employee.infrastructure.jpa;
 
-import net.focik.employee.infrastructure.dto.TeamDto;
+import net.focik.employee.infrastructure.dto.TeamDbDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-interface ITeamDtoRepository extends JpaRepository<TeamDto, Integer> {
+import java.util.List;
+
+interface ITeamDtoRepository extends JpaRepository<TeamDbDto, Integer> {
+
+    List<TeamDbDto> findAllByIsActive(Boolean isActive);
 }

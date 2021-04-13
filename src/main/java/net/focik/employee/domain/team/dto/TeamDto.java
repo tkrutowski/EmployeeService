@@ -1,4 +1,4 @@
-package net.focik.employee.infrastructure.dto;
+package net.focik.employee.domain.team.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,14 +17,9 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity
-@Table(name = "teams")
 @ToString
 public class TeamDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_team")
     private Integer idTeam;
     private String name;
 }

@@ -2,7 +2,7 @@ package net.focik.employee.infrastructure.jpa;
 
 import lombok.RequiredArgsConstructor;
 import net.focik.employee.domain.team.port.ITeamRepository;
-import net.focik.employee.infrastructure.dto.TeamDto;
+import net.focik.employee.infrastructure.dto.TeamDbDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,17 +14,22 @@ public class TeamRepositoryAdapter implements ITeamRepository {
 
     private final ITeamDtoRepository repository;
     @Override
-    public Integer add(TeamDto dto) {
+    public Integer add(TeamDbDto dto) {
         return null;
     }
 
     @Override
-    public Optional<TeamDto> findById(Integer id) {
+    public Optional<TeamDbDto> findById(Integer id) {
         return repository.findById(id);
     }
 
     @Override
-    public List<TeamDto> findAll() {
+    public List<TeamDbDto> findAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public List<TeamDbDto> findAllByIsActive(Boolean isActive) {
+        return repository.findAllByIsActive(isActive);
     }
 }
