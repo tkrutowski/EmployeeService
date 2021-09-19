@@ -1,4 +1,4 @@
-package net.focik.employee.domain.employee;
+package net.focik.hr.employee.domain;
 
 public interface IEmployee {
     void hire();

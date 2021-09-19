@@ -1,6 +1,6 @@
-package net.focik.employee.domain.team.port;
+package net.focik.hr.team.domain.port;
 
-import net.focik.employee.infrastructure.dto.TeamDbDto;
+import net.focik.hr.team.infrastructure.dto.TeamDbDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

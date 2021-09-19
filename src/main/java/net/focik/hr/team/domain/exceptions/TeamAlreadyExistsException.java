@@ -1,4 +1,4 @@
-package net.focik.employee.domain.team.exceptions;
+package net.focik.hr.team.domain.exceptions;
 
 public class TeamAlreadyExistsException extends ObjectAlreadyExistException {
     public TeamAlreadyExistsException(Integer id) {

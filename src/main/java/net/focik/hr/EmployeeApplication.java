@@ -1,4 +1,4 @@
-package net.focik.employee;
+package net.focik.hr;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

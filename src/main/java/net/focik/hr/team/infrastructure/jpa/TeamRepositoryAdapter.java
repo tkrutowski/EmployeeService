@@ -1,8 +1,8 @@
-package net.focik.employee.infrastructure.jpa;
+package net.focik.hr.team.infrastructure.jpa;
 
 import lombok.RequiredArgsConstructor;
-import net.focik.employee.domain.team.port.ITeamRepository;
-import net.focik.employee.infrastructure.dto.TeamDbDto;
+import net.focik.hr.team.domain.port.ITeamRepository;
+import net.focik.hr.team.infrastructure.dto.TeamDbDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
