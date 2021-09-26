@@ -7,11 +7,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmployeeFasade {
 
-    EmployeeService employeeService;
+    EmployeeCommandService employeeCommandService;
+    EmployeeQueryService employeeQueryService;
     RateService rateService;
 
     public void addEmployee(Employee employee){
-        employeeService.addEmployee(employee);
+        employeeCommandService.addEmployee(employee);
     }
 
     public void addRate( RateRegular rate){
@@ -23,6 +24,6 @@ public class EmployeeFasade {
     }
 
     public Employee getEmployee(Integer id){
-        return employeeService.findEmployeeById(id);
+        return employeeQueryService.findEmployeeById(id);
     }
 }

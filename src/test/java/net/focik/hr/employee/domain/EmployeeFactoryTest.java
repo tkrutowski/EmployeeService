@@ -1,8 +1,10 @@
 package net.focik.hr.employee.domain;
 
-import net.focik.hr.employee.domain.port.secondary.EmployeeRepository;
+import net.focik.hr.employee.domain.port.secondary.EmployeeCommandRepository;
+import net.focik.hr.employee.domain.port.secondary.EmployeeQueryRepository;
 import net.focik.hr.employee.domain.port.secondary.RateRepository;
-import net.focik.hr.employee.infrastructure.inMemory.InMemoryEmployeeRepositoryAdapter;
+import net.focik.hr.employee.infrastructure.inMemory.InMemoryEmployeeCommandRepositoryAdapter;
+import net.focik.hr.employee.infrastructure.inMemory.InMemoryEmployeeQueryRepositoryAdapter;
 import net.focik.hr.employee.infrastructure.inMemory.InMemoryRateRepositoryAdapter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,18 +14,20 @@ import java.time.LocalDate;
 
 class EmployeeFactoryTest {
 
-    EmployeeRepository employeeRepository = new InMemoryEmployeeRepositoryAdapter();
-    EmployeeService employeeService = new EmployeeService(employeeRepository);
+    EmployeeCommandRepository employeeCommandRepository = new InMemoryEmployeeCommandRepositoryAdapter();
+    EmployeeQueryRepository employeeQueryRepository=new InMemoryEmployeeQueryRepositoryAdapter();
+    EmployeeCommandService employeeCommandService = new EmployeeCommandService(employeeCommandRepository);
+    EmployeeQueryService employeeQueryService = new EmployeeQueryService(employeeQueryRepository);
 
     RateRepository rateRepository = new InMemoryRateRepositoryAdapter();
     RateService rateService = new RateService(rateRepository);
-    EmployeeFactory factory = new EmployeeFactory(employeeService, rateService);
+    EmployeeFactory factory = new EmployeeFactory(employeeQueryService,rateService);
 
 
     @Test
     void should_create_Employee() {
         //given
-        int id = employeeService.addEmployee(createEmployee1());
+        int id = employeeCommandService.addEmployee(createEmployee1());
         Integer idRegular1 = rateService.addRateRegular(createRateRegular1());
         Integer idRegular2 = rateService.addRateRegular(createRateRegular2());
         Integer idOver1 = rateService.addRateOvertime(createRateOvertime1());

@@ -6,11 +6,12 @@ import java.util.List;
 
 @AllArgsConstructor
 class EmployeeFactory {
-    private EmployeeService employeeService;
+    private EmployeeQueryService employeeQueryService;
+
     private RateService rateService;
 
     Employee createEmployee(Integer id) {
-        final Employee employee = employeeService.findEmployeeById(id);
+        final Employee employee = employeeQueryService.findEmployeeById(id);
         employee.setRateRegular(findLastRateRegular(employee.getId()));
         employee.setRateOvertime(findLastRateOvertime(employee.getId()));
 
