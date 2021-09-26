@@ -1,4 +1,4 @@
-package net.focik.employee.domain.team.exceptions;
+package net.focik.hr.employee.domain.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
