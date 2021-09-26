@@ -1,6 +1,6 @@
-package net.focik.employee.infrastructure.jpa;
+package net.focik.hr.team.infrastructure.jpa;
 
-import net.focik.employee.infrastructure.dto.TeamDbDto;
+import net.focik.hr.team.infrastructure.dto.TeamDbDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

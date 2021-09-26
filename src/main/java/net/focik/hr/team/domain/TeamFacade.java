@@ -1,7 +1,7 @@
-package net.focik.employee.domain.team;
+package net.focik.hr.team.domain;
 
 import lombok.RequiredArgsConstructor;
-import net.focik.employee.domain.team.dto.TeamDto;
+import net.focik.hr.team.domain.dto.TeamDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

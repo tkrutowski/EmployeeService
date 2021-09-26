@@ -1,4 +1,4 @@
-package net.focik.employee.domain.team;
+package net.focik.hr.team.domain;
 
 class Team {
 

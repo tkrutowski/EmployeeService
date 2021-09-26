@@ -1,10 +1,9 @@
-package net.focik.employee.domain.team;
+package net.focik.hr.team.domain;
 
 
-import net.focik.employee.domain.team.dto.TeamDto;
+import net.focik.hr.team.domain.dto.TeamDto;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

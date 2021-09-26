@@ -1,4 +1,4 @@
-package net.focik.employee.domain;
+package net.focik.hr.team.domain;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;

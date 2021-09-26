@@ -1,4 +1,4 @@
-package net.focik.employee.infrastructure.dto;
+package net.focik.hr.team.infrastructure.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,11 +1,10 @@
-package net.focik.employee.domain.team;
+package net.focik.hr.team.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import net.focik.employee.domain.team.dto.TeamDto;
-import net.focik.employee.domain.team.exceptions.TeamDoesNotExistException;
-import net.focik.employee.domain.team.port.ITeamRepository;
-import net.focik.employee.infrastructure.dto.TeamDbDto;
+import net.focik.hr.team.domain.dto.TeamDto;
+import net.focik.hr.team.domain.exceptions.TeamDoesNotExistException;
+import net.focik.hr.team.domain.port.ITeamRepository;
+import net.focik.hr.team.infrastructure.dto.TeamDbDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 

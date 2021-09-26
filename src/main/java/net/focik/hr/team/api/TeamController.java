@@ -1,11 +1,10 @@
-package net.focik.employee.api;
+package net.focik.hr.team.api;
 
 import lombok.AllArgsConstructor;
-import net.focik.employee.domain.team.TeamFacade;
-import net.focik.employee.domain.team.dto.TeamDto;
+import net.focik.hr.team.domain.TeamFacade;
+import net.focik.hr.team.domain.dto.TeamDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
