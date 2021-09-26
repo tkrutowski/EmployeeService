@@ -1,5 +1,5 @@
 package net.focik.hr.employee.domain;
 
-public enum Employment {
+ enum EmploymentStatus {
     HIRED, FIRED
 }

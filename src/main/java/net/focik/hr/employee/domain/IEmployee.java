@@ -1,6 +1,6 @@
 package net.focik.hr.employee.domain;
 
-public interface IEmployee {
+ interface IEmployee {
     void hire();
     void dismiss();
     void changeAddress(Address address);
