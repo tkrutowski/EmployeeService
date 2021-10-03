@@ -1,20 +1,38 @@
 package net.focik.hr.employee.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-//entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "stawka_nadgodziny")
+@Getter
 @ToString
-public class RateOvertime extends Rate {
+public class RateOvertime {
 
-    public RateOvertime(Integer idRate, Integer idEmployee, LocalDate dateFrom, BigDecimal rateValue) {
-        super(idRate, idEmployee, dateFrom, rateValue);
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_stawki_nadgodziny")
+    @Setter Integer idRate;
+    @Column(name = "id_pracownika")
+    Integer idEmployee;
+    @Column(name = "data_od")
+    LocalDate dateFrom;
+    @Column(name = "stawka_nadgodziny")
+    BigDecimal rateValue;
 
-    @Override
-    public void setId(Integer id) {
-        this.idRate=id;
-    }
+
 }

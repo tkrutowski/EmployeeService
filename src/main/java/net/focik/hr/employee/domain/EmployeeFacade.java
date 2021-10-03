@@ -5,25 +5,25 @@ import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
 @Component
-public class EmployeeFasade {
+public class EmployeeFacade {
 
     EmployeeCommandService employeeCommandService;
-    EmployeeQueryService employeeQueryService;
-    RateService rateService;
+    RateRegularService rateRegularService;
+    RateOvertimeService rateOvertimeService;
 
-    public void addEmployee(Employee employee){
-        employeeCommandService.addEmployee(employee);
+    public Integer addEmployee(Employee employee){
+        return employeeCommandService.addEmployee(employee);
     }
 
     public void addRate( RateRegular rate){
-        rateService.addRateRegular(rate);
+        rateRegularService.addRateRegular(rate);
     }
 
     public void addRateOvertime(Integer idEmployee, RateOvertime rate){
-        rateService.addRateOvertime(rate);
+        rateOvertimeService.addRateOvertime(rate);
     }
 
     public Employee getEmployee(Integer id){
-        return employeeQueryService.findEmployeeById(id);
+        return employeeCommandService.findEmployeeById(id);
     }
 }

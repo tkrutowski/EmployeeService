@@ -6,12 +6,12 @@ import java.util.List;
 
 @AllArgsConstructor
 class EmployeeFactory {
-    private EmployeeQueryService employeeQueryService;
-
-    private RateService rateService;
+    private EmployeeCommandService employeeCommandService;
+    private RateOvertimeService rateOvertimeService;
+    private RateRegularService rateRegularService;
 
     Employee createEmployee(Integer id) {
-        final Employee employee = employeeQueryService.findEmployeeById(id);
+        final Employee employee = employeeCommandService.findEmployeeById(id);
         employee.setRateRegular(findLastRateRegular(employee.getId()));
         employee.setRateOvertime(findLastRateOvertime(employee.getId()));
 
@@ -20,7 +20,7 @@ class EmployeeFactory {
 
     private RateRegular findLastRateRegular(Integer id) {
         RateRegular rateRegular = null;
-        List<RateRegular> allRateRegular = rateService.findAllRateRegularByEmployee(id);
+        List<RateRegular> allRateRegular = rateRegularService.findAllRateRegularByEmployee(id);
         int size = allRateRegular.size();
         if (size > 0)
             rateRegular = allRateRegular.get(size - 1);
@@ -30,7 +30,7 @@ class EmployeeFactory {
 
     private RateOvertime findLastRateOvertime(Integer id) {
         RateOvertime rateOvertime = null;
-        List<RateOvertime> allRateOvertime = rateService.findAllRateOvertimeByEmployee(id);
+        List<RateOvertime> allRateOvertime = rateOvertimeService.findAllRateOvertimeByEmployee(id);
         int size = allRateOvertime.size();
         if (size > 0)
             rateOvertime = allRateOvertime.get(size - 1);
