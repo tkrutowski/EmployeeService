@@ -34,5 +34,4 @@ public class RateOvertime {
     @Column(name = "stawka_nadgodziny")
     BigDecimal rateValue;
 
-
 }

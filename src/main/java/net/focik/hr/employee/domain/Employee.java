@@ -1,13 +1,16 @@
 package net.focik.hr.employee.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import net.focik.hr.employee.domain.share.EmployeeType;
+import net.focik.hr.employee.domain.share.EmploymentStatus;
+import net.focik.hr.employee.domain.share.WorkTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -19,6 +22,7 @@ import javax.persistence.Transient;
 import java.time.LocalDate;
 
 //AgregateRoot
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -30,7 +34,7 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pracownika")
     @Setter
-    private Integer id;
+    protected Integer id;
     @Column(name = "imie")
     private String firstName;
     @Column(name = "nazwisko")
@@ -71,7 +75,7 @@ public class Employee {
     //todo zmienić w bazie z bit na varchar
     @Enumerated(EnumType.STRING)
     @Column(name = "czy_kadra")
-    private EmployeeType workerType;
+    private EmployeeType employeeType;
 
     private Address address;
 
