@@ -22,12 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 class EmployeeCommandController {
 
     private AddNewEmployeeUseCase addNewEmployeeUseCase;
-    private ModelMapper mapper;
+    private ApiMapper mapper;
 
     @PostMapping
     public ResponseEntity<Integer> addEmployee(@RequestBody EmployeeDto employeeDto){
         log.info("Try add new employee.");
-        Employee employee = mapper.map(employeeDto, Employee.class);
+        Employee employee = mapper.toDomain(employeeDto);
         Integer result = addNewEmployeeUseCase.addEmployee(employee);
 
         log.info(result > 0 ? "Employee added with id = " + result : "No employee added!");

@@ -1,16 +1,15 @@
 package net.focik.hr.employee.api;
 
-import net.focik.hr.employee.domain.Address;
 import net.focik.hr.employee.domain.Employee;
 import net.focik.hr.employee.domain.share.EmployeeType;
 import net.focik.hr.employee.domain.share.EmploymentStatus;
-import net.focik.hr.employee.domain.RateOvertime;
-import net.focik.hr.employee.domain.RateRegular;
 import net.focik.hr.employee.domain.share.RateType;
 import net.focik.hr.employee.domain.share.WorkTime;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
+@Component
 public class ApiMapper {
 
     Employee toDomain (EmployeeDto dto){
@@ -20,6 +19,7 @@ public class ApiMapper {
                 .numberDaysOffLeft(dto.getNumberDaysOffLeft())
                 .numberDaysOffAnnually(dto.getNumberDaysOffAnnually())
                 .telNumber(dto.getTelNumber())
+                .email(dto.getEmail())
                 .otherInfo(dto.getOtherInfo())
                 .employmentStatus(EmploymentStatus.valueOf(dto.getEmploymentStatus()))
                 .hiredDate(dto.getHiredDate())
@@ -28,10 +28,10 @@ public class ApiMapper {
                 .nextBhpTrainingDate(dto.getNextBhpTrainingDate())
                 .workTime(WorkTime.valueOf(dto.getWorkTime()))
                 .employeeType(EmployeeType.valueOf(dto.getEmployeeType()))
-                .address(new Address(dto.getCity(), dto.getStreet(), dto.getZip()))
-                .rateRegular(new RateRegular(null, null, RateType.valueOf(dto.getRateRegularType()), dto.getRateRegularDateFrom(), BigDecimal.valueOf(dto.getRateRegularValue())))
-                .rateOvertime(new RateOvertime(null, null, dto.getRateOvertimeDateFrom(), BigDecimal.valueOf(dto.getRateOvertimeValue())))
                 .build();
+                build.setAddress(dto.getCity(), dto.getStreet(), dto.getZip());
+                build.setRateRegular( RateType.valueOf(dto.getRateRegularType()), dto.getRateRegularDateFrom(), BigDecimal.valueOf(dto.getRateRegularValue()));
+                build.setRateOvertime( dto.getRateOvertimeDateFrom(), BigDecimal.valueOf(dto.getRateOvertimeValue()));
         return build;
     }
 
@@ -44,6 +44,7 @@ public class ApiMapper {
                 .numberDaysOffAnnually(e.getNumberDaysOffAnnually())
                 .telNumber(e.getTelNumber())
                 .otherInfo(e.getOtherInfo())
+                .email(e.getEmail())
                 .employmentStatus(e.getEmploymentStatus().toString())
                 .hiredDate(e.getHiredDate())
                 .releaseDate(e.getReleaseDate())
@@ -51,14 +52,14 @@ public class ApiMapper {
                 .nextBhpTrainingDate(e.getNextBhpTrainingDate())
                 .workTime(e.getWorkTime().toString())
                 .employeeType(e.getEmployeeType().toString())
-                .city(e.getAddress().getCity())
-                .street(e.getAddress().getStreet())
-                .zip(e.getAddress().getZip())
-                .rateRegularType(e.getRateRegular().getRateType().toString())
-                .rateRegularDateFrom(e.getRateRegular().getDateFrom())
-                .rateRegularValue(e.getRateRegular().getRateValue().doubleValue())
-                .rateOvertimeDateFrom(e.getRateOvertime().getDateFrom())
-                .rateOvertimeValue(e.getRateOvertime().getRateValue().doubleValue())
+                .city(e.getCity())
+                .street(e.getStreet())
+                .zip(e.getZip())
+                .rateRegularType(e.getRateRegularType().toString())
+                .rateRegularDateFrom(e.getRateRegularDateFrom())
+                .rateRegularValue(e.getRateRegularValue().doubleValue())
+                .rateOvertimeDateFrom(e.getRateOvertimeDateFrom())
+                .rateOvertimeValue(e.getRateOvertimeValue().doubleValue())
                 .build();
 
         return build;

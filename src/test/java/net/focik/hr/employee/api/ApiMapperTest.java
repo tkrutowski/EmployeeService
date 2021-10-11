@@ -1,9 +1,6 @@
 package net.focik.hr.employee.api;
 
-import net.focik.hr.employee.domain.Address;
 import net.focik.hr.employee.domain.Employee;
-import net.focik.hr.employee.domain.RateOvertime;
-import net.focik.hr.employee.domain.RateRegular;
 import net.focik.hr.employee.domain.share.EmployeeType;
 import net.focik.hr.employee.domain.share.EmploymentStatus;
 import net.focik.hr.employee.domain.share.RateType;
@@ -13,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ApiMapperTest {
 
@@ -41,14 +38,14 @@ class ApiMapperTest {
         assertEquals(dto.getNextBhpTrainingDate(), result.getNextBhpTrainingDate());
         assertEquals(dto.getWorkTime(), result.getWorkTime().toString());
         assertEquals(dto.getEmployeeType(), result.getEmployeeType().toString());
-        assertEquals(dto.getCity(), result.getAddress().getCity());
-        assertEquals(dto.getStreet(), result.getAddress().getStreet());
-        assertEquals(dto.getZip(), result.getAddress().getZip());
-        assertEquals(dto.getRateRegularType(), result.getRateRegular().getRateType().toString());
-        assertEquals(dto.getRateRegularDateFrom(), result.getRateRegular().getDateFrom());
-        assertEquals(BigDecimal.valueOf(dto.getRateRegularValue()), result.getRateRegular().getRateValue());
-        assertEquals(dto.getRateOvertimeDateFrom(), result.getRateOvertime().getDateFrom());
-        assertEquals(BigDecimal.valueOf(dto.getRateOvertimeValue()), result.getRateOvertime().getRateValue());
+        assertEquals(dto.getCity(), result.getCity());
+        assertEquals(dto.getStreet(), result.getStreet());
+        assertEquals(dto.getZip(), result.getZip());
+        assertEquals(dto.getRateRegularType(), result.getRateRegularType().toString());
+        assertEquals(dto.getRateRegularDateFrom(), result.getRateRegularDateFrom());
+        assertEquals(BigDecimal.valueOf(dto.getRateRegularValue()), result.getRateRegularValue());
+        assertEquals(dto.getRateOvertimeDateFrom(), result.getRateOvertimeDateFrom());
+        assertEquals(BigDecimal.valueOf(dto.getRateOvertimeValue()), result.getRateOvertimeValue());
     }
 
     @Test
@@ -74,30 +71,33 @@ class ApiMapperTest {
         assertEquals(e.getNextBhpTrainingDate(), result.getNextBhpTrainingDate());
         assertEquals(e.getWorkTime(), WorkTime.valueOf(result.getWorkTime()));
         assertEquals(e.getEmployeeType(),EmployeeType.valueOf(result.getEmployeeType()));
-        assertEquals(e.getAddress().getCity(), result.getCity());
-        assertEquals(e.getAddress().getStreet(), result.getStreet());
-        assertEquals(e.getAddress().getZip(), result.getZip());
-        assertEquals(e.getRateRegular().getRateType().toString(), result.getRateRegularType());
-        assertEquals(e.getRateRegular().getDateFrom(), result.getRateRegularDateFrom());
-        assertEquals(e.getRateRegular().getRateValue().doubleValue(), result.getRateRegularValue());
-        assertEquals(e.getRateOvertime().getDateFrom(), result.getRateOvertimeDateFrom());
-        assertEquals(e.getRateOvertime().getRateValue().doubleValue(), result.getRateOvertimeValue());
+        assertEquals(e.getCity(), result.getCity());
+        assertEquals(e.getStreet(), result.getStreet());
+        assertEquals(e.getZip(), result.getZip());
+        assertEquals(e.getRateRegularType().toString(), result.getRateRegularType());
+        assertEquals(e.getRateRegularDateFrom(), result.getRateRegularDateFrom());
+        assertEquals(e.getRateRegularValue().doubleValue(), result.getRateRegularValue());
+        assertEquals(e.getRateOvertimeDateFrom(), result.getRateOvertimeDateFrom());
+        assertEquals(e.getRateOvertimeValue().doubleValue(), result.getRateOvertimeValue());
     }
 
 
     private EmployeeDto createEmployeeDto(){
         return new EmployeeDto(2,"Tomasz","Krutowski",0.5F, 26,
-                "662262662","brak info", "HIRED", LocalDate.of(2007,6,8),
+                "662262662","brak info", "test@test.pl", "HIRED", LocalDate.of(2007,6,8),
                 null,LocalDate.of(2022,1,22),LocalDate.of(2022,3,15),
                 "FULL_TIME", "WORKER","Pobiedziska", "Armii Poznań 39", "62-010", "PER_MONTH",
                 LocalDate.of(2022,3,1), 5450.0d,    LocalDate.of(2022,3,1), 34.5d);
     }
     private Employee  createEmployee(){
-        return new Employee(2,"Tomasz","Krutowski",0.5F, 26,
-                "662262662","brak info", EmploymentStatus.HIRED, LocalDate.of(2007,6,8),
+        Employee employee = new Employee(2,"Tomasz","Krutowski",0.5F, 26,
+                "662262662","brak info", "test@test.pl",EmploymentStatus.HIRED, LocalDate.of(2007,6,8),
                 null,LocalDate.of(2022,1,22),LocalDate.of(2022,3,15),
-                WorkTime.FULL_TIME, EmployeeType.WORKER,new Address("Pobiedziska","Armii Poznań 39","62-010" ),
-                new RateRegular(1,2,  RateType.PER_MONTH,LocalDate.of(2020,5,1),BigDecimal.valueOf(5400.0)),
-                new RateOvertime(1,2,LocalDate.of(2020,5,1),BigDecimal.valueOf(35.4)));
+                WorkTime.FULL_TIME, EmployeeType.WORKER, null,null,null);
+                employee.setAddress("Pobiedziska","Armii Poznań 39","62-010" );
+                employee.setRateRegular( RateType.PER_MONTH,LocalDate.of(2020,5,1),BigDecimal.valueOf(5400.0));
+                employee.setRateOvertime(LocalDate.of(2020,5,1),BigDecimal.valueOf(35.4));
+
+                return employee;
     }
 }

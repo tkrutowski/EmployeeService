@@ -3,6 +3,7 @@ package net.focik.hr.employee.domain;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import net.focik.hr.employee.domain.share.EmployeeType;
 import net.focik.hr.employee.domain.share.EmploymentStatus;
 import net.focik.hr.employee.domain.share.RateType;
@@ -14,15 +15,17 @@ import java.time.LocalDate;
 //AgregateRoot
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 public class Employee {
     protected Integer id;
     private String firstName;
     private String lastName;
-    private float numberDaysOffLeft;
-    private int numberDaysOffAnnually;
+    private Float numberDaysOffLeft;
+    private Integer numberDaysOffAnnually;
     private String telNumber;
     private String otherInfo;
+    private String email;
     private EmploymentStatus employmentStatus;
     private LocalDate hiredDate;
     private LocalDate releaseDate;

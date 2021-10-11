@@ -22,6 +22,7 @@ public class EmployeeDto {
 
     private String telNumber;
     private String otherInfo;
+    private String email;
     private String employmentStatus;
 
     private LocalDate hiredDate;
