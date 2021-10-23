@@ -10,14 +10,21 @@ import org.springframework.stereotype.Service;
 class EmployeeCommandService {
 
     private EmployeeCommandRepository employeeCommandRepository;
+   // private EmployeeFactory employeeFactory;
 
     Integer addEmployee(Employee employee) {
+        int i=0;
         if(!validate(employee))
             throw new EmployeeNotValidException();
         return employeeCommandRepository.add(employee);
     }
 
-    boolean validate(Employee e){
+//    Integer updateRateRegular(int idEmployee, RateRegular rateRegular){
+//        Employee employee = employeeFactory.createEmployee(idEmployee);
+//
+//    }
+
+    private boolean validate(Employee e){
 //        boolean isValid = false;
 
         if( e.getFirstName() == null || e.getFirstName().isEmpty())
@@ -42,15 +49,15 @@ class EmployeeCommandService {
             return false;
         if(e.getZip() == null || e.getZip().isEmpty())
             return false;
-        if(e.getRateRegularType() == null)
+        if(e.getLatestRateRegularType() == null)
             return false;
-        if(e.getRateRegularDateFrom() == null)
+        if(e.getLatestRateRegularDateFrom() == null)
             return false;
-        if(e.getRateRegularValue() == null)
+        if(e.getLatestRateRegularValue() == null)
             return false;
-        if(e.getRateOvertimeDateFrom() == null)
+        if(e.getLatestRateOvertimeDateFrom() == null)
             return false;
-        if(e.getRateOvertimeValue() == null)
+        if(e.getLatestRateOvertimeValue() == null)
             return false;
 
         return true;

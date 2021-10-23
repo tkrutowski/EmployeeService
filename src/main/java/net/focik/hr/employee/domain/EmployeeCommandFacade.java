@@ -8,9 +8,15 @@ import org.springframework.stereotype.Component;
 public class EmployeeCommandFacade {
 
     EmployeeCommandService employeeCommandService;
+    //RateRegularCommandService rateRegularCommandService;
 
     public Integer addEmployee(Employee employee){
         return employeeCommandService.addEmployee(employee);
     }
+
+//    Integer addRateRegular(RateRegular rateRegular, Integer idEmployee){
+//        return rateRegularCommandService.addRateRegular(rateRegular, idEmployee);
+//    }
+
 
 }

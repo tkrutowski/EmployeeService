@@ -1,6 +1,7 @@
 package net.focik.hr.employee.infrastructure.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,17 +22,18 @@ import java.time.LocalDate;
 @Table(name = "stawka_nadgodziny")
 @Getter
 @ToString
+@Builder
 public class RateOvertimeDto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_stawki_nadgodziny")
-    @Setter Integer idRate;
+    private Integer idRate;
     @Column(name = "id_pracownika")
-    Integer idEmployee;
+    private Integer idEmployee;
     @Column(name = "data_od")
-    LocalDate dateFrom;
+    private LocalDate dateFrom;
     @Column(name = "stawka_nadgodziny")
-    BigDecimal rateValue;
+    private BigDecimal rateValue;
 
 }

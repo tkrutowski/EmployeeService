@@ -30,8 +30,8 @@ public class ApiMapper {
                 .employeeType(EmployeeType.valueOf(dto.getEmployeeType()))
                 .build();
                 build.setAddress(dto.getCity(), dto.getStreet(), dto.getZip());
-                build.setRateRegular( RateType.valueOf(dto.getRateRegularType()), dto.getRateRegularDateFrom(), BigDecimal.valueOf(dto.getRateRegularValue()));
-                build.setRateOvertime( dto.getRateOvertimeDateFrom(), BigDecimal.valueOf(dto.getRateOvertimeValue()));
+                build.setRateRegular(null, RateType.valueOf(dto.getRateRegularType()), dto.getRateRegularDateFrom(), BigDecimal.valueOf(dto.getRateRegularValue()));
+                build.setRateOvertime( null, dto.getRateOvertimeDateFrom(), BigDecimal.valueOf(dto.getRateOvertimeValue()));
         return build;
     }
 
@@ -55,13 +55,12 @@ public class ApiMapper {
                 .city(e.getCity())
                 .street(e.getStreet())
                 .zip(e.getZip())
-                .rateRegularType(e.getRateRegularType().toString())
-                .rateRegularDateFrom(e.getRateRegularDateFrom())
-                .rateRegularValue(e.getRateRegularValue().doubleValue())
-                .rateOvertimeDateFrom(e.getRateOvertimeDateFrom())
-                .rateOvertimeValue(e.getRateOvertimeValue().doubleValue())
+                .rateRegularType(e.getLatestRateRegularType().toString())
+                .rateRegularDateFrom(e.getLatestRateRegularDateFrom())
+                .rateRegularValue(e.getLatestRateRegularValue().doubleValue())
+                .rateOvertimeDateFrom(e.getLatestRateRegularDateFrom())
+                .rateOvertimeValue(e.getLatestRateOvertimeValue().doubleValue())
                 .build();
-
         return build;
     }
 }

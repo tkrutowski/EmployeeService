@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import net.focik.hr.employee.domain.share.EmployeeType;
 import net.focik.hr.employee.domain.share.EmploymentStatus;
 import net.focik.hr.employee.domain.share.RateType;
@@ -11,12 +12,16 @@ import net.focik.hr.employee.domain.share.WorkTime;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 //AgregateRoot
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@ToString
 public class Employee {
     protected Integer id;
     private String firstName;
@@ -34,19 +39,30 @@ public class Employee {
     private WorkTime workTime;
     private EmployeeType employeeType;
     private Address address;
-    private RateRegular rateRegular;
-    private RateOvertime rateOvertime;
 
-    public void setAddress(String city, String street, String zip){
-        this.address = new Address(city,street,zip);
+    void setRateRegular(Set<RateRegular> rateRegular) {
+        this.rateRegular = rateRegular;
     }
 
-    public void setRateRegular(RateType rateType, LocalDate fromDate, BigDecimal value) {
-        this.rateRegular = new RateRegular(rateType, fromDate, value);
+    private Set<RateRegular> rateRegular;
+    private Set<RateOvertime> rateOvertime;
+
+    public void setAddress(String city, String street, String zip) {
+        this.address = new Address(city, street, zip);
     }
 
-    public void setRateOvertime(LocalDate fromDate, BigDecimal value) {
-        this.rateOvertime = new RateOvertime(fromDate, value);
+
+
+    public void setRateRegular(Integer id, RateType rateType, LocalDate fromDate, BigDecimal value) {
+        if(rateRegular == null)
+            rateRegular = new HashSet<>();
+    this.rateRegular.add(new RateRegular(id, rateType, fromDate, value));
+    }
+
+    public void setRateOvertime(Integer id, LocalDate fromDate, BigDecimal value) {
+        if(rateOvertime == null)
+            rateOvertime = new HashSet<>();
+        this.rateOvertime.add(new RateOvertime(id, fromDate, value));
     }
 
 
@@ -62,24 +78,49 @@ public class Employee {
         return address.getZip();
     }
 
-    public LocalDate getRateRegularDateFrom() {
-        return rateRegular.getDateFrom();
+    public LocalDate getLatestRateRegularDateFrom() {
+        return rateRegular.stream()
+                .sorted(RateRegular::compareTo)
+                .findFirst()
+                .get()
+                .getDateFrom();// rateRegular.getDateFrom();
     }
 
-    public BigDecimal getRateRegularValue() {
-        return rateRegular.getRateValue();
+    public BigDecimal getLatestRateRegularValue() {
+        return rateRegular.stream()
+                .sorted(RateRegular::compareTo)
+                .findFirst()
+                .get()
+                .getRateValue();
+        //rateRegular.getRateValue();
     }
 
-    public RateType getRateRegularType() {
-        return rateRegular.getRateType();
+    public RateType getLatestRateRegularType() {
+        return
+                rateRegular.stream()
+                        .sorted(RateRegular::compareTo)
+                        .findFirst()
+                        .get()
+                        .getRateType();
+        //rateRegular.getRateType();
     }
 
-    public LocalDate getRateOvertimeDateFrom() {
-        return rateOvertime.getDateFrom();
+    public LocalDate getLatestRateOvertimeDateFrom() {
+        return rateOvertime.stream()
+                .sorted(RateOvertime::compareTo)
+                .findFirst()
+                .get()
+                .getDateFrom();
+        //getDateFrom();
     }
 
-    public BigDecimal getRateOvertimeValue() {
-        return rateOvertime.getRateValue();
+    public BigDecimal getLatestRateOvertimeValue() {
+        return rateOvertime.stream()
+                .sorted(RateOvertime::compareTo)
+                .findFirst()
+                .get()
+                .getRateValue();
+        //getRateValue();
     }
 
 }

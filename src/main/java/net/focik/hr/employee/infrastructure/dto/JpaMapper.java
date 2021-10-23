@@ -1,6 +1,8 @@
 package net.focik.hr.employee.infrastructure.dto;
 
 import net.focik.hr.employee.domain.Employee;
+import net.focik.hr.employee.domain.RateOvertime;
+import net.focik.hr.employee.domain.RateRegular;
 import net.focik.hr.employee.domain.share.EmployeeType;
 import net.focik.hr.employee.domain.share.EmploymentStatus;
 import net.focik.hr.employee.domain.share.RateType;
@@ -12,7 +14,7 @@ import java.math.BigDecimal;
 @Component
 public class JpaMapper {
 
-    Employee toDomain (EmployeeDto dto){
+    public Employee toDomain (EmployeeDto dto){
         Employee employee = Employee.builder()
                 .firstName(dto.getFirstName())
                 .lastName(dto.getLastName())
@@ -64,5 +66,49 @@ public class JpaMapper {
                 .build();
 
         return employeeDto;
+    }
+
+    public RateRegular toDomain (RateRegularDto dto){
+        RateRegular rateRegular = RateRegular.builder()
+                .idRate(dto.getIdRate())
+                .rateType(dto.getRateType())
+                .dateFrom(dto.getDateFrom())
+                .rateValue(dto.getRateValue())
+                .build();
+
+        return rateRegular;
+    }
+
+    public RateOvertime toDomain (RateOvertimeDto dto){
+        RateOvertime rateOvertime = RateOvertime.builder()
+                .idRate(dto.getIdRate())
+                .dateFrom(dto.getDateFrom())
+                .rateValue(dto.getRateValue())
+                .build();
+
+        return rateOvertime;
+    }
+
+    public RateRegularDto toDto(RateRegular rateRegular, Integer idEmployee){
+        RateRegularDto rateRegularDto = RateRegularDto.builder()
+                .idRate(rateRegular.getIdRate())
+                .idEmployee(idEmployee)
+                .dateFrom(rateRegular.getDateFrom())
+                .rateType(rateRegular.getRateType())
+                .rateValue(rateRegular.getRateValue())
+                .build();
+
+        return rateRegularDto;
+    }
+
+    public RateOvertimeDto toDto(RateOvertime rateOvertime, Integer idEmployee){
+        RateOvertimeDto overtimeDto = RateOvertimeDto.builder()
+                .idRate(rateOvertime.getIdRate())
+                .idEmployee(idEmployee)
+                .dateFrom(rateOvertime.getDateFrom())
+                .rateValue(rateOvertime.getRateValue())
+                .build();
+
+        return overtimeDto;
     }
 }

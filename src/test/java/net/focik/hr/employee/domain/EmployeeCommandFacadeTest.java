@@ -6,7 +6,7 @@ import net.focik.hr.employee.domain.share.EmployeeType;
 import net.focik.hr.employee.domain.share.EmploymentStatus;
 import net.focik.hr.employee.domain.share.RateType;
 import net.focik.hr.employee.domain.share.WorkTime;
-import net.focik.hr.employee.infrastructure.inMemory.DataBase;
+import net.focik.hr.employee.infrastructure.inMemory.DataBaseEmployee;
 import net.focik.hr.employee.infrastructure.inMemory.InMemoryEmployeeCommandRepositoryAdapter;
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +31,7 @@ class EmployeeCommandFacadeTest {
     void should_add_Employee() {
         int i=0;
         //given
-        int ID = DataBase.getEmployeeHashMap().size() + 1;
+        int ID = DataBaseEmployee.getEmployeeHashMap().size() + 1;
 
         //when
         Integer resultId = employeeCommandService.addEmployee(createEmployee());
@@ -59,14 +59,16 @@ class EmployeeCommandFacadeTest {
         assertThrows(EmployeeNotValidException.class, () -> employeeCommandService.addEmployee(employee));
     }
 
+
     private Employee createEmployee(){
+        int i =0;
         Employee employee = new Employee(2,"Tomasz","Krutowski",0.5F, 26,
                 "662262662","brak info", "test@test.pl" ,EmploymentStatus.HIRED, LocalDate.of(2007,6,8),
                 null,LocalDate.of(2022,1,22),LocalDate.of(2022,3,15),
                 WorkTime.FULL_TIME, EmployeeType.WORKER, null,null,null);
         employee.setAddress("Pobiedziska","Armii Poznań 39","62-010" );
-        employee.setRateRegular( RateType.PER_MONTH,LocalDate.of(2020,5,1), BigDecimal.valueOf(5400.0));
-        employee.setRateOvertime(LocalDate.of(2020,5,1),BigDecimal.valueOf(35.4));
+        employee.setRateRegular(1, RateType.PER_MONTH,LocalDate.of(2020,5,1), BigDecimal.valueOf(5400.0));
+        employee.setRateOvertime(1, LocalDate.of(2020,5,1),BigDecimal.valueOf(35.4));
         return employee;
     }
     private Employee createEmployeeWithNameNull(){
@@ -75,8 +77,8 @@ class EmployeeCommandFacadeTest {
                 null,LocalDate.of(2022,1,22),LocalDate.of(2022,3,15),
                 WorkTime.FULL_TIME, EmployeeType.WORKER, null,null,null);
         employee.setAddress("Pobiedziska","Armii Poznań 39","62-010" );
-        employee.setRateRegular( RateType.PER_MONTH,LocalDate.of(2020,5,1), BigDecimal.valueOf(5400.0));
-        employee.setRateOvertime(LocalDate.of(2020,5,1),BigDecimal.valueOf(35.4));
+        employee.setRateRegular( 2, RateType.PER_MONTH,LocalDate.of(2020,5,1), BigDecimal.valueOf(5400.0));
+        employee.setRateOvertime(2, LocalDate.of(2020,5,1),BigDecimal.valueOf(35.4));
         return employee;
     }
 
@@ -86,8 +88,10 @@ class EmployeeCommandFacadeTest {
                 null,LocalDate.of(2022,1,22),LocalDate.of(2022,3,15),
                 WorkTime.FULL_TIME, EmployeeType.WORKER, null,null,null);
         employee.setAddress("Pobiedziska","Armii Poznań 39","62-010" );
-        employee.setRateRegular( RateType.PER_MONTH,LocalDate.of(2020,5,1), BigDecimal.valueOf(5400.0));
-        employee.setRateOvertime(LocalDate.of(2020,5,1),BigDecimal.valueOf(35.4));
+        employee.setRateRegular(2, RateType.PER_MONTH,LocalDate.of(2020,5,1), BigDecimal.valueOf(5400.0));
+        employee.setRateOvertime(2, LocalDate.of(2020,5,1),BigDecimal.valueOf(35.4));
         return employee;
     }
+
+
 }

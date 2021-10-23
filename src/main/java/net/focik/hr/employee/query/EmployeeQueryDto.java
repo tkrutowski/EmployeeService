@@ -3,9 +3,12 @@ package net.focik.hr.employee.query;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import net.focik.hr.employee.domain.share.RateType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -55,6 +58,9 @@ public class EmployeeQueryDto {
     private LocalDate nextMedicalExaminationDate;
     @Column(name = "data_nast_szkolenia_bhp")
     private LocalDate nextBhpTrainingDate;
+    @Column(name = "godz_mies")
+    @Enumerated(EnumType.STRING)
+    private RateType rateType;
 
 
 

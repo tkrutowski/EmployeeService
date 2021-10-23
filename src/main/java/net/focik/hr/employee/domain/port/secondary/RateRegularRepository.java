@@ -1,20 +1,16 @@
 package net.focik.hr.employee.domain.port.secondary;
 
-import net.focik.hr.employee.domain.Employee;
-//import net.focik.hr.employee.domain.RateRegular;
+import net.focik.hr.employee.domain.RateRegular;
+import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 
+@Component
 public interface RateRegularRepository {
+    Integer add(RateRegular rateRegular, Integer idEmployee);
 
-    //Integer add(Employee rate);
+    List<RateRegular> findRateRegularByEmployeeId(Integer idEmployee);
 
 //    Optional<RateRegular> findRateRegularById(Integer id);
-
-//    List<RateRegular> findRateRegularByEmployeeId(Integer id);
-
-//    Optional<RateRegular> findRateRegularByDate(LocalDate date);
 }

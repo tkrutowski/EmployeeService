@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 import java.util.HashMap;
 
 
-public class DataBase {
+public class DataBaseEmployee {
     public static HashMap<Integer, Employee> getEmployeeHashMap() {
         if(employeeHashMap == null)
             employeeHashMap = new HashMap<>();
@@ -15,5 +15,5 @@ public class DataBase {
 
     private static HashMap<Integer, Employee> employeeHashMap;
 
-    private DataBase( ){ }
+    private DataBaseEmployee( ){ }
 }

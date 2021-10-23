@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Log4j2
 @RestController
 @AllArgsConstructor
-//@NoArgsConstructor
 @RequestMapping("/api/employee")
 class EmployeeCommandController {
 
@@ -37,5 +36,19 @@ class EmployeeCommandController {
 
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
+//
+//    @PostMapping("/rate_regular/")
+//    public ResponseEntity<Boolean> addRateRegular(@RequestBody RateRegularDto rateRegularDto){
+//        log.info("Try add new rate regular.");
+//        modelMapper.map(rateRegularDto, );
+//        Integer result = addNewEmployeeUseCase.addEmployee(employee);
+//
+//        log.info(result > 0 ? "Employee added with id = " + result : "No employee added!");
+//
+//        if(result <= 0)
+//            return new ResponseEntity<>(0, HttpStatus.BAD_REQUEST);
+//
+//        return new ResponseEntity<>(result, HttpStatus.CREATED);
+//    }
 
 }

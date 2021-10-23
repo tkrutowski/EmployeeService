@@ -7,11 +7,11 @@ import net.focik.hr.employee.infrastructure.dto.EmployeeDto;
 import net.focik.hr.employee.infrastructure.dto.JpaMapper;
 import net.focik.hr.employee.infrastructure.dto.RateOvertimeDto;
 import net.focik.hr.employee.infrastructure.dto.RateRegularDto;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Component
 @Primary
@@ -27,11 +27,16 @@ public class EmployeeCommandRepositoryAdapter implements EmployeeCommandReposito
     @Transactional
     public Integer add(Employee e) {
         EmployeeDto employeeDto = employeeDtoRepository.save(mapper.toDto(e));
-        RateRegularDto rateRegularDto = new RateRegularDto(null, employeeDto.getId(), e.getRateRegularType(),e.getRateRegularDateFrom(),e.getRateRegularValue());
+        RateRegularDto rateRegularDto = new RateRegularDto(null, employeeDto.getId(), e.getLatestRateRegularType(),e.getLatestRateRegularDateFrom(),e.getLatestRateRegularValue());
         rateRegularDtoRepository.save(rateRegularDto);
-        RateOvertimeDto rateOvertimeDto = new RateOvertimeDto(null, employeeDto.getId(),e.getRateOvertimeDateFrom(),e.getRateOvertimeValue());
+        RateOvertimeDto rateOvertimeDto = new RateOvertimeDto(null, employeeDto.getId(),e.getLatestRateOvertimeDateFrom(),e.getLatestRateOvertimeValue());
         rateOvertimeDtoRepository.save(rateOvertimeDto);
         return employeeDto.getId();
+    }
+
+    @Override
+    public Optional<Employee> findById(Integer id) {
+        return Optional.empty();
     }
 
 }

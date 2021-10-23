@@ -1,7 +1,9 @@
 package net.focik.hr.employee.infrastructure.inMemory;
 
 import lombok.extern.java.Log;
+import net.focik.hr.employee.domain.RateOvertime;
 import net.focik.hr.employee.domain.port.secondary.RateOvertimeRepository;
+import net.focik.hr.employee.infrastructure.dto.JpaMapper;
 import net.focik.hr.employee.infrastructure.dto.RateOvertimeDto;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -17,14 +19,14 @@ import java.util.stream.Collectors;
 @Log
 public class InMemoryRateOvertimeRepositoryAdapter implements  RateOvertimeRepository {
     private Map<Integer, RateOvertimeDto> rateOvertimeHashMap = new HashMap<>();
+    private JpaMapper jpaMapper = new JpaMapper();
 
-
-   // @Override
-    public Integer add(RateOvertimeDto rate) {
+    @Override
+    public Integer add(RateOvertime rate, Integer idEmployee) {
         log.info("Try add into inMemoryDb rate: "+rate.toString());
         Integer id = rateOvertimeHashMap.size() + 1;
-        rate.setIdRate(id);
-        rateOvertimeHashMap.put(id, rate);
+        //rate.setIdRate(id);
+        rateOvertimeHashMap.put(id, jpaMapper.toDto(rate, idEmployee));
 
         log.info("Succssec id = " + rate.getIdRate());
         return rate.getIdRate();
@@ -36,12 +38,13 @@ public class InMemoryRateOvertimeRepositoryAdapter implements  RateOvertimeRepos
     }
 
 
-   // @Override
-    public List<RateOvertimeDto> findRateOvertimeEmployeeId(Integer id) {
+    @Override
+    public List<RateOvertime> findRateOvertimeEmployeeId(Integer id) {
         return rateOvertimeHashMap.entrySet()
                 .stream()
                 .filter(integerRateEntry -> integerRateEntry.getValue().getIdEmployee().equals(id))
                 .map(Map.Entry::getValue)
+                .map(rateOvertimeDto -> jpaMapper.toDomain(rateOvertimeDto))
                 .collect(Collectors.toList());
     }
 }

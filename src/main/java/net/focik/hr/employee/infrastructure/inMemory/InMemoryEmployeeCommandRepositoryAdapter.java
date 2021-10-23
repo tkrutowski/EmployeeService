@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Component
 @Qualifier("inMemory")
-//@Profile("test")
+@Profile("test")
 @Log
 public class InMemoryEmployeeCommandRepositoryAdapter implements EmployeeCommandRepository {
 
@@ -20,15 +20,15 @@ public class InMemoryEmployeeCommandRepositoryAdapter implements EmployeeCommand
     log.info("Try add into inMemoryDb employee: "+employee.toString());
         if(employee == null)
             throw new NullPointerException("Employee cannot be null");
-        Integer id = DataBase.getEmployeeHashMap().size() + 1;
+        Integer id = DataBaseEmployee.getEmployeeHashMap().size() + 1;
        // employee.setId(id);
-        DataBase.getEmployeeHashMap().put(id,employee);
+        DataBaseEmployee.getEmployeeHashMap().put(id,employee);
         log.info("Succssec id = " + id);
         return id;
     }
 
-//    @Override
-//    public Optional<Employee> findById(Integer id) {
-//        return Optional.ofNullable(DataBase.getEmployeeHashMap().get(id));
-//    }
+    @Override
+    public Optional<Employee> findById(Integer id) {
+        return Optional.ofNullable(DataBaseEmployee.getEmployeeHashMap().get(id));
+    }
 }
