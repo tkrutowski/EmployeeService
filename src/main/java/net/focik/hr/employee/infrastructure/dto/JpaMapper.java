@@ -3,13 +3,8 @@ package net.focik.hr.employee.infrastructure.dto;
 import net.focik.hr.employee.domain.Employee;
 import net.focik.hr.employee.domain.RateOvertime;
 import net.focik.hr.employee.domain.RateRegular;
-import net.focik.hr.employee.domain.share.EmployeeType;
-import net.focik.hr.employee.domain.share.EmploymentStatus;
-import net.focik.hr.employee.domain.share.RateType;
-import net.focik.hr.employee.domain.share.WorkTime;
+import net.focik.hr.employee.domain.finances.Advance;
 import org.springframework.stereotype.Component;
-
-import java.math.BigDecimal;
 
 @Component
 public class JpaMapper {
@@ -110,5 +105,27 @@ public class JpaMapper {
                 .build();
 
         return overtimeDto;
+    }
+
+    public AdvanceDto toDto(Advance advance, Integer idEmployee){
+        AdvanceDto advanceDto = AdvanceDto.builder()
+                .id(advance.getId())
+                .idEmployee(idEmployee)
+                .amount(advance.getAmount())
+                .date(advance.getDate())
+                .otherInfo(advance.getOtherInfo())
+                .build();
+        return advanceDto;
+    }
+
+    public Advance toDomain (AdvanceDto dto){
+        Advance advance = Advance.builder()
+                .id(dto.getId())
+                .amount(dto.getAmount())
+                .date(dto.getDate())
+                .otherInfo(dto.getOtherInfo())
+                .build();
+
+        return advance;
     }
 }

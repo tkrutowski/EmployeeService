@@ -1,0 +1,43 @@
+package net.focik.hr.employee.infrastructure.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import net.focik.hr.employee.domain.share.RateType;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "zaliczka")
+@Getter
+@ToString
+@Builder
+public class AdvanceDto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_zaliczki")
+    private Integer id;
+    @Column(name = "id_pracownika")
+    private Integer idEmployee;
+    @Column(name = "kwota")
+    private BigDecimal amount;
+    @Column(name = "data")
+    private LocalDate date;
+    @Column(name = "inne")
+    private String otherInfo;
+
+}
