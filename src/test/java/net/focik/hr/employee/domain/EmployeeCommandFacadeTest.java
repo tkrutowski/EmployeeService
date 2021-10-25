@@ -6,7 +6,7 @@ import net.focik.hr.employee.domain.share.EmployeeType;
 import net.focik.hr.employee.domain.share.EmploymentStatus;
 import net.focik.hr.employee.domain.share.RateType;
 import net.focik.hr.employee.domain.share.WorkTime;
-import net.focik.hr.employee.infrastructure.inMemory.DataBaseEmployee;
+import net.focik.hr.employee.infrastructure.inMemory.db.DataBaseEmployee;
 import net.focik.hr.employee.infrastructure.inMemory.InMemoryEmployeeCommandRepositoryAdapter;
 import org.junit.jupiter.api.Test;
 

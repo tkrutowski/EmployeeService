@@ -1,4 +1,4 @@
-package net.focik.hr.employee.domain.finances;
+package net.focik.hr.employee.domain.advance;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;

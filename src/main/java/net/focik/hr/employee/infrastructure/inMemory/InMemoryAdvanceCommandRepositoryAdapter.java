@@ -1,8 +1,8 @@
 package net.focik.hr.employee.infrastructure.inMemory;
 
 import lombok.extern.java.Log;
-import net.focik.hr.employee.domain.finances.Advance;
-import net.focik.hr.employee.domain.finances.port.secondary.AdvanceCommandRepository;
+import net.focik.hr.employee.domain.advance.Advance;
+import net.focik.hr.employee.domain.advance.port.secondary.AdvanceCommandRepository;
 import net.focik.hr.employee.infrastructure.dto.AdvanceDto;
 import net.focik.hr.employee.infrastructure.dto.JpaMapper;
 import net.focik.hr.employee.infrastructure.inMemory.db.DataBaseAdvances;

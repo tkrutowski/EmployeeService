@@ -1,6 +1,6 @@
-package net.focik.hr.employee.domain.finances.port.secondary;
+package net.focik.hr.employee.domain.advance.port.secondary;
 
-import net.focik.hr.employee.domain.finances.Advance;
+import net.focik.hr.employee.domain.advance.Advance;
 
 import java.time.LocalDate;
 import java.util.List;

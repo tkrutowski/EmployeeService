@@ -3,7 +3,7 @@ package net.focik.hr.employee.infrastructure.dto;
 import net.focik.hr.employee.domain.Employee;
 import net.focik.hr.employee.domain.RateOvertime;
 import net.focik.hr.employee.domain.RateRegular;
-import net.focik.hr.employee.domain.finances.Advance;
+import net.focik.hr.employee.domain.advance.Advance;
 import org.springframework.stereotype.Component;
 
 @Component
