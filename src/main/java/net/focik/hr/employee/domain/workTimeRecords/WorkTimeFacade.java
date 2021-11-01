@@ -5,12 +5,12 @@ import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
 @Component
-public class WorkTimeCommandFacade {
+public class WorkTimeFacade {
 
-    WorkTimeCommandService workTimeCommandService;
+    WorkService workService;
 
     public Integer addWorkTime(IWorkTime workTime){
-        return workTimeCommandService.addWorkTime(workTime);
+        return workService.addWorkTime(workTime);
     }
 
 //    Integer addRateRegular(RateRegular rateRegular, Integer idEmployee){

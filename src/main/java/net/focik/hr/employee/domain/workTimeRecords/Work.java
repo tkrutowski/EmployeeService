@@ -1,18 +1,19 @@
 package net.focik.hr.employee.domain.workTimeRecords;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.temporal.TemporalAmount;
-import java.util.Date;
 
+@Getter
 public class Work extends WorkTime implements IWorkTime {
-    LocalTime startTime;
-    LocalTime stopTime;
 
-    public Work(int idEmployee, LocalDate date, LocalTime startTime, LocalTime stopTime) {
+    private LocalTime stopTime;
+    private LocalTime startTime;
+
+    public Work(int idEmployee, LocalDate date,  LocalTime startTime, LocalTime stopTime) {
         super(idEmployee, date);
         this.startTime = startTime;
         this.stopTime = stopTime;
