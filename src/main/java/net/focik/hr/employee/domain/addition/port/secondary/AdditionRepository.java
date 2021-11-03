@@ -6,8 +6,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-public interface AdditionQueryRepository {
+public interface AdditionRepository {
     Optional<Addition> findById(Integer id);
     List<Addition> findByEmployeeIdAndDate(Integer employeeId, LocalDate date);
-
+    Integer add(Addition advance, Integer idEmployee);
 }

@@ -8,11 +8,15 @@ import java.time.LocalDate;
 
 @AllArgsConstructor
 @Component
-public class AdditionQueryFacade {
+public class AdditionFacade {
 
-    AdditionQueryService additionQueryService;
+    AdditionService additionService;
 
     public Money getAdditionsSumByIdEmployeeAndDate(int idEmployee, LocalDate date){
-        return additionQueryService.getAdditionsSumByIdEmployeeAndDate(idEmployee, date);
+        return additionService.getAdditionsSumByIdEmployeeAndDate(idEmployee, date);
+    }
+
+    public Integer addAddition(Addition addition, Integer idEmployee){
+        return additionService.addAddition(addition, idEmployee);
     }
 }

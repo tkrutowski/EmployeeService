@@ -1,10 +1,7 @@
 package net.focik.hr.employee.domain.addition;
 
-import net.focik.hr.employee.domain.addition.port.secondary.AdditionCommandRepository;
-import net.focik.hr.employee.domain.addition.port.secondary.AdditionQueryRepository;
-import net.focik.hr.employee.infrastructure.inMemory.InMemoryAdditionCommandRepositoryAdapter;
-import net.focik.hr.employee.infrastructure.inMemory.InMemoryAdditionQueryRepositoryAdapter;
-import net.focik.hr.employee.infrastructure.inMemory.InMemoryAdvanceCommandRepositoryAdapter;
+import net.focik.hr.employee.domain.addition.port.secondary.AdditionRepository;
+import net.focik.hr.employee.infrastructure.inMemory.InMemoryAdditionRepositoryAdapter;
 import net.focik.hr.employee.infrastructure.inMemory.db.DataBaseAddition;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.BeforeAll;
@@ -17,21 +14,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AdditionFacadeInMemoryTest {
-    static AdditionQueryRepository additionQueryRepository = new InMemoryAdditionQueryRepositoryAdapter();
-    static AdditionQueryService additionQueryService = new AdditionQueryService(additionQueryRepository);
-    static AdditionQueryFacade additionQueryFacade = new AdditionQueryFacade(additionQueryService);
-    static AdditionCommandRepository additionCommandRepository = new InMemoryAdditionCommandRepositoryAdapter();
-    static AdditionCommandService additionCommandService = new AdditionCommandService(additionCommandRepository);
-    static AdditionCommandFacade additionCommandFacade = new AdditionCommandFacade(additionCommandService);
+    static AdditionRepository additionRepository = new InMemoryAdditionRepositoryAdapter();
+    static AdditionService additionService = new AdditionService(additionRepository);
+    static AdditionFacade additionFacade = new AdditionFacade(additionService);
     static final Integer ID_EMPLOYEE = 222;
     static final LocalDate CALCULATE_SALARY_DATE = LocalDate.of(2021,10,1);
 
     @BeforeAll
     static void beforeAll() {
-        additionCommandFacade.addAddition(createAddition1(), ID_EMPLOYEE);
-        additionCommandFacade.addAddition(createAddition2(), ID_EMPLOYEE);
+        additionFacade.addAddition(createAddition1(), ID_EMPLOYEE);
+        additionFacade.addAddition(createAddition2(), ID_EMPLOYEE);
         DataBaseAddition.getAdditionTypesHashMap().put(1,"za fakture");
-        DataBaseAddition.getAdditionTypesHashMap().put(1,"inne");
+        DataBaseAddition.getAdditionTypesHashMap().put(2,"inne");
     }
 
     @Test
@@ -39,7 +33,7 @@ class AdditionFacadeInMemoryTest {
         int i=0;
 
         //given
-        Money sum = additionQueryFacade.getAdditionsSumByIdEmployeeAndDate(ID_EMPLOYEE, CALCULATE_SALARY_DATE);
+        Money sum = additionFacade.getAdditionsSumByIdEmployeeAndDate(ID_EMPLOYEE, CALCULATE_SALARY_DATE);
 
         //then
         assertEquals(BigDecimal.valueOf(650).doubleValue(), sum.getNumber().doubleValue());
