@@ -2,7 +2,8 @@ package net.focik.hr.employee.infrastructure.inMemory;
 
 import lombok.extern.java.Log;
 import net.focik.hr.employee.domain.advance.Advance;
-import net.focik.hr.employee.domain.advance.port.secondary.AdvanceQueryRepository;
+import net.focik.hr.employee.domain.advance.port.secondary.AdvanceRepository;
+import net.focik.hr.employee.infrastructure.dto.AdvanceDto;
 import net.focik.hr.employee.infrastructure.dto.JpaMapper;
 import net.focik.hr.employee.infrastructure.inMemory.db.DataBaseAdvances;
 import org.springframework.context.annotation.Profile;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 @Component()
 @Profile({"test"})
 @Log
-public class InMemoryAdvanceQueryRepositoryAdapter implements AdvanceQueryRepository {
+public class InMemoryAdvanceRepositoryAdapter implements AdvanceRepository {
 
     JpaMapper jpaMapper = new JpaMapper();
 
@@ -36,5 +37,17 @@ public class InMemoryAdvanceQueryRepositoryAdapter implements AdvanceQueryReposi
                 .filter(advanceDto -> advanceDto.getDate().getMonth() == date.getMonth())
                 .map(advanceDto -> jpaMapper.toDomain(advanceDto))
                 .collect(Collectors.toList());
+    }
+    @Override
+    public Integer add(Advance advance, Integer idEmployee) {
+        AdvanceDto advanceDto = jpaMapper.toDto(advance, idEmployee);
+        log.info("Try add into inMemoryDb advance: " + advanceDto.toString());
+        if (advanceDto == null)
+            throw new NullPointerException("Advance cannot be null");
+        Integer id = DataBaseAdvances.getAdvancesHashMap().size() + 1;
+        // employee.setId(id);
+        DataBaseAdvances.getAdvancesHashMap().put(id, advanceDto);
+        log.info("Succssec id = " + id);
+        return id;
     }
 }

@@ -8,11 +8,15 @@ import java.time.LocalDate;
 
 @AllArgsConstructor
 @Component
-public class AdvanceQueryFacade {
+public class AdvanceFacade {
 
-    AdvanceQueryService advanceQueryService;
+    AdvanceService advanceService;
+
+    public Integer addAdvance(Advance advance, Integer idEmployee){
+        return advanceService.addAdvance(advance, idEmployee);
+    }
 
     public Money getAdvancesSumByIdEmployeeAndDate(int idEmployee, LocalDate date){
-        return advanceQueryService.getAdvancesSumByIdEmployeeAndDate(idEmployee, date);
+        return advanceService.getAdvancesSumByIdEmployeeAndDate(idEmployee, date);
     }
 }
