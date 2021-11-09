@@ -34,8 +34,6 @@ class AdvanceService {
     }
 
     private boolean validate(Advance a){
-//        boolean isValid = false;
-
         if( a.getAmount() == BigDecimal.ZERO)
             return false;
         if(a.getDate() == null )
