@@ -35,7 +35,6 @@ class AdditionService {
     }
 
     private boolean validate(Addition a){
-//        boolean isValid = false;
 
         if( a.getAmount() == BigDecimal.ZERO)
             return false;

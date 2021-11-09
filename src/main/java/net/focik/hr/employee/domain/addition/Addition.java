@@ -8,14 +8,13 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Builder
-@Getter
 @ToString
 public class Addition  {
-    protected Integer id;
-    private BigDecimal amount;
-    private LocalDate date;
-    private String otherInfo;
-    AdditionType additionType;
+    @Getter protected Integer id;
+    @Getter private BigDecimal amount;
+    @Getter private LocalDate date;
+    @Getter private String otherInfo;
+    private AdditionType additionType;
 
     public Integer getAdditionTypeId() {
         return additionType.getId();
