@@ -6,8 +6,8 @@ import net.focik.hr.employee.domain.RateRegular;
 import net.focik.hr.employee.domain.addition.Addition;
 import net.focik.hr.employee.domain.addition.AdditionType;
 import net.focik.hr.employee.domain.advance.Advance;
-import net.focik.hr.employee.domain.loan.Loan;
-import net.focik.hr.employee.domain.loan.LoanInstallment;
+import net.focik.hr.employee.domain.loans.Loan;
+import net.focik.hr.employee.domain.loans.LoanInstallment;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;

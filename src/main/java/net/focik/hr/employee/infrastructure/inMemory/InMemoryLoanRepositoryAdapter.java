@@ -1,12 +1,14 @@
 package net.focik.hr.employee.infrastructure.inMemory;
 
 import lombok.extern.java.Log;
-import net.focik.hr.employee.domain.loan.Loan;
-import net.focik.hr.employee.domain.loan.LoanInstallment;
-import net.focik.hr.employee.domain.loan.port.secondary.LoanQueryRepository;
+import net.focik.hr.employee.domain.loans.Loan;
+import net.focik.hr.employee.domain.loans.LoanInstallment;
+import net.focik.hr.employee.domain.loans.port.secondary.LoanRepository;
 import net.focik.hr.employee.infrastructure.dto.JpaMapper;
 import net.focik.hr.employee.infrastructure.dto.LoanDto;
+import net.focik.hr.employee.infrastructure.dto.LoanInstallmentDto;
 import net.focik.hr.employee.infrastructure.inMemory.db.DataBaseLoans;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -17,12 +19,39 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Component()
-@Profile({"test"})
+@Component
+@Qualifier("inMemory")
+@Profile("test")
 @Log
-public class InMemoryLoanQueryRepositoryAdapter implements LoanQueryRepository {
+public class InMemoryLoanRepositoryAdapter implements LoanRepository {
 
-    JpaMapper jpaMapper = new JpaMapper();
+    JpaMapper jpaMapper=new JpaMapper();
+
+    @Override
+    public Integer addLoan(Loan loan) {
+        LoanDto loanDto = jpaMapper.toDto(loan);
+        log.info("Try add into inMemoryDb loan: " + loanDto.toString());
+        if (loanDto == null)
+            throw new NullPointerException("Loan cannot be null");
+        Integer id = DataBaseLoans.getLoansHashMap().size() + 1;
+        // employee.setId(id);
+        DataBaseLoans.getLoansHashMap().put(id, loanDto);
+        log.info("Succssec id = " + id);
+        return id;
+    }
+
+    @Override
+    public Integer addLoanInstallment(LoanInstallment loanInstallment) {
+        LoanInstallmentDto loanInstallmentDto = jpaMapper.toDto(loanInstallment);
+        log.info("Try add into inMemoryDb loan installment: " + loanInstallmentDto.toString());
+        if (loanInstallmentDto == null)
+            throw new NullPointerException("Loan installment cannot be null");
+        Integer id = DataBaseLoans.getLoanInstallmentTypesHashMap().size() + 1;
+        // employee.setId(id);
+        DataBaseLoans.getLoanInstallmentTypesHashMap().put(id, loanInstallmentDto);
+        log.info("Succssec id = " + id);
+        return id;
+    }
 
     @Override
     public Optional<Loan> findById(Integer id) {
@@ -52,21 +81,4 @@ public class InMemoryLoanQueryRepositoryAdapter implements LoanQueryRepository {
         }
         return loanInstallments;
     }
-
-
-//    public List<LoanInstallment> findLoanInstallmentByEmployeeIdAndDate(Integer employeeId, LocalDate date) {
-//        return DataBaseLoans.getLoansHashMap()
-//                .entrySet()
-//                .stream()
-//                .map(dtoEntry -> dtoEntry.getValue())
-//                .filter(loanDto -> loanDto.getIdEmployee().equals(employeeId))
-//                .filter(loanDto -> loanDto.getDate().getYear() == date.getYear())
-//                .filter(loanDto -> loanDto.getDate().getMonth() == date.getMonth())
-//                .map(loanDto -> jpaMapper.toDomain(loanDto, (Set<LoanInstallment>) DataBaseLoans.getLoanInstallmentTypesHashMap().entrySet().stream()
-//                        .filter(e -> loanDto.getId().equals(e.getKey()))
-//                        .map(Map.Entry::getValue)
-//                        .map(loanInstallmentDto -> jpaMapper.toDomain(loanInstallmentDto))
-//                        .collect(Collectors.toList())))
-//                .collect(Collectors.toList());
-//    }
 }

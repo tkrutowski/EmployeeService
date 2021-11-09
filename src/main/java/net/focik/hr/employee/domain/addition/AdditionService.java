@@ -40,9 +40,6 @@ class AdditionService {
             return false;
         if(a.getDate() == null )
             return false;
-        if(a.getAdditionType() == null )
-            return false;
-
         return true;
     }
 }

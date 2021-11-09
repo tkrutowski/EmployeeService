@@ -1,4 +1,4 @@
-package net.focik.hr.employee.domain.loan;
+package net.focik.hr.employee.domain.loans;
 
 import lombok.Builder;
 import lombok.Getter;

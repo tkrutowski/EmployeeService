@@ -1,12 +1,8 @@
-package net.focik.hr.employee.domain.loan;
+package net.focik.hr.employee.domain.loans;
 
-import net.focik.hr.employee.domain.loan.port.secondary.LoanCommandRepository;
-import net.focik.hr.employee.domain.loan.port.secondary.LoanQueryRepository;
+import net.focik.hr.employee.domain.loans.port.secondary.LoanRepository;
 import net.focik.hr.employee.domain.share.LoanStatus;
-import net.focik.hr.employee.infrastructure.inMemory.InMemoryAdditionCommandRepositoryAdapter;
-import net.focik.hr.employee.infrastructure.inMemory.InMemoryLoanCommandRepositoryAdapter;
-import net.focik.hr.employee.infrastructure.inMemory.InMemoryLoanQueryRepositoryAdapter;
-import net.focik.hr.employee.infrastructure.inMemory.db.DataBaseAddition;
+import net.focik.hr.employee.infrastructure.inMemory.InMemoryLoanRepositoryAdapter;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -16,25 +12,22 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LoanCommandFacadeTest {
+class LoanFacadeTest {
 
-    static LoanQueryRepository loanQueryRepository = new InMemoryLoanQueryRepositoryAdapter();
-    static LoanQueryService loanQueryService = new LoanQueryService(loanQueryRepository);
-    static LoanQueryFacade loanQueryFacade = new LoanQueryFacade(loanQueryService);
 
-    static LoanCommandRepository loanCommandRepository = new InMemoryLoanCommandRepositoryAdapter();
-    static LoanCommandService loanCommandService = new LoanCommandService(loanCommandRepository);
-    static LoanCommandFacade loanCommandFacade = new LoanCommandFacade(loanCommandService);
+    static LoanRepository loanRepository = new InMemoryLoanRepositoryAdapter();
+    static LoanService loanService = new LoanService(loanRepository);
+    static LoanFacade loanFacade = new LoanFacade(loanService);
     static final Integer ID_EMPLOYEE = 222;
     static final LocalDate CALCULATE_SALARY_DATE = LocalDate.of(2021,10,1);
     @BeforeAll
     static void beforeAll() {
-        loanCommandFacade.addLoan(createLoan1(), ID_EMPLOYEE);
-        loanCommandFacade.addLoan(createLoan2(), 1);
-        loanCommandFacade.addLoanInstallment(createLoanInstallment1());
-        loanCommandFacade.addLoanInstallment(createLoanInstallment2());
-        loanCommandFacade.addLoanInstallment(createLoanInstallment3());
-        loanCommandFacade.addLoanInstallment(createLoanInstallment4());
+        loanFacade.addLoan(createLoan1(), ID_EMPLOYEE);
+        loanFacade.addLoan(createLoan2(), 1);
+        loanFacade.addLoanInstallment(createLoanInstallment1());
+        loanFacade.addLoanInstallment(createLoanInstallment2());
+        loanFacade.addLoanInstallment(createLoanInstallment3());
+        loanFacade.addLoanInstallment(createLoanInstallment4());
     }
 
     @Test
@@ -42,7 +35,7 @@ class LoanCommandFacadeTest {
         int i=0;
 
         //given
-        Money sum = loanQueryFacade.getInstallmentLoansSumByIdEmployeeAndDate(ID_EMPLOYEE, CALCULATE_SALARY_DATE);
+        Money sum = loanFacade.getInstallmentLoansSumByIdEmployeeAndDate(ID_EMPLOYEE, CALCULATE_SALARY_DATE);
 
         //then
         assertEquals(BigDecimal.valueOf(800).doubleValue(), sum.getNumber().doubleValue());
