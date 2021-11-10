@@ -1,12 +1,14 @@
 package net.focik.hr.employee.domain.workTimeRecords;
 
+import lombok.Getter;
 import net.focik.hr.employee.domain.workTimeRecords.share.IllnessType;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Illness extends WorkTime implements IWorkTime {
-    private IllnessType illnessType;
+   @Getter
+   private IllnessType illnessType;
 
     public Illness(int idEmployee, LocalDate date, IllnessType illnessType) {
         super(idEmployee, date);

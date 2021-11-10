@@ -32,6 +32,10 @@ public enum DayOffType {
         this.dbValue = dbValue;
     }
 
+    public Integer getPercent(){
+        return percent;
+    }
+
     public static DayOffType fromDbValue(String dbValue) {
         switch (dbValue) {
             case "1/2 dnia":

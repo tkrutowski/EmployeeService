@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-class WorkService implements IFindWorkRecords{
+class WorkService {
 
     private WorkTimeRepository workTimeRepository;
 
@@ -20,7 +20,7 @@ class WorkService implements IFindWorkRecords{
         return workTimeRepository.add(workTime);
     }
 
-    @Override
+
     public List<IWorkTime> findAllByIdEmployeeAndDate(int idEmployee, LocalDate date) {
         return workTimeRepository.findAllByIdEmployeeAndDate(idEmployee,date);
     }
@@ -41,4 +41,7 @@ class WorkService implements IFindWorkRecords{
     }
 
 
+    public Integer findWorkMinutesByIdEmployeeAndDate(Integer idEmployee, LocalDate date) {
+        return null;
+    }
 }

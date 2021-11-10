@@ -25,6 +25,10 @@ public enum IllnessType {
         return dbValue;
     }
 
+    public float getPercent(){
+        return percent;
+    }
+
     public void setDbValue(String dbValue) {
         this.dbValue = dbValue;
     }

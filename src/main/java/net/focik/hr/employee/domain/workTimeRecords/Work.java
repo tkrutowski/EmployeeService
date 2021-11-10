@@ -1,6 +1,5 @@
 package net.focik.hr.employee.domain.workTimeRecords;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.DayOfWeek;
@@ -23,7 +22,6 @@ public class Work extends WorkTime implements IWorkTime {
     public LocalTime WorkTimeAll() {
         LocalTime localTime = stopTime.minusMinutes(startTime.getHour() * 60 + startTime.getMinute());
         return localTime;
-//        return time.minusHours(startTime.getHour());
     }
 
     @Override
@@ -31,7 +29,7 @@ public class Work extends WorkTime implements IWorkTime {
         if (getDate().getDayOfWeek() != DayOfWeek.SATURDAY && getDate().getDayOfWeek() != DayOfWeek.SUNDAY) {
             if (WorkTimeAll().getHour() >= 8)
                 return WorkTimeAll().minusHours(8);
-            else//jeżeli poniżej 8 godzin (żeby nie wyświetlało godzin ulemnych
+            else//jeżeli poniżej 8 godzin (żeby nie wyświetlało godzin ujemnych
                 return LocalTime.of(0, 0, 0);
         } else
             return LocalTime.of(0, 0, 0);
@@ -43,5 +41,14 @@ public class Work extends WorkTime implements IWorkTime {
              return stopTime.minusMinutes(startTime.getHour() * 60 + startTime.getMinute());
 
         return LocalTime.of(0, 0);
+    }
+
+    public LocalTime WorkTimeRegular()
+    {
+        if ((getDate().getDayOfWeek() != DayOfWeek.SATURDAY && getDate().getDayOfWeek() != DayOfWeek.SUNDAY) && (stopTime.minusMinutes(startTime.getHour() * 60 + startTime.getMinute()).getHour() >= 8))
+            return  LocalTime.of(8, 0);
+        else if ((getDate().getDayOfWeek() != DayOfWeek.SATURDAY || (getDate().getDayOfWeek() != DayOfWeek.SUNDAY) && (stopTime.minusMinutes(startTime.getHour() * 60 + startTime.getMinute()).getHour() < 8)))
+            return stopTime.minusMinutes(startTime.getHour() * 60 + startTime.getMinute());
+        return  LocalTime.of(0, 0);
     }
 }
