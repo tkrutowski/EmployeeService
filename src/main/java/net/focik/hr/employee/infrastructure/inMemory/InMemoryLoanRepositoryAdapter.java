@@ -4,10 +4,10 @@ import lombok.extern.java.Log;
 import net.focik.hr.employee.domain.loans.Loan;
 import net.focik.hr.employee.domain.loans.LoanInstallment;
 import net.focik.hr.employee.domain.loans.port.secondary.LoanRepository;
-import net.focik.hr.employee.infrastructure.dto.JpaMapper;
 import net.focik.hr.employee.infrastructure.dto.LoanDto;
 import net.focik.hr.employee.infrastructure.dto.LoanInstallmentDto;
 import net.focik.hr.employee.infrastructure.inMemory.db.DataBaseLoans;
+import net.focik.hr.employee.infrastructure.mapper.JpaLoanMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @Log
 public class InMemoryLoanRepositoryAdapter implements LoanRepository {
 
-    JpaMapper jpaMapper=new JpaMapper();
+    JpaLoanMapper jpaMapper=new JpaLoanMapper();
 
     @Override
     public Integer addLoan(Loan loan) {

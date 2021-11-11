@@ -3,6 +3,7 @@ package net.focik.hr.employee.infrastructure.inMemory;
 import lombok.extern.java.Log;
 import net.focik.hr.employee.domain.Employee;
 import net.focik.hr.employee.domain.port.secondary.EmployeeCommandRepository;
+import net.focik.hr.employee.infrastructure.inMemory.db.DataBaseEmployee;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;

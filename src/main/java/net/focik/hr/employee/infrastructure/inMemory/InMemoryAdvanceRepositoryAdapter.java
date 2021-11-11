@@ -4,8 +4,8 @@ import lombok.extern.java.Log;
 import net.focik.hr.employee.domain.advance.Advance;
 import net.focik.hr.employee.domain.advance.port.secondary.AdvanceRepository;
 import net.focik.hr.employee.infrastructure.dto.AdvanceDto;
-import net.focik.hr.employee.infrastructure.dto.JpaMapper;
 import net.focik.hr.employee.infrastructure.inMemory.db.DataBaseAdvances;
+import net.focik.hr.employee.infrastructure.mapper.JpaAdvanceMapper;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -14,12 +14,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Component()
+@Component
 @Profile({"test"})
 @Log
 public class InMemoryAdvanceRepositoryAdapter implements AdvanceRepository {
 
-    JpaMapper jpaMapper = new JpaMapper();
+    JpaAdvanceMapper jpaMapper = new JpaAdvanceMapper();
 
     @Override
     public Optional<Advance> findById(Integer id) {

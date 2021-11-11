@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import net.focik.hr.employee.domain.Employee;
 import net.focik.hr.employee.domain.port.secondary.EmployeeCommandRepository;
 import net.focik.hr.employee.infrastructure.dto.EmployeeDto;
-import net.focik.hr.employee.infrastructure.dto.JpaMapper;
 import net.focik.hr.employee.infrastructure.dto.RateOvertimeDto;
 import net.focik.hr.employee.infrastructure.dto.RateRegularDto;
+import net.focik.hr.employee.infrastructure.mapper.JpaEmployeeMapper;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +21,7 @@ public class EmployeeCommandRepositoryAdapter implements EmployeeCommandReposito
     EmployeeDtoRepository employeeDtoRepository;
     RateRegularDtoRepository rateRegularDtoRepository;
     RateOvertimeDtoRepository rateOvertimeDtoRepository;
-    JpaMapper mapper;
+    JpaEmployeeMapper mapper;
 
     @Override
     @Transactional

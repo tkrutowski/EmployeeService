@@ -4,8 +4,8 @@ import lombok.extern.java.Log;
 import net.focik.hr.employee.domain.addition.Addition;
 import net.focik.hr.employee.domain.addition.port.secondary.AdditionRepository;
 import net.focik.hr.employee.infrastructure.dto.AdditionDto;
-import net.focik.hr.employee.infrastructure.dto.JpaMapper;
 import net.focik.hr.employee.infrastructure.inMemory.db.DataBaseAddition;
+import net.focik.hr.employee.infrastructure.mapper.JpaAdditionMapper;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class InMemoryAdditionRepositoryAdapter implements AdditionRepository {
 
 
-    JpaMapper jpaMapper = new JpaMapper();
+    JpaAdditionMapper jpaMapper = new JpaAdditionMapper();
 
     @Override
     public Optional<Addition> findById(Integer id) {

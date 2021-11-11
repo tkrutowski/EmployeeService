@@ -1,6 +1,5 @@
-package net.focik.hr.employee.infrastructure.inMemory;
+package net.focik.hr.employee.infrastructure.inMemory.db;
 
-import net.focik.hr.employee.domain.Employee;
 import net.focik.hr.employee.domain.RateRegular;
 
 import java.util.HashMap;

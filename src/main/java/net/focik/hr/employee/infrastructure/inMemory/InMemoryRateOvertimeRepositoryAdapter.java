@@ -3,8 +3,8 @@ package net.focik.hr.employee.infrastructure.inMemory;
 import lombok.extern.java.Log;
 import net.focik.hr.employee.domain.RateOvertime;
 import net.focik.hr.employee.domain.port.secondary.RateOvertimeRepository;
-import net.focik.hr.employee.infrastructure.dto.JpaMapper;
 import net.focik.hr.employee.infrastructure.dto.RateOvertimeDto;
+import net.focik.hr.employee.infrastructure.mapper.JpaRateMapper;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Log
 public class InMemoryRateOvertimeRepositoryAdapter implements  RateOvertimeRepository {
     private Map<Integer, RateOvertimeDto> rateOvertimeHashMap = new HashMap<>();
-    private JpaMapper jpaMapper = new JpaMapper();
+    private JpaRateMapper jpaMapper = new JpaRateMapper();
 
     @Override
     public Integer add(RateOvertime rate, Integer idEmployee) {

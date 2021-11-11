@@ -3,8 +3,8 @@ package net.focik.hr.employee.infrastructure.inMemory;
 import lombok.extern.java.Log;
 import net.focik.hr.employee.domain.RateRegular;
 import net.focik.hr.employee.domain.port.secondary.RateRegularRepository;
-import net.focik.hr.employee.infrastructure.dto.JpaMapper;
 import net.focik.hr.employee.infrastructure.dto.RateRegularDto;
+import net.focik.hr.employee.infrastructure.mapper.JpaRateMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 @Qualifier("inMemory")
@@ -22,7 +21,7 @@ import java.util.stream.Collectors;
 @Log
 public class InMemoryRateRegularRepositoryAdapter implements RateRegularRepository {
     private Map<Integer, RateRegularDto> rateRegularHashMap = new HashMap<>();
-    private JpaMapper jpaMapper = new JpaMapper();
+    private JpaRateMapper jpaMapper = new JpaRateMapper();
     public int getSize(){
         return rateRegularHashMap.size();
     }
