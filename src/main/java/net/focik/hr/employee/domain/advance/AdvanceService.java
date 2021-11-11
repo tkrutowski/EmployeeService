@@ -27,10 +27,10 @@ class AdvanceService {
         }
         return sum;
     }
-    Integer addAdvance(Advance advance, Integer idEmployee) {
+    Integer addAdvance(Advance advance) {
         if(!validate(advance))
             throw new AdvanceNotValidException();
-        return advanceRepository.add(advance, idEmployee);
+        return advanceRepository.add(advance);
     }
 
     private boolean validate(Advance a){

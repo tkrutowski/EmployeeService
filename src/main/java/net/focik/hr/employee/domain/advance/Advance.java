@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @ToString
 public class Advance {
     protected Integer id;
+    private int idEmployee;
     private BigDecimal amount;
     private LocalDate date;
     private String otherInfo;

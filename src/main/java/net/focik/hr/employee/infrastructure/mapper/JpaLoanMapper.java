@@ -6,6 +6,8 @@ import net.focik.hr.employee.infrastructure.dto.LoanDto;
 import net.focik.hr.employee.infrastructure.dto.LoanInstallmentDto;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -25,7 +27,7 @@ public class JpaLoanMapper {
         return loanDto;
     }
 
-    public Loan toDomain(LoanDto dto, Set<LoanInstallment> loanInstallments){
+    public Loan toDomain(LoanDto dto, List<LoanInstallmentDto> loanInstallments){
         Loan loan = Loan.builder()
                 .idLoan(dto.getId())
                 .idEmployee(dto.getIdEmployee())
@@ -35,10 +37,20 @@ public class JpaLoanMapper {
                 .installmentAmount(dto.getInstallmentAmount())
                 .name(dto.getName())
                 .loanStatus(dto.getLoanStatus())
-                .loanInstallments(loanInstallments)
+                .loanInstallments(mapListLoanInstallmentToSet(loanInstallments))
                 .build();
 
         return loan;
+    }
+
+    private Set<LoanInstallment> mapListLoanInstallmentToSet(List<LoanInstallmentDto> installmentDtoList) {
+        Set<LoanInstallment> loanInstallmentSet = new HashSet<>();
+
+        installmentDtoList.stream()
+                .map(loanInstallmentDto -> toDomain(loanInstallmentDto))
+                .forEach(loanInstallment -> loanInstallmentSet.add(loanInstallment));
+
+        return loanInstallmentSet;
     }
 
     public LoanInstallmentDto toDto(LoanInstallment loanInstallment){

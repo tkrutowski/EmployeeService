@@ -12,8 +12,8 @@ public class AdvanceFacade {
 
     AdvanceService advanceService;
 
-    public Integer addAdvance(Advance advance, Integer idEmployee){
-        return advanceService.addAdvance(advance, idEmployee);
+    public Integer addAdvance(Advance advance){
+        return advanceService.addAdvance(advance);
     }
 
     public Money getAdvancesSumByIdEmployeeAndDate(int idEmployee, LocalDate date){

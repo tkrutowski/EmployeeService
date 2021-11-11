@@ -20,8 +20,8 @@ class AdvanceFacadeInMemoryTest {
 
     @BeforeAll
     static void beforeAll() {
-        advanceFacade.addAdvance(createAdvance1(), ID_EMPLOYEE);
-        advanceFacade.addAdvance(createAdvance2(), ID_EMPLOYEE);
+        advanceFacade.addAdvance(createAdvance1());
+        advanceFacade.addAdvance(createAdvance2());
     }
 
     @Test
@@ -39,13 +39,13 @@ class AdvanceFacadeInMemoryTest {
 
     private static Advance createAdvance1(){
         int i =0;
-        Advance advance = new Advance(1,BigDecimal.valueOf(300), LocalDate.of(2021,10,24),
+        Advance advance = new Advance(1, ID_EMPLOYEE, BigDecimal.valueOf(300), LocalDate.of(2021,10,24),
                 "pierwsza");
         return advance;
     }
     private static Advance createAdvance2(){
         int i =0;
-        Advance advance = new Advance(2,BigDecimal.valueOf(250), LocalDate.of(2021,10,4),
+        Advance advance = new Advance(2, ID_EMPLOYEE, BigDecimal.valueOf(250), LocalDate.of(2021,10,4),
                 "druga");
         return advance;
     }

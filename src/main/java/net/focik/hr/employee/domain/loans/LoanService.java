@@ -16,7 +16,7 @@ class LoanService {
 
     private LoanRepository loanRepository;
 
-    Integer addLoan(Loan loan, Integer idEmployee) {
+    Integer addLoan(Loan loan) {
         if(!validate(loan))
             throw new AdvanceNotValidException();
         return loanRepository.addLoan(loan);

@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface AdditionRepository {
     Optional<Addition> findById(Integer id);
     List<Addition> findByEmployeeIdAndDate(Integer employeeId, LocalDate date);
-    Integer add(Addition advance, Integer idEmployee);
+    Integer add(Addition advance);
 }

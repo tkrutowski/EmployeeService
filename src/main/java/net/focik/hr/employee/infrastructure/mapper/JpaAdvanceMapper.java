@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class JpaAdvanceMapper {
 
-    public AdvanceDto toDto(Advance advance, Integer idEmployee){
+    public AdvanceDto toDto(Advance advance){
         AdvanceDto advanceDto = AdvanceDto.builder()
                 .id(advance.getId())
-                .idEmployee(idEmployee)
+                .idEmployee(advance.getIdEmployee())
                 .amount(advance.getAmount())
                 .date(advance.getDate())
                 .otherInfo(advance.getOtherInfo())

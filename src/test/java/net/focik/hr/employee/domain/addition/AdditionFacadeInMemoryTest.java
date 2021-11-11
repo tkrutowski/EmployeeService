@@ -22,8 +22,8 @@ class AdditionFacadeInMemoryTest {
 
     @BeforeAll
     static void beforeAll() {
-        additionFacade.addAddition(createAddition1(), ID_EMPLOYEE);
-        additionFacade.addAddition(createAddition2(), ID_EMPLOYEE);
+        additionFacade.addAddition(createAddition1());
+        additionFacade.addAddition(createAddition2());
         DataBaseAddition.getAdditionTypesHashMap().put(1,"za fakture");
         DataBaseAddition.getAdditionTypesHashMap().put(2,"inne");
     }
@@ -43,13 +43,13 @@ class AdditionFacadeInMemoryTest {
 
     private static Addition createAddition1(){
         int i =0;
-        Addition addition = new Addition(1, BigDecimal.valueOf(300), LocalDate.of(2021,10,24),
+        Addition addition = new Addition(1, ID_EMPLOYEE, BigDecimal.valueOf(300), LocalDate.of(2021,10,24),
                 "pierwsza", new AdditionType(1, "za fakture"));
         return addition;
     }
     private static Addition createAddition2(){
         int i =0;
-        Addition addition = new Addition(2,BigDecimal.valueOf(350), LocalDate.of(2021,10,4),
+        Addition addition = new Addition(2, ID_EMPLOYEE, BigDecimal.valueOf(350), LocalDate.of(2021,10,4),
                 "druga", new AdditionType(2,"inne"));
         return addition;
     }

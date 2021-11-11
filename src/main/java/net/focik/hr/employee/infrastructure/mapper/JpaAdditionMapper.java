@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class JpaAdditionMapper {
 
-    public AdditionDto toDto(Addition addition, Integer idEmployee){
+    public AdditionDto toDto(Addition addition){
         AdditionDto advanceDto = AdditionDto.builder()
                 .id(addition.getId())
-                .idEmployee(idEmployee)
+                .idEmployee(addition.getIdEmployee())
                 .idAdditionType(addition.getAdditionTypeId())
                 .amount(addition.getAmount())
                 .date(addition.getDate())

@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @ToString
 public class Addition  {
     @Getter protected Integer id;
+    @Getter private int idEmployee;
     @Getter private BigDecimal amount;
     @Getter private LocalDate date;
     @Getter private String otherInfo;

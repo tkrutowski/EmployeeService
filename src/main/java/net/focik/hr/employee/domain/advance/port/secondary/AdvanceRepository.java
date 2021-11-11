@@ -9,6 +9,6 @@ import java.util.Optional;
 public interface AdvanceRepository {
     Optional<Advance> findById(Integer id);
     List<Advance> findByEmployeeIdAndDate(Integer employeeId, LocalDate date);
-    Integer add(Advance advance, Integer idEmployee);
+    Integer add(Advance advance);
 
 }

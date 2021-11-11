@@ -54,7 +54,12 @@ public class InMemoryLoanRepositoryAdapter implements LoanRepository {
     }
 
     @Override
-    public Optional<Loan> findById(Integer id) {
+    public Optional<Loan> findLoanById(Integer id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<LoanInstallment> findLoanInstallmentById(Integer id) {
         return Optional.empty();
     }
 

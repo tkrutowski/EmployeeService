@@ -45,8 +45,8 @@ public class InMemoryAdditionRepositoryAdapter implements AdditionRepository {
                 .collect(Collectors.toList());
     }
     @Override
-    public Integer add(Addition addition, Integer idEmployee) {
-        AdditionDto additionDto = jpaMapper.toDto(addition, idEmployee);
+    public Integer add(Addition addition) {
+        AdditionDto additionDto = jpaMapper.toDto(addition);
         log.info("Try add into inMemoryDb addition: " + additionDto.toString());
         if (additionDto == null)
             throw new NullPointerException("Addition cannot be null");

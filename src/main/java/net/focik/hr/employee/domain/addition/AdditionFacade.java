@@ -16,7 +16,7 @@ public class AdditionFacade {
         return additionService.getAdditionsSumByIdEmployeeAndDate(idEmployee, date);
     }
 
-    public Integer addAddition(Addition addition, Integer idEmployee){
-        return additionService.addAddition(addition, idEmployee);
+    public Integer addAddition(Addition addition){
+        return additionService.addAddition(addition);
     }
 }

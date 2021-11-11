@@ -39,8 +39,8 @@ public class InMemoryAdvanceRepositoryAdapter implements AdvanceRepository {
                 .collect(Collectors.toList());
     }
     @Override
-    public Integer add(Advance advance, Integer idEmployee) {
-        AdvanceDto advanceDto = jpaMapper.toDto(advance, idEmployee);
+    public Integer add(Advance advance) {
+        AdvanceDto advanceDto = jpaMapper.toDto(advance);
         log.info("Try add into inMemoryDb advance: " + advanceDto.toString());
         if (advanceDto == null)
             throw new NullPointerException("Advance cannot be null");

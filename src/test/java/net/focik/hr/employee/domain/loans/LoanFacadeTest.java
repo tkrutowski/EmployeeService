@@ -22,8 +22,8 @@ class LoanFacadeTest {
     static final LocalDate CALCULATE_SALARY_DATE = LocalDate.of(2021,10,1);
     @BeforeAll
     static void beforeAll() {
-        loanFacade.addLoan(createLoan1(), ID_EMPLOYEE);
-        loanFacade.addLoan(createLoan2(), 1);
+        loanFacade.addLoan(createLoan1());
+        loanFacade.addLoan(createLoan2());
         loanFacade.addLoanInstallment(createLoanInstallment1());
         loanFacade.addLoanInstallment(createLoanInstallment2());
         loanFacade.addLoanInstallment(createLoanInstallment3());
