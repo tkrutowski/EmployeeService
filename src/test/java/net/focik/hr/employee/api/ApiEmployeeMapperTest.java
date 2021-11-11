@@ -1,5 +1,7 @@
 package net.focik.hr.employee.api;
 
+import net.focik.hr.employee.api.dto.EmployeeDto;
+import net.focik.hr.employee.api.mapper.ApiEmployeeMapper;
 import net.focik.hr.employee.domain.Employee;
 import net.focik.hr.employee.domain.share.EmployeeType;
 import net.focik.hr.employee.domain.share.EmploymentStatus;
@@ -12,9 +14,9 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ApiMapperTest {
+class ApiEmployeeMapperTest {
 
-    ApiMapper mapper = new ApiMapper();
+    ApiEmployeeMapper mapper = new ApiEmployeeMapper();
     @Test
     void map_EmployeeDto_toDomain() {
         //given
