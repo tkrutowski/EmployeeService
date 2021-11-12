@@ -16,7 +16,7 @@ import java.util.Optional;
 @Component
 @Primary
 @AllArgsConstructor
-public class EmployeeCommandRepositoryAdapter implements EmployeeCommandRepository {
+class EmployeeCommandRepositoryAdapter implements EmployeeCommandRepository {
 
     EmployeeDtoRepository employeeDtoRepository;
     RateRegularDtoRepository rateRegularDtoRepository;
