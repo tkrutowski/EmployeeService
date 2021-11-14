@@ -1,9 +1,13 @@
 package net.focik.hr.employee.domain;
 
 import lombok.AllArgsConstructor;
+import net.focik.hr.employee.domain.exceptions.EmployeeNotExistException;
 import net.focik.hr.employee.domain.exceptions.EmployeeNotValidException;
 import net.focik.hr.employee.domain.port.secondary.EmployeeCommandRepository;
+import net.focik.hr.employee.query.EmployeeQueryDto;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -11,6 +15,15 @@ class EmployeeCommandService {
 
     private EmployeeCommandRepository employeeCommandRepository;
    // private EmployeeFactory employeeFactory;
+
+    Employee findEmployeeById(Integer id) {
+        Optional<Employee> byId = employeeCommandRepository.findById(id);
+
+        if (byId.isEmpty())
+            throw new EmployeeNotExistException(id);
+
+        return byId.get();
+    }
 
     Integer addEmployee(Employee employee) {
         int i=0;

@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -36,7 +37,14 @@ class EmployeeCommandRepositoryAdapter implements EmployeeCommandRepository {
 
     @Override
     public Optional<Employee> findById(Integer id) {
-        return Optional.empty();
+        Optional<EmployeeDto> byId = employeeDtoRepository.findById(id);
+        List<RateOvertimeDto> rateOvertimeDtos = rateOvertimeDtoRepository.findAllByIdEmployee(id);
+        List<RateRegularDto> rateRegularDtos = rateRegularDtoRepository.findAllByIdEmployee(id);
+        if(byId.isEmpty())
+            return Optional.empty();
+
+
+        return Optional.of(mapper.toDomain(byId.get(), rateRegularDtos, rateOvertimeDtos));
     }
 
 }

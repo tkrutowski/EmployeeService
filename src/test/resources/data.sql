@@ -4,8 +4,8 @@ INSERT INTO teams(id_team, name) values (1, 'Tomek');
 INSERT INTO teams(id_team, name) values (2, 'Darek');
 INSERT INTO teams(id_team, name) values (3, 'Adam');
 
-insert into pracownik(imie, nazwisko, ulica, miasto, kod, urlop_pozostaly, wymiar_urlopu, numer, inne, zatrudniony, data_zatrudnienia, data_zwolnienia, data_nast_badania_lek, data_nast_szkolenia_bhp, email, pol_etatu, czy_kadra)
-values ('Tomasz','Krutowski','Szyperska','Poznań','61-754', 2, 26, '662262662','brak','HIRED','2007-07-19',null,'2024-12-18','2022-09-08','tomek@focik.net','FULL_TIME','WORKER');
+insert into pracownik(id_pracownika, imie, nazwisko, ulica, miasto, kod, urlop_pozostaly, wymiar_urlopu, numer, inne, zatrudniony, data_zatrudnienia, data_zwolnienia, data_nast_badania_lek, data_nast_szkolenia_bhp, email, pol_etatu, czy_kadra)
+values (222, 'Tomasz','Krutowski','Szyperska','Poznań','61-754', 2, 26, '662262662','brak','HIRED','2007-07-19',null,'2024-12-18','2022-09-08','tomek@focik.net','FULL_TIME','WORKER');
 
 insert into Dni_wolne values(1,'2020-01-01','Nowy Rok, Świętej Bożej Rodzicielki');
 insert into Dni_wolne values(2,'2020-01-06','Trzech Króli (Objawienie Pańskie)');

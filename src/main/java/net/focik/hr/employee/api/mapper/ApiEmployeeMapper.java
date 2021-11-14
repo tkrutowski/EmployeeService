@@ -1,5 +1,6 @@
-package net.focik.hr.employee.api;
+package net.focik.hr.employee.api.mapper;
 
+import net.focik.hr.employee.api.dto.EmployeeDto;
 import net.focik.hr.employee.domain.Employee;
 import net.focik.hr.employee.domain.share.EmployeeType;
 import net.focik.hr.employee.domain.share.EmploymentStatus;
@@ -10,9 +11,9 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 
 @Component
-public class ApiMapper {
+public class ApiEmployeeMapper {
 
-    Employee toDomain (EmployeeDto dto){
+    public Employee toDomain (EmployeeDto dto){
         Employee build = Employee.builder()
                 .firstName(dto.getFirstName())
                 .lastName(dto.getLastName())
@@ -35,7 +36,7 @@ public class ApiMapper {
         return build;
     }
 
-    EmployeeDto toDto(Employee e){
+    public EmployeeDto toDto(Employee e){
         EmployeeDto build = EmployeeDto.builder()
                 .id(e.getId())
                 .firstName(e.getFirstName())

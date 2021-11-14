@@ -9,6 +9,7 @@ import net.focik.hr.employee.domain.share.EmployeeType;
 import net.focik.hr.employee.domain.share.EmploymentStatus;
 import net.focik.hr.employee.domain.share.RateType;
 import net.focik.hr.employee.domain.share.WorkTime;
+import org.javamoney.moneta.Money;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -94,7 +95,15 @@ public class Employee {
                 .getRateValue();
         //rateRegular.getRateValue();
     }
-
+    public BigDecimal getRateRegularValueByDate(LocalDate date) {
+         return rateRegular.stream()
+                .sorted(RateRegular::compareTo)
+                .filter(rate -> rate.getDateFrom().isAfter(date))
+                .findFirst()
+                .get()
+                .getRateValue();
+        //rateRegular.getRateValue();
+    }
     public RateType getLatestRateRegularType() {
         return
                 rateRegular.stream()
@@ -102,7 +111,16 @@ public class Employee {
                         .findFirst()
                         .get()
                         .getRateType();
-        //rateRegular.getRateType();
+    }
+
+    public RateType getRateRegularTypeByDate(LocalDate date) {
+        return
+                rateRegular.stream()
+                        .sorted(RateRegular::compareTo)
+                        .filter(rate -> rate.getDateFrom().isAfter(date))
+                        .findFirst()
+                        .get()
+                        .getRateType();
     }
 
     public LocalDate getLatestRateOvertimeDateFrom() {
@@ -117,10 +135,18 @@ public class Employee {
     public BigDecimal getLatestRateOvertimeValue() {
         return rateOvertime.stream()
                 .sorted(RateOvertime::compareTo)
+
                 .findFirst()
                 .get()
                 .getRateValue();
-        //getRateValue();
     }
 
+    public BigDecimal getRateOvertimeValueByDate(LocalDate date) {
+        return rateOvertime.stream()
+                .sorted(RateOvertime::compareTo)
+                .filter(rate -> rate.getDateFrom().isAfter(date))
+                .findFirst()
+                .get()
+                .getRateValue();
+    }
 }

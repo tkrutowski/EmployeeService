@@ -1,4 +1,4 @@
-package net.focik.hr.employee.api;
+package net.focik.hr.employee.api.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

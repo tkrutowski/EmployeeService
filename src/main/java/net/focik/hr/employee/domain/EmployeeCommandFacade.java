@@ -1,6 +1,7 @@
 package net.focik.hr.employee.domain;
 
 import lombok.AllArgsConstructor;
+import net.focik.hr.employee.query.EmployeeQueryDto;
 import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
@@ -9,6 +10,10 @@ public class EmployeeCommandFacade {
 
     EmployeeCommandService employeeCommandService;
     //RateRegularCommandService rateRegularCommandService;
+
+    public Employee getEmployee(Integer id){
+        return employeeCommandService.findEmployeeById(id);
+    }
 
     public Integer addEmployee(Employee employee){
         return employeeCommandService.addEmployee(employee);
