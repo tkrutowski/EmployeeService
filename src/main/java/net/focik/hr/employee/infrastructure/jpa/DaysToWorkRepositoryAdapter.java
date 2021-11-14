@@ -27,7 +27,9 @@ class DaysToWorkRepositoryAdapter implements DaysToWorkRepository {
     @Override
     public Optional<DaysToWork> findByDate(Integer year, Integer month) {
         Optional<WorkHoursDto> byId = workHoursDtoRepository.findByYearMonth(year, month);
-        List<HolidaysDto> allByDateBetween = holidaysDtoRepository.findAllByDateBetween(LocalDate.of(year, month, 1), LocalDate.of(year, month, Month.of(month).length(true)));
+        LocalDate afterDate = LocalDate.of(year, month, 1);
+        LocalDate beforeDate = LocalDate.of(year, month, Month.of(month).length(true));
+        List<HolidaysDto> allByDateBetween = holidaysDtoRepository.findAllByDateBetween(afterDate, beforeDate);
         return Optional.of(mapper.toDomain(byId, allByDateBetween));
     }
 }

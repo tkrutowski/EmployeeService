@@ -27,7 +27,7 @@ public class HolidaysDto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_dni_wolne")
     private Integer id;
-    @Column(name = "date")
+    @Column(name = "data")
     private LocalDate date;
     @Column(name = "opis")
     private String description;
