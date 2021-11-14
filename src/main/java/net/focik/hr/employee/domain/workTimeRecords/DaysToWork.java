@@ -11,5 +11,6 @@ public class DaysToWork {
 
     @Getter
     private Integer hoursToWork;
+    @Getter
     private Map<LocalDate, String> holidays;
 }

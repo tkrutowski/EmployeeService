@@ -1,6 +1,7 @@
 package net.focik.hr.employee.infrastructure.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Embeddable
+@EqualsAndHashCode
 public class WorkHoursId implements Serializable {
 
     @Column(name = "id_rok")

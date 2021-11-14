@@ -9,22 +9,25 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Component
 public class JpaDaysToWorkMapper {
 
-    public DaysToWork toDomain(WorkHoursDto workHoursDto, List<HolidaysDto> holidaysDtos){
+    public DaysToWork toDomain(Optional<WorkHoursDto> workHoursDto, List<HolidaysDto> holidaysDtos){
 
         DaysToWork daysToWork = DaysToWork.builder()
-                .hoursToWork(workHoursDto.getNumberOfHours())
-                .holidays(convertHolideyToMap(holidaysDtos))
+                .hoursToWork(workHoursDto.isEmpty() ? 0 : workHoursDto.get().getNumberOfHours())
+                .holidays(convertHolidayToMap(holidaysDtos))
                 .build();
 
         return daysToWork;
     }
 
-    private Map<LocalDate, String> convertHolideyToMap(List<HolidaysDto> holidaysDtos) {
+    private Map<LocalDate, String> convertHolidayToMap(List<HolidaysDto> holidaysDtos) {
         Map<LocalDate, String> holidaysMap = new HashMap<>();
+        if(holidaysDtos == null)
+            return holidaysMap;
 
         holidaysDtos.stream()
                 .forEach(holidaysDto -> holidaysMap.put(holidaysDto.getDate(), holidaysDto.getDescription()));
