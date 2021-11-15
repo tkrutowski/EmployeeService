@@ -7,6 +7,9 @@ INSERT INTO teams(id_team, name) values (3, 'Adam');
 insert into pracownik(id_pracownika, imie, nazwisko, ulica, miasto, kod, urlop_pozostaly, wymiar_urlopu, numer, inne, zatrudniony, data_zatrudnienia, data_zwolnienia, data_nast_badania_lek, data_nast_szkolenia_bhp, email, pol_etatu, czy_kadra)
 values (222, 'Tomasz','Krutowski','Szyperska','Poznań','61-754', 2, 26, '662262662','brak','HIRED','2007-07-19',null,'2024-12-18','2022-09-08','tomek@focik.net','FULL_TIME','WORKER');
 
+insert into zaliczka(id_zaliczki, id_pracownika, kwota, data, inne) values (1,1, 1000, '2020-11-01','pierwsza');
+insert into zaliczka(id_zaliczki, id_pracownika, kwota, data, inne) values (2,1, 150, '2020-11-22','druga');
+
 insert into Dni_wolne values(1,'2020-01-01','Nowy Rok, Świętej Bożej Rodzicielki');
 insert into Dni_wolne values(2,'2020-01-06','Trzech Króli (Objawienie Pańskie)');
 insert into Dni_wolne values(3,'2020-04-12','Wielkanoc');

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 @Primary
@@ -23,13 +24,19 @@ class AdvanceRepositoryAdapter implements AdvanceRepository {
 
     @Override
     public Optional<Advance> findById(Integer id) {
-        return Optional.empty();
+        Optional<AdvanceDto> byId = advanceDtoRepository.findById(id);
+        if (byId.isEmpty())
+            return Optional.empty();
+
+        return Optional.of(mapper.toDomain(byId.get()));
     }
 
     @Override
     public List<Advance> findByEmployeeIdAndDate(Integer employeeId, LocalDate date) {
-        List<AdvanceDto> allByIdEmployeeAndDate = advanceDtoRepository.findAllByIdEmployeeAndDate(employeeId, date);
-        return null;
+        List<AdvanceDto> allByIdEmployeeAndDate = advanceDtoRepository.findAllByIdEmployeeAndDate(employeeId, date.getYear(), date.getMonth().getValue());
+        return allByIdEmployeeAndDate.stream()
+                .map(advanceDto -> mapper.toDomain(advanceDto))
+                .collect(Collectors.toList());
     }
 
     @Override
