@@ -8,12 +8,9 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -21,25 +18,15 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "dodatek")
+@Table(name = "rodzaj_dodatku")
 @Getter
 @ToString
-@Builder
-public class AdditionDto {
+public class AdditionTypeDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_dodatku")
+    @Column(name = "id_rodzaj_dodatku")
     private Integer id;
-    @Column(name = "id_pracownika")
-    private Integer idEmployee;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_rodzaj_dodatku")
-    private AdditionTypeDto additionTypeDto;
-    @Column(name = "kwota")
-    private BigDecimal amount;
-    @Column(name = "data")
-    private LocalDate date;
-    @Column(name = "inne")
-    private String otherInfo;
+    @Column(name = "nazwa")
+    private String name;
 
 }

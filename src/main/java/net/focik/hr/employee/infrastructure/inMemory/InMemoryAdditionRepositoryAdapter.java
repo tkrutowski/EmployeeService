@@ -37,11 +37,7 @@ public class InMemoryAdditionRepositoryAdapter implements AdditionRepository {
                 .filter(additionDto -> additionDto.getIdEmployee().equals(employeeId))
                 .filter(additionDto -> additionDto.getDate().getYear() == date.getYear())
                 .filter(additionDto -> additionDto.getDate().getMonth() == date.getMonth())
-                .map(additionDto -> jpaMapper.toDomain(additionDto, DataBaseAddition.getAdditionTypesHashMap().entrySet().stream()
-                        .filter(e -> additionDto.getIdAdditionType().equals(e.getKey()))
-                        .map(Map.Entry::getValue)
-                        .findFirst()
-                        .orElse("nie znaleziono")))
+                .map(additionDto -> jpaMapper.toDomain(additionDto))
                 .collect(Collectors.toList());
     }
     @Override

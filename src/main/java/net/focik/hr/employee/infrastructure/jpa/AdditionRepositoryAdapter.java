@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 @Primary
@@ -20,7 +21,6 @@ class AdditionRepositoryAdapter implements AdditionRepository {
     AdditionDtoRepository additionDtoRepository;
     JpaAdditionMapper mapper;
 
-
     @Override
     public Optional<Addition> findById(Integer id) {
         return Optional.empty();
@@ -28,8 +28,10 @@ class AdditionRepositoryAdapter implements AdditionRepository {
 
     @Override
     public List<Addition> findByEmployeeIdAndDate(Integer employeeId, LocalDate date) {
-        List<AdditionDto> allByIdEmployeeAndDate = additionDtoRepository.findAllByIdEmployeeAndDate(employeeId, date);
-        return null;
+        List<AdditionDto> allByIdEmployeeAndDate = additionDtoRepository.findAllByIdEmployeeAndDate(employeeId, date.getYear(), date.getMonth().getValue());
+        return allByIdEmployeeAndDate.stream()
+                .map(additionDto -> mapper.toDomain(additionDto))
+                .collect(Collectors.toList());
     }
 
     @Override
