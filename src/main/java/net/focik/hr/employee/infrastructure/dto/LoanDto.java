@@ -42,9 +42,8 @@ public class LoanDto {
     private BigDecimal installmentAmount;
     @Column(name = "inne")
     private String otherInfo;
-    //todo zmienić w bazie z bit na varchar
     @Enumerated(EnumType.STRING)
-    @Column(name = "czy_splacone")
+    @Column(name = "status")
     private LoanStatus loanStatus;
 
 }

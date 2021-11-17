@@ -14,7 +14,9 @@ public interface LoanRepository {
 
     Integer addLoanInstallment(LoanInstallment loanInstallment);
 
-    Optional<Loan> findById(Integer id);
+    Optional<Loan> findLoanById(Integer id);
+
+    Optional<LoanInstallment> findLoanInstallmentById(Integer id);
 
     List<LoanInstallment> findLoanInstallmentByEmployeeIdAndDate(Integer employeeId, LocalDate date);
 }

@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -60,9 +61,15 @@ class LoanRepositoryAdapter implements LoanRepository {
     }
 
     @Override
-    public List<LoanInstallment> findLoanInstallmentByEmployeeIdAndDate(Integer loanId, LocalDate date) {
-        List<LoanInstallmentDto> allByIdLoanAndDate = loanInstallmentDtoRepository.findAllByIdLoanAndDate(loanId, date);
-        return allByIdLoanAndDate.stream()
+    public List<LoanInstallment> findLoanInstallmentByEmployeeIdAndDate(Integer employeeId, LocalDate date) {
+        List<LoanDto> loansByIdEmployee = loanDtoRepository.findAllByIdEmployee(employeeId);
+        List<LoanInstallmentDto> loanInstallmentDtos = new ArrayList<>();
+        for (LoanDto dto : loansByIdEmployee ) {
+            loanInstallmentDtoRepository.findAllByIdLoanAndDate(dto.getId(), date.getYear(), date.getMonth().getValue()).stream()
+                    .forEach(loanInstallmentDto -> loanInstallmentDtos.add(loanInstallmentDto));
+        }
+
+        return loanInstallmentDtos.stream()
                 .map(l -> mapper.toDomain(l))
                 .collect(Collectors.toList());
     }

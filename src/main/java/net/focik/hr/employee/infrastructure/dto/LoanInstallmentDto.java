@@ -21,7 +21,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "pozyczka")
+@Table(name = "rata_pozyczki")
 @Getter
 @ToString
 @Builder
@@ -34,7 +34,7 @@ public class LoanInstallmentDto {
     private Integer idLoan;
     @Column(name = "kwota_raty")
     private BigDecimal amount;
-    @Column(name = "data_ratgy")
+    @Column(name = "data_raty")
     private LocalDate date;
     @Column(name = "wplata_wlasna")
     private Boolean isOwnRepayment;

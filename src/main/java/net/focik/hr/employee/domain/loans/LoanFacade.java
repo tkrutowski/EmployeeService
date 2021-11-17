@@ -12,8 +12,8 @@ public class LoanFacade {
 
     LoanService loanService;
 
-    public Integer addLoan(Loan loan, Integer idEmployee){
-        return loanService.addLoan(loan, idEmployee);
+    public Integer addLoan(Loan loan){
+        return loanService.addLoan(loan);
     }
 
     public Integer addLoanInstallment(LoanInstallment loanInstallment){

@@ -17,6 +17,13 @@ insert into rodzaj_dodatku(id_rodzaj_dodatku, nazwa) values (3,'trzeci rodzaj');
 insert into dodatek(id_dodatku, id_pracownika, id_rodzaj_dodatku, kwota, data, inne) values (1,1, 1, 150, '2020-11-22','pierwsza');
 insert into dodatek(id_dodatku, id_pracownika, id_rodzaj_dodatku, kwota, data, inne) values (2,1, 2, 1000, '2020-11-12','druga');
 
+insert into pozyczka(id_pozyczki, id_pracownika, nazwa, kwota, data, ile_pobierac, inne, status) values (1,1,'pierwsza',5000,'2020-11-05', 500,'brak','TO_PAY');
+insert into pozyczka(id_pozyczki, id_pracownika, nazwa, kwota, data, ile_pobierac, inne, status) values (2,2,'druga',15000,'2020-10-17', 1500,'brak','TO_PAY');
+insert into pozyczka(id_pozyczki, id_pracownika, nazwa, kwota, data, ile_pobierac, inne, status) values (3,1,'trzecia',3000,'2020-09-27', 300,'brak','TO_PAY');
+insert into rata_pozyczki(id_raty, id_pozyczki, kwota_raty, data_raty, wplata_wlasna) values (1,1,555,'2020-10-05',false);
+insert into rata_pozyczki(id_raty, id_pozyczki, kwota_raty, data_raty, wplata_wlasna) values (2,1,555,'2020-11-05',false);
+insert into rata_pozyczki(id_raty, id_pozyczki, kwota_raty, data_raty, wplata_wlasna) values (3,2,1300,'2020-11-05',false);
+insert into rata_pozyczki(id_raty, id_pozyczki, kwota_raty, data_raty, wplata_wlasna) values (4,3,250,'2020-11-05',false);
 
 insert into Dni_wolne values(1,'2020-01-01','Nowy Rok, Świętej Bożej Rodzicielki');
 insert into Dni_wolne values(2,'2020-01-06','Trzech Króli (Objawienie Pańskie)');
