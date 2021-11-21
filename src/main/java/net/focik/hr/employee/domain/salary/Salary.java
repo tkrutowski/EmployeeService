@@ -29,12 +29,12 @@ public class Salary {
 
 
 
-    public String getNumberOfHours(){
+    public String getWorkTimeAll(){
         int allMinutes = dayOffMinutesPay + dayOffMinutesFree + illnessMinutes80 + illnessMinutes100 + workRegularMinutes + workOvertime50Minutes + workOvertime100Minutes;
         StringBuilder builder= new StringBuilder();
         builder.append(allMinutes / 60);
         builder.append(":");
-        builder.append( allMinutes % 60);
+        builder.append(String.format("%02d", allMinutes % 60));
 
         return builder.toString();
     }

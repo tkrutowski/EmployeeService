@@ -1,5 +1,6 @@
 package net.focik.hr.employee.domain.workTimeRecords;
 
+import lombok.Builder;
 import lombok.Getter;
 import net.focik.hr.employee.domain.workTimeRecords.share.IllnessType;
 

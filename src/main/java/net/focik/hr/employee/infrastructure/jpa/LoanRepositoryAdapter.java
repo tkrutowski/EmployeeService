@@ -64,8 +64,9 @@ class LoanRepositoryAdapter implements LoanRepository {
     public List<LoanInstallment> findLoanInstallmentByEmployeeIdAndDate(Integer employeeId, LocalDate date) {
         List<LoanDto> loansByIdEmployee = loanDtoRepository.findAllByIdEmployee(employeeId);
         List<LoanInstallmentDto> loanInstallmentDtos = new ArrayList<>();
+        String dateFormat = date.getYear()+String.format("-%02d", date.getMonthValue());
         for (LoanDto dto : loansByIdEmployee ) {
-            loanInstallmentDtoRepository.findAllByIdLoanAndDate(dto.getId(), date.getYear(), date.getMonth().getValue()).stream()
+            loanInstallmentDtoRepository.findAllByIdLoanAndDate(dto.getId(), dateFormat).stream()
                     .forEach(loanInstallmentDto -> loanInstallmentDtos.add(loanInstallmentDto));
         }
 

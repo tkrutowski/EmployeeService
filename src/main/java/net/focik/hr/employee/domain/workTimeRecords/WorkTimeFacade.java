@@ -11,6 +11,7 @@ import java.util.List;
 public class WorkTimeFacade {
 
     WorkService workService;
+    DaysToWorkService daysToWorkService;
 
     public Integer addWorkTime(IWorkTime workTime) {
         return workService.addWorkTime(workTime);
@@ -26,5 +27,8 @@ public class WorkTimeFacade {
         return workService.findAllByIdEmployeeAndDate(idEmployee, date);
     }
 
+    public DaysToWork getDaysToWorkByDate(Integer year, Integer month){
+        return daysToWorkService.findDaysToWorkByDate(year, month);
+    }
 
 }

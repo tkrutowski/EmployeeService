@@ -52,7 +52,7 @@ public class ApiSalaryMapper {
         MonetaryAmountFormat amountFormat = MonetaryFormats.getAmountFormat(
                 AmountFormatQueryBuilder.of(new Locale("pl", "PL"))
 //                .set(AmountFormatParams.PATTERN, "###,###.## ¤")
-                .set(AmountFormatParams.PATTERN, "###,###.00 zł")
+                .set(AmountFormatParams.PATTERN, "###,##0.00 zł")
                 .build());
 
         return amountFormat.format(money);

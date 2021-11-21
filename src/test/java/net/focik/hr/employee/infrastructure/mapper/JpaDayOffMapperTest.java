@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class JpaDayOffMapperTest {
 
 
-    JpaDayOffMapper mapper = new JpaDayOffMapper();
+    JpaWorkMapper mapper = new JpaWorkMapper();
 
     @Test
     void toDto() {

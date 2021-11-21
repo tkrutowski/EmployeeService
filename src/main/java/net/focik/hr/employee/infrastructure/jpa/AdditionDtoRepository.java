@@ -9,7 +9,7 @@ import java.util.List;
 
 interface AdditionDtoRepository extends JpaRepository<AdditionDto, Integer> {
 
-    @Query(value = "select * from dodatek where id_pracownika = ?1 AND extract(year from data)= ?2  AND extract(month from data) = ?3",
+    @Query(value = "select * from dodatek where id_pracownika = ?1 AND data like ?2%",
             nativeQuery = true)
-    List<AdditionDto> findAllByIdEmployeeAndDate(Integer idEmployee, Integer year, Integer month);
+    List<AdditionDto> findAllByIdEmployeeAndDate(Integer idEmployee, String data);
 }

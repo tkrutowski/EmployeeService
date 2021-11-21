@@ -37,12 +37,12 @@ class DayOffTest {
         assertEquals(LocalTime.of(4,0),result);
     }
     @Test
-    void should_return_0_hours_0_minutes_when_dayoff2() {
+    void should_return_8_hours_0_minutes_when_dayoff2() {
         //when
         LocalTime result = dayOff2.WorkTimeAll();
 
         //then
-        assertEquals(LocalTime.of(0,0),result);
+        assertEquals(LocalTime.of(8,0),result);
     }
     @Test
     void should_return_8_hours_0_minutes_when_dayoff6() {
@@ -68,6 +68,6 @@ class DayOffTest {
         }
 
         //then
-        assertEquals(2160,numberOfMinutesAll);
+        assertEquals(3120,numberOfMinutesAll);
     }
 }

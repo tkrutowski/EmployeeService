@@ -62,13 +62,13 @@ class SalaryServiceTest {
     }
 
     @Test
-    void should_return_1440_dayOffMinutesFree() {
+    void should_return_960_dayOffMinutesFree() {
         //given
-        int EXPECTED = 1440;
+        int EXPECTED = 960;
         List<IWorkTime> list = new ArrayList<>();
         list.add(new DayOff(ID_EMPLOYEE, LocalDate.of(2021,11,5), DayOffType.FREE));
         list.add(new DayOff(ID_EMPLOYEE, LocalDate.of(2021,11,6), DayOffType.EDUCAIONAL));
-        list.add(new DayOff(ID_EMPLOYEE, LocalDate.of(2021,11,6), DayOffType.FREE));
+        list.add(new DayOff(ID_EMPLOYEE, LocalDate.of(2021,11,6), DayOffType.FATHERLY));
 
         //when
         salaryService.calculateMinutes(list);

@@ -28,7 +28,8 @@ class AdditionRepositoryAdapter implements AdditionRepository {
 
     @Override
     public List<Addition> findByEmployeeIdAndDate(Integer employeeId, LocalDate date) {
-        List<AdditionDto> allByIdEmployeeAndDate = additionDtoRepository.findAllByIdEmployeeAndDate(employeeId, date.getYear(), date.getMonth().getValue());
+        String dateFormat = date.getYear()+String.format("-%02d", date.getMonthValue());
+        List<AdditionDto> allByIdEmployeeAndDate = additionDtoRepository.findAllByIdEmployeeAndDate(employeeId, dateFormat);
         return allByIdEmployeeAndDate.stream()
                 .map(additionDto -> mapper.toDomain(additionDto))
                 .collect(Collectors.toList());

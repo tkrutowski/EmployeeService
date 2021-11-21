@@ -37,7 +37,7 @@ class SalaryTest {
         String EXPECTED = "208:10";
 
         //then
-        assertEquals(EXPECTED, salary.getNumberOfHours());
+        assertEquals(EXPECTED, salary.getWorkTimeAll());
     }
 
     @Test

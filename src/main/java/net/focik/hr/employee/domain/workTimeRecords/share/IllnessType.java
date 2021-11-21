@@ -24,6 +24,9 @@ public enum IllnessType {
     public String getDbValue() {
         return dbValue;
     }
+    public Integer getIdValue() {
+        return id;
+    }
 
     public float getPercent(){
         return percent;
@@ -49,6 +52,26 @@ public enum IllnessType {
                 return DOWN_TIME;
             default:
                 throw new IllegalArgumentException("Value [" + dbValue
+                        + "] not supported.");
+        }
+    }
+
+    public static IllnessType fromIdValue(Integer idValue) {
+        switch (idValue) {
+            case 1:
+                return ILLNESS_80;
+            case 2:
+                return ILLNESS_100;
+            case 3:
+                return INCIDENTIAL;
+            case 4:
+                return MOTHERLY;
+            case 5:
+                return CARE;
+            case 6:
+                return DOWN_TIME;
+            default:
+                throw new IllegalArgumentException("Value [" + idValue
                         + "] not supported.");
         }
     }

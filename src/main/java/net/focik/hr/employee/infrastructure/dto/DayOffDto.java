@@ -25,7 +25,7 @@ public class DayOffDto {
 
     @EmbeddedId
     private DayOffId dayOffId;
-    @Column(name = "id_rodzaj_choroby")
+    @Column(name = "id_rodzaj_urlopu")
     @Convert(converter = DayOffTypeConverter.class)
     private DayOffType dayOffType;
 }

@@ -35,6 +35,9 @@ public enum DayOffType {
     public Integer getPercent(){
         return percent;
     }
+    public Integer getIdValue(){
+        return id;
+    }
 
     public static DayOffType fromDbValue(String dbValue) {
         switch (dbValue) {
@@ -56,6 +59,30 @@ public enum DayOffType {
                 return OCCASIONAL;
             default:
                 throw new IllegalArgumentException("Value [" + dbValue
+                        + "] not supported.");
+        }
+    }
+
+    public static DayOffType fromIdValue(Integer idValue) {
+        switch (idValue) {
+            case 1:
+                return HALF_DAY;
+            case 2:
+                return REST;
+            case 3:
+                return FREE;
+            case 4:
+                return MOTHERLY;
+            case 5:
+                return EDUCAIONAL;
+            case 6:
+                return CARE;
+            case 7:
+                return FATHERLY;
+            case 8:
+                return OCCASIONAL;
+            default:
+                throw new IllegalArgumentException("Value [" + idValue
                         + "] not supported.");
         }
     }

@@ -23,6 +23,5 @@ public class CalculateSalaryService implements CalculateSalaryUseCase {
         Employee employee = employeeCommandFacade.getEmployee(idEmployee);
 
         return salaryFacade.calculateSalary(employee, salaryDate);
-
     }
 }

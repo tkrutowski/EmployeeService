@@ -1,7 +1,6 @@
 package net.focik.hr.employee.domain.workTimeRecords;
 
 import lombok.AllArgsConstructor;
-import net.focik.hr.employee.domain.Employee;
 import net.focik.hr.employee.domain.exceptions.WorkTimeNotValidException;
 import net.focik.hr.employee.domain.workTimeRecords.port.secondary.WorkTimeRepository;
 import org.springframework.stereotype.Service;
@@ -15,6 +14,7 @@ class WorkService {
 
     private WorkTimeRepository workTimeRepository;
 
+
     Integer addWorkTime(IWorkTime workTime) {
         validate(workTime);
         return workTimeRepository.add(workTime);
@@ -22,7 +22,7 @@ class WorkService {
 
 
     public List<IWorkTime> findAllByIdEmployeeAndDate(int idEmployee, LocalDate date) {
-        return workTimeRepository.findAllByIdEmployeeAndDate(idEmployee,date);
+        return workTimeRepository.findAllWorktimeByIdEmployeeAndDateYearMonth(idEmployee,date);
     }
 
     private void validate(IWorkTime w){
@@ -44,4 +44,6 @@ class WorkService {
     public Integer findWorkMinutesByIdEmployeeAndDate(Integer idEmployee, LocalDate date) {
         return null;
     }
+
+
 }

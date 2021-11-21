@@ -18,7 +18,7 @@ class SalaryFactory {
     private AdditionFacade additionFacade;
     private LoanFacade loanFacade;
     private WorkTimeFacade workTimeFacade;
-private SalaryService salaryService;
+    private SalaryService salaryService;
 
     Salary createSalary(Employee employee, LocalDate date, DaysToWork daysToWork) {
 
@@ -29,6 +29,8 @@ private SalaryService salaryService;
                 .additionsSum(additionFacade.getAdditionsSumByIdEmployeeAndDate(employee.getId(), date))
                 .loanInstallmentSum(loanFacade.getInstallmentLoansSumByIdEmployeeAndDate(employee.getId(), date))
                 .dayOffMinutesPay(salaryService.getDayOffMinutesPay())
+                .dayOffMinutesFree(salaryService.getDayOffMinutesFree())
+                .illnessMinutes100(salaryService.getIllnessMinutes100())
                 .illnessMinutes80(salaryService.getIllnessMinutes80())
                 .workRegularMinutes(salaryService.getWorkRegularMinutes())
                 .workOvertime50Minutes(salaryService.getWorkOvertime50Minutes())
@@ -36,10 +38,10 @@ private SalaryService salaryService;
 
                 .forDayOff(salaryService.calculateForDayOff(employee.getRateRegularValueByDate(date), employee.getRateRegularTypeByDate(date), daysToWork.getHoursToWork()))
                 .forIllness80(salaryService.calculateForIllness80(employee.getRateRegularValueByDate(date), employee.getRateRegularTypeByDate(date), daysToWork.getHoursToWork()))
-                .forIllness100(salaryService.calculateForIllness80(employee.getRateRegularValueByDate(date), employee.getRateRegularTypeByDate(date), daysToWork.getHoursToWork()))
+                .forIllness100(salaryService.calculateForIllness100(employee.getRateRegularValueByDate(date), employee.getRateRegularTypeByDate(date), daysToWork.getHoursToWork()))
                 .forRegularRate(salaryService.calculateForWorkRegular(employee.getRateRegularValueByDate(date), employee.getRateRegularTypeByDate(date), daysToWork.getHoursToWork()))
                 .forOvertime50(salaryService.calculateForWorkOvertime50(employee.getRateOvertimeValueByDate(date)))
-                .forOvertime100(salaryService.calculateForWorkOvertime50(employee.getRateOvertimeValueByDate(date)))
+                .forOvertime100(salaryService.calculateForWorkOvertime100(employee.getRateOvertimeValueByDate(date)))
                 .build();
         return salary;
     }

@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class JpaIllnessMapperTest {
 
-    JpaIllnessMapper mapper = new JpaIllnessMapper();
+    JpaWorkMapper mapper = new JpaWorkMapper();
 
     @Test
     void toDto() {

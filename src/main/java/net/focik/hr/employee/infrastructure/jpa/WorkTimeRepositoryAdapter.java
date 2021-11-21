@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,6 +63,14 @@ class WorkTimeRepositoryAdapter implements WorkTimeRepository {
 
     @Override
     public List<IWorkTime> findAllWorktimeByIdEmployeeAndDateYearMonth(int idEmployee, LocalDate date) {
-        return null;
+        List<IWorkTime> iWorkTimes = new ArrayList<>();
+        String dateFormat = date.getYear()+String.format("-%02d", date.getMonthValue());
+        workDtoRepository.findAllByIdEmployeeAndDate(idEmployee, dateFormat).stream()
+                .forEach(workDto -> iWorkTimes.add(mapper.toDomain(workDto)));
+        dayOffDtoRepository.findAllByIdEmployeeAndDate(idEmployee, dateFormat).stream()
+                .forEach(dayOffDto -> iWorkTimes.add(mapper.toDomain(dayOffDto)));
+        illnessDtoRepository.findAllByIdEmployeeAndDate(idEmployee, dateFormat).stream()
+                .forEach(illnessDto -> iWorkTimes.add(mapper.toDomain(illnessDto)));
+        return iWorkTimes;
     }
 }
