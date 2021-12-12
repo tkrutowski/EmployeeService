@@ -18,8 +18,6 @@ class DaysToWorkService {
 
         if (byDate.isEmpty())
             throw new DaysToWorkNotExistException(year, month);
-
-
         return byDate.get();
     }
 }

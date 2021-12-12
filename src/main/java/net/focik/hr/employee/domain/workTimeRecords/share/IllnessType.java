@@ -4,7 +4,7 @@ package net.focik.hr.employee.domain.workTimeRecords.share;
 public enum IllnessType {
 
     ILLNESS_80("chorobowy 80%", 1,0.8f),
-    ILLNESS_100("horobowy 100%", 2,1),
+    ILLNESS_100("chorobowy 100%", 2,1),
     INCIDENTIAL("wypadkowy", 3,1),
     MOTHERLY("macierzyński", 4,1),
     CARE("opiekuńczy", 5,0.8f),
