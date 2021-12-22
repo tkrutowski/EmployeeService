@@ -32,14 +32,19 @@ class WorkTimeRepositoryAdapter implements WorkTimeRepository {
     JpaWorkMapper mapper;
 
     @Override
-    public Integer add(IWorkTime workTime) {
-        return null;
+    public void add(IWorkTime workTime) {
+        if (workTime instanceof Work)
+            workDtoRepository.save(mapper.toDto((Work) workTime));
+        else if (workTime instanceof Illness)
+            illnessDtoRepository.save(mapper.toDto((Illness) workTime));
+        else if (workTime instanceof DayOff)
+            dayOffDtoRepository.save(mapper.toDto((DayOff) workTime));
     }
 
     @Override
     public Optional<Work> findWorkById(WorkId id) {
         Optional<WorkDto> byId = workDtoRepository.findById(id);
-        if(byId.isEmpty())
+        if (byId.isEmpty())
             return Optional.empty();
 
         return Optional.of(mapper.toDomain(byId.get()));
@@ -48,23 +53,23 @@ class WorkTimeRepositoryAdapter implements WorkTimeRepository {
     @Override
     public Optional<Illness> findIllnessById(IllnessId id) {
         Optional<IllnessDto> byId = illnessDtoRepository.findById(id);
-        if(byId.isEmpty())
-        return Optional.empty();
+        if (byId.isEmpty())
+            return Optional.empty();
         return Optional.of(mapper.toDomain(byId.get()));
     }
 
     @Override
     public Optional<DayOff> findDayOffById(DayOffId id) {
         Optional<DayOffDto> byId = dayOffDtoRepository.findById(id);
-        if(byId.isEmpty())
+        if (byId.isEmpty())
             return Optional.empty();
         return Optional.of(mapper.toDomain(byId.get()));
     }
 
     @Override
-    public List<IWorkTime> findAllWorktimeByIdEmployeeAndDateYearMonth(int idEmployee, LocalDate date) {
+    public List<IWorkTime> findAllWorkTimeByIdEmployeeAndDateYearMonth(int idEmployee, LocalDate date) {
         List<IWorkTime> iWorkTimes = new ArrayList<>();
-        String dateFormat = date.getYear()+String.format("-%02d", date.getMonthValue());
+        String dateFormat = date.getYear() + String.format("-%02d", date.getMonthValue());
         workDtoRepository.findAllByIdEmployeeAndDate(idEmployee, dateFormat).stream()
                 .forEach(workDto -> iWorkTimes.add(mapper.toDomain(workDto)));
         dayOffDtoRepository.findAllByIdEmployeeAndDate(idEmployee, dateFormat).stream()

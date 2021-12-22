@@ -5,6 +5,6 @@ import net.focik.hr.employee.domain.workTimeRecords.IWorkTime;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface GetWokTimeRecordsUseCase {
+public interface GetWorkTimeRecordsUseCase {
     List<IWorkTime> getWorkTimeByEmployeeAndDate(Integer idEmployee, LocalDate date);
 }

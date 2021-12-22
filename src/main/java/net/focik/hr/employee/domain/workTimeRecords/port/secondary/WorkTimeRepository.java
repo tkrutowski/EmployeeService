@@ -15,11 +15,11 @@ import java.util.Optional;
 
 @Component
 public interface WorkTimeRepository {
-    Integer add(IWorkTime  workTime);
+    void add(IWorkTime  workTime);
 
     Optional<Work> findWorkById(WorkId id);
 
     Optional<Illness> findIllnessById(IllnessId id);
     Optional<DayOff> findDayOffById(DayOffId id);
-    List<IWorkTime> findAllWorktimeByIdEmployeeAndDateYearMonth(int idEmployee, LocalDate date);
+    List<IWorkTime> findAllWorkTimeByIdEmployeeAndDateYearMonth(int idEmployee, LocalDate date);
 }

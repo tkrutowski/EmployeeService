@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @Component
@@ -13,8 +14,8 @@ public class WorkTimeFacade {
     WorkService workService;
     DaysToWorkService daysToWorkService;
 
-    public Integer addWorkTime(IWorkTime workTime) {
-        return workService.addWorkTime(workTime);
+    public void addWorkTime(IWorkTime workTime) {
+        workService.addWorkTime(workTime);
     }
 
     /**
@@ -29,6 +30,10 @@ public class WorkTimeFacade {
 
     public DaysToWork getDaysToWorkByDate(Integer year, Integer month){
         return daysToWorkService.findDaysToWorkByDate(year, month);
+    }
+
+    public Map<Integer, String> getDayOffTypeMap(){
+        return workService.getDayOffTypeMap();
     }
 
 }
