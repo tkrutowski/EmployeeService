@@ -1,7 +1,6 @@
 package net.focik.hr.employee.domain;
 
 import lombok.AllArgsConstructor;
-import net.focik.hr.employee.query.EmployeeQueryDto;
 import org.springframework.stereotype.Component;
 
 @AllArgsConstructor

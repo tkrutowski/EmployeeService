@@ -1,6 +1,7 @@
 package net.focik.hr.employee.domain.workTimeRecords;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import net.focik.hr.employee.domain.exceptions.WorkTimeAlreadyExistException;
 import net.focik.hr.employee.domain.exceptions.WorkTimeNotValidException;
 import net.focik.hr.employee.domain.workTimeRecords.port.secondary.WorkTimeRepository;
@@ -18,10 +19,10 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 class WorkService {
 
-    private WorkTimeRepository workTimeRepository;
+    final private WorkTimeRepository workTimeRepository;
 
 
     void addWorkTime(IWorkTime workTime) {
@@ -74,7 +75,8 @@ class WorkService {
                 throw new NullPointerException("StopTime can't be null.");
             if (work.getStartTime().isAfter(work.getStopTime()))
                 throw new WorkTimeNotValidException("Czas zakończenia nie może być wcześniejszy niż czas rozpoczęcia.");
-        }
+        }else
+            throw new WorkTimeNotValidException("IWorkTime is not a Work class.");
     }
 
 

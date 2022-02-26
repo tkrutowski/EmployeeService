@@ -4,33 +4,33 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.focik.hr.employee.api.dto.SalaryDto;
 import net.focik.hr.employee.api.mapper.ApiSalaryMapper;
-import net.focik.hr.employee.domain.EmployeeQueryFacade;
 import net.focik.hr.employee.domain.port.primary.CalculateSalaryUseCase;
 import net.focik.hr.employee.domain.salary.Salary;
-import net.focik.hr.employee.query.EmployeeQueryDto;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Log4j2
 @RestController
 @AllArgsConstructor
 //@NoArgsConstructor
 @RequestMapping("/api/employee/salary")
+//@CrossOrigin(origins = "http://localhost:8080", methods = RequestMethod.GET)
 class SalaryController {
 
     private CalculateSalaryUseCase calculateSalaryUseCase;
     private ApiSalaryMapper salaryMapper;
 
-
+    @CrossOrigin(origins = "http://localhost:8080", methods = RequestMethod.GET)
     @GetMapping("/{idEmployee}")
     ResponseEntity<SalaryDto> calculateSalaryByEmployeeIdAndDate(@PathVariable int idEmployee, @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
         int i = 0;

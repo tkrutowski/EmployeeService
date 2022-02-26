@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import net.focik.hr.employee.domain.exceptions.EmployeeNotExistException;
 import net.focik.hr.employee.domain.exceptions.EmployeeNotValidException;
 import net.focik.hr.employee.domain.port.secondary.EmployeeCommandRepository;
-import net.focik.hr.employee.query.EmployeeQueryDto;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
