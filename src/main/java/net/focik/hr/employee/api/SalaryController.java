@@ -24,13 +24,13 @@ import java.time.LocalDate;
 @AllArgsConstructor
 //@NoArgsConstructor
 @RequestMapping("/api/employee/salary")
-//@CrossOrigin(origins = "http://localhost:8080", methods = RequestMethod.GET)
+//@CrossOrigin
 class SalaryController {
 
     private CalculateSalaryUseCase calculateSalaryUseCase;
     private ApiSalaryMapper salaryMapper;
 
-    @CrossOrigin(origins = "http://localhost:8080", methods = RequestMethod.GET)
+//    @CrossOrigin(origins = "http://localhost:8080", methods = RequestMethod.GET)
     @GetMapping("/{idEmployee}")
     ResponseEntity<SalaryDto> calculateSalaryByEmployeeIdAndDate(@PathVariable int idEmployee, @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
         int i = 0;

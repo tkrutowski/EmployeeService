@@ -36,8 +36,8 @@ import java.util.stream.Collectors;
 @Log4j2
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/worktime")
-@CrossOrigin
+@RequestMapping("/api/employee/worktime")
+//@CrossOrigin
 class WorkTimeCommandController {
 
     private GetWorkTimeRecordsUseCase getWorkTimeRecordsUseCase;

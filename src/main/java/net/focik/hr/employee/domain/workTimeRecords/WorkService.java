@@ -56,7 +56,7 @@ class WorkService {
 
         Optional<Illness> illnessById = workTimeRepository.findIllnessById(new IllnessId(id, date));
         if (illnessById.isPresent())
-            throw new WorkTimeAlreadyExistException("W dniu " + date.toString() + " pracownik był na chorobowym.");
+            throw new WorkTimeAlreadyExistException("W dniu " + date.toString() + " pracownik był na zasiłku chorobowym.");
 
         Optional<DayOff> dayOffById = workTimeRepository.findDayOffById(new DayOffId(id, date));
         if (dayOffById.isPresent())
@@ -75,6 +75,22 @@ class WorkService {
                 throw new NullPointerException("StopTime can't be null.");
             if (work.getStartTime().isAfter(work.getStopTime()))
                 throw new WorkTimeNotValidException("Czas zakończenia nie może być wcześniejszy niż czas rozpoczęcia.");
+        }else if (w instanceof Illness) {
+            Illness illness = (Illness) w;
+            if (illness.getIdEmployee() == 0)
+                throw new WorkTimeNotValidException("Musisz wybrać pracownika.");
+            if (illness.getDate() == null)
+                throw new NullPointerException("Date can't be null.");
+            if (illness.getIllnessType().getIdValue() == 0)
+                throw new WorkTimeNotValidException("Musisz wybrać rodzaj zasiłku chorobowegoe.");
+        }else if (w instanceof DayOff) {
+            DayOff dayOff = (DayOff) w;
+            if (dayOff.getIdEmployee() == 0)
+                throw new WorkTimeNotValidException("Musisz wybrać pracownika.");
+            if (dayOff.getDate() == null)
+                throw new NullPointerException("Date can't be null.");
+            if (dayOff.getDayOffType().getIdValue() == 0)
+                throw new WorkTimeNotValidException("Musisz wybrać rodzaj urlopu.");
         }else
             throw new WorkTimeNotValidException("IWorkTime is not a Work class.");
     }

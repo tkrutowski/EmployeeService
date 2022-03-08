@@ -24,16 +24,6 @@ class WorkServiceTest {
     }
 
     @Test
-    void should_throw_WorkTimeNotValidException_when_no_work_class() {
-        //given
-        Illness w1 = new Illness(1,LocalDate.of(2020,12,20), IllnessType.ILLNESS_100);
-
-        //when
-        WorkTimeNotValidException exception = assertThrows(WorkTimeNotValidException.class, () ->
-                workService.addWorkTime(w1));
-        assertEquals("IWorkTime is not a Work class.", exception.getMessage());
-    }
-    @Test
     void should_throw_NullPointerException_when_starttime_is_null() {
         //given
         Work w1 = new Work(1, LocalDate.of(2000,12,12), null, null);

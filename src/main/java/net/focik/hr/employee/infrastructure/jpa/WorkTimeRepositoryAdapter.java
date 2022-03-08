@@ -70,6 +70,7 @@ class WorkTimeRepositoryAdapter implements WorkTimeRepository {
     public List<IWorkTime> findAllWorkTimeByIdEmployeeAndDateYearMonth(int idEmployee, LocalDate date) {
         List<IWorkTime> iWorkTimes = new ArrayList<>();
         String dateFormat = date.getYear() + String.format("-%02d", date.getMonthValue());
+//        workDtoRepository.findAllByIdEmployeeAndDate(idEmployee, date).stream()
         workDtoRepository.findAllByIdEmployeeAndDate(idEmployee, dateFormat).stream()
                 .forEach(workDto -> iWorkTimes.add(mapper.toDomain(workDto)));
         dayOffDtoRepository.findAllByIdEmployeeAndDate(idEmployee, dateFormat).stream()

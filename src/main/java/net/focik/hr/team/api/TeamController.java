@@ -22,7 +22,6 @@ class TeamController {
         return facade.getTeamById(id);
     }
 
-    @CrossOrigin
     @GetMapping
     ResponseEntity<List<TeamDto>> getTeams() {
         int i=0;
@@ -30,7 +29,6 @@ class TeamController {
         return new ResponseEntity<>(teamDtoList, HttpStatus.OK);
     }
 
-//    @CrossOrigin
     @GetMapping("/active")
     ResponseEntity<List<TeamDto>> getScopeGasConnection(@RequestParam(name = "isActive", defaultValue = "true") Boolean isActive) {
         int i = 0;
