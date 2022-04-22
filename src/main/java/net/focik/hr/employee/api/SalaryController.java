@@ -22,9 +22,8 @@ import java.time.LocalDate;
 @Log4j2
 @RestController
 @AllArgsConstructor
-//@NoArgsConstructor
 @RequestMapping("/api/employee/salary")
-//@CrossOrigin
+@CrossOrigin
 class SalaryController {
 
     private CalculateSalaryUseCase calculateSalaryUseCase;

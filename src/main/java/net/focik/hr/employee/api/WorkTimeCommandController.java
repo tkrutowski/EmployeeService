@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/employee/worktime")
-//@CrossOrigin
+@CrossOrigin
 class WorkTimeCommandController {
 
     private GetWorkTimeRecordsUseCase getWorkTimeRecordsUseCase;

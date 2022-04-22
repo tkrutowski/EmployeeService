@@ -44,4 +44,6 @@ public class EmployeeDto {
 
     private LocalDate rateOvertimeDateFrom;
     private double rateOvertimeValue;
+
+    private int idTeam;
 }

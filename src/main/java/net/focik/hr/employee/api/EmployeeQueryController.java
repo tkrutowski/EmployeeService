@@ -21,7 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 //@NoArgsConstructor
 @RequestMapping("/api/employee/query")
-//@CrossOrigin
+@CrossOrigin
 class EmployeeQueryController {
 
     private EmployeeQueryFacade employeeFacade;

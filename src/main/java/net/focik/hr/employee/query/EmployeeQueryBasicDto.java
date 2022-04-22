@@ -1,8 +1,6 @@
 package net.focik.hr.employee.query;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import net.focik.hr.employee.domain.share.RateType;
 
 import javax.persistence.Column;
@@ -16,7 +14,10 @@ import javax.persistence.Table;
 import java.time.LocalDate;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
+@Setter
+@Builder
 public class EmployeeQueryBasicDto {
 
     private Integer id;
@@ -28,6 +29,7 @@ public class EmployeeQueryBasicDto {
 //    private String zipCode;
 //    private String telNumber;
 //    private String otherInfo;
-//    private String email;
+    private String email;
+    private int idTeam;
 
 }

@@ -44,6 +44,7 @@ public class Employee {
     private WorkTime workTime;
     private EmployeeType employeeType;
     private Address address;
+    private Integer idTeam;
 
     void setRateRegular(Set<RateRegular> rateRegular) {
         this.rateRegular = rateRegular;

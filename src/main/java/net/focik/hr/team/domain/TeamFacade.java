@@ -22,4 +22,5 @@ public class TeamFacade {
     public TeamDto getTeamById(Integer id){
         return teamService.getById(id);
     }
+
 }

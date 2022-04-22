@@ -85,5 +85,7 @@ public class EmployeeDto {
 
     @Column(name = "email")
     private String email;
+
+    private int idTeam;
 }
 
