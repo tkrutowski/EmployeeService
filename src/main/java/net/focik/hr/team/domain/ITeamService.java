@@ -16,5 +16,5 @@ interface ITeamService {
     List<TeamDto> getAll();
 
 
-
+    List<TeamDto> getAllTeamsWithMembers();
 }

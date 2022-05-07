@@ -23,4 +23,7 @@ public class TeamFacade {
         return teamService.getById(id);
     }
 
+    public List<TeamDto> getAllTeamsWithMembers() {
+        return teamService.getAllTeamsWithMembers();
+    }
 }

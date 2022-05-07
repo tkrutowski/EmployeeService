@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -15,4 +17,5 @@ public class TeamDto {
 
     private Integer idTeam;
     private String name;
+    private List<Integer> idMembers;
 }
