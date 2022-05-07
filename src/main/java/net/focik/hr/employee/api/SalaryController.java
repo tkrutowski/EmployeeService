@@ -6,24 +6,23 @@ import net.focik.hr.employee.api.dto.SalaryDto;
 import net.focik.hr.employee.api.mapper.ApiSalaryMapper;
 import net.focik.hr.employee.domain.port.primary.CalculateSalaryUseCase;
 import net.focik.hr.employee.domain.salary.Salary;
+import net.focik.hr.employee.domain.utils.PrivilegeHelper;
+import net.focik.hr.team.domain.exceptions.AccessDeniedException;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import static net.focik.hr.employee.domain.utils.PrivilegeConstant.AUTHORITIES;
 
 @Log4j2
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/employee/salary")
-@CrossOrigin
+//@CrossOrigin
 class SalaryController {
 
     private CalculateSalaryUseCase calculateSalaryUseCase;
@@ -31,10 +30,18 @@ class SalaryController {
 
 //    @CrossOrigin(origins = "http://localhost:8080", methods = RequestMethod.GET)
     @GetMapping("/{idEmployee}")
-    ResponseEntity<SalaryDto> calculateSalaryByEmployeeIdAndDate(@PathVariable int idEmployee, @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
+    ResponseEntity<SalaryDto> calculateSalaryByEmployeeIdAndDate(@PathVariable int idEmployee,
+                                                                 @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
+                                                                 @RequestHeader(name = AUTHORITIES, required = false) String[] roles) {
         int i = 0;
+
         log.info("Try calculate salary for employee id: " + idEmployee + " in " + date.toString());
 
+        final List<String> accessRole = List.of("HR_SALARIES_READ_ALL","HR_SALARIES_READ");
+
+        if(!PrivilegeHelper.checkAccess(List.of(roles), accessRole)){
+            throw new AccessDeniedException();
+        }
 //        if (!isValid(idEmployee, date))
 //            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 
