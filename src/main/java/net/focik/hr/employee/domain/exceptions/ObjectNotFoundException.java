@@ -3,10 +3,9 @@ package net.focik.hr.employee.domain.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-//@ResponseStatus(value= HttpStatus.CONFLICT)
-public class ObjectAlreadyExistException extends RuntimeException {
-
-    public ObjectAlreadyExistException(String message) {
+//@ResponseStatus(value= HttpStatus.NOT_FOUND)
+public class ObjectNotFoundException extends RuntimeException {
+    public ObjectNotFoundException(String message) {
         super(message);
     }
 }
