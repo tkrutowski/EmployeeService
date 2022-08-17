@@ -1,15 +1,12 @@
 package net.focik.hr.employee.domain;
 
 import lombok.AllArgsConstructor;
-import net.focik.hr.employee.domain.exceptions.EmployeeNotExistException;
+import net.focik.hr.employee.domain.exceptions.EmployeeNotFoundException;
 import net.focik.hr.employee.domain.port.secondary.EmployeeCommandRepository;
 import net.focik.hr.employee.domain.port.secondary.RateRegularRepository;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 class EmployeeFactory {
@@ -24,7 +21,7 @@ class EmployeeFactory {
         Optional<Employee> employee = employeeCommandRepository.findById(id);
 
         if(employee.isEmpty())
-            throw  new EmployeeNotExistException(id);
+            throw  new EmployeeNotFoundException(id);
 
         employee.get()
                 .setRateRegular(new HashSet<>(rateRegularRepository.findRateRegularByEmployeeId(id)));

@@ -1,11 +1,8 @@
 package net.focik.hr.employee.domain.salary;
 
 import net.focik.hr.employee.domain.Employee;
-import net.focik.hr.employee.domain.EmployeeCommandFacade;
-import net.focik.hr.employee.domain.advance.AdvanceFacade;
-import net.focik.hr.employee.domain.advance.port.secondary.AdvanceRepository;
+import net.focik.hr.employee.domain.EmployeeFacade;
 import net.focik.hr.employee.domain.share.RateType;
-import net.focik.hr.employee.infrastructure.inMemory.InMemoryAdvanceRepositoryAdapter;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +23,7 @@ class SalaryFacadeH2Test {
     @Autowired
     SalaryFacade salaryFacade;
     @Autowired
-    EmployeeCommandFacade commandFacade;
+    EmployeeFacade commandFacade;
     Employee employee;
     Salary salary;
 
@@ -41,7 +38,7 @@ class SalaryFacadeH2Test {
         final BigDecimal EXPECTED = new BigDecimal("4160");
 
         //when
-        BigDecimal result = employee.getRateRegularValueByDate(CALCULATE_SALARY_DATE);
+        BigDecimal result = employee.getRateRegularByDate(CALCULATE_SALARY_DATE).getRateValue();
 
         //then
         assertEquals(EXPECTED.doubleValue(), result.doubleValue());
@@ -53,7 +50,7 @@ class SalaryFacadeH2Test {
         final BigDecimal EXPECTED = new BigDecimal("26");
 
         //when
-        BigDecimal result = employee.getRateOvertimeValueByDate(CALCULATE_SALARY_DATE);
+        BigDecimal result = employee.getRateOvertimeByDate(CALCULATE_SALARY_DATE).getRateValue();
 
         //then
         assertEquals(EXPECTED.doubleValue(), result.doubleValue());
@@ -63,7 +60,7 @@ class SalaryFacadeH2Test {
     void should_return_PER_MONTH_rateType() {
 
         //when
-        RateType result = employee.getRateRegularTypeByDate(CALCULATE_SALARY_DATE);
+        RateType result = employee.getRateRegularByDate(CALCULATE_SALARY_DATE).getRateType();
 
         //then
         assertEquals(RateType.PER_MONTH, result);

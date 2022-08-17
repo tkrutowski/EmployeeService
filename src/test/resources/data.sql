@@ -1,13 +1,13 @@
 
 
-INSERT INTO teams(id_team, name) values (1, 'Tomek');
-INSERT INTO teams(id_team, name) values (2, 'Darek');
-INSERT INTO teams(id_team, name) values (3, 'Adam');
+INSERT INTO teams(id_team, name, is_active) values (1, 'Tomek', true);
+INSERT INTO teams(id_team, name,is_active) values (2, 'Darek', true);
+INSERT INTO teams(id_team, name,is_active) values (3, 'Adam', true);
 
-insert into pracownik(id_pracownika, imie, nazwisko, ulica, miasto, kod, urlop_pozostaly, wymiar_urlopu, numer, inne, zatrudniony, data_zatrudnienia, data_zwolnienia, data_nast_badania_lek, data_nast_szkolenia_bhp, email, pol_etatu, czy_kadra)
-values (222, 'Tomasz','Krutowski','Szyperska','Poznań','61-754', 2, 26, '662262662','brak','HIRED','2007-07-19',null,'2024-12-18','2022-09-08','tomek@focik.net','FULL_TIME','WORKER');
-insert into pracownik(id_pracownika, imie, nazwisko, ulica, miasto, kod, urlop_pozostaly, wymiar_urlopu, numer, inne, zatrudniony, data_zatrudnienia, data_zwolnienia, data_nast_badania_lek, data_nast_szkolenia_bhp, email, pol_etatu, czy_kadra)
-values (22, 'Adam','Krutowski','Szyperska','Poznań','61-754', 2, 26, '662262662','brak','HIRED','2007-07-19',null,'2024-12-18','2022-09-08','tomek@focik.net','FULL_TIME','WORKER');
+insert into pracownik(id_pracownika, imie, nazwisko, ulica, miasto, kod, urlop_pozostaly, wymiar_urlopu, numer, inne, zatrudniony, data_zatrudnienia, data_zwolnienia, data_nast_badania_lek, data_nast_szkolenia_bhp, email, pol_etatu, czy_kadra,id_team)
+values (222, 'Tomasz','Krutowski','Szyperska','Poznań','61-754', 2, 26, '662262662','brak','HIRED','2007-07-19',null,'2024-12-18','2022-09-08','tomek@focik.net','FULL_TIME','WORKER',0);
+insert into pracownik(id_pracownika, imie, nazwisko, ulica, miasto, kod, urlop_pozostaly, wymiar_urlopu, numer, inne, zatrudniony, data_zatrudnienia, data_zwolnienia, data_nast_badania_lek, data_nast_szkolenia_bhp, email, pol_etatu, czy_kadra,id_team)
+values (22, 'Adam','Krutowski','Szyperska','Poznań','61-754', 2, 26, '662262662','brak','HIRED','2007-07-19',null,'2024-12-18','2022-09-08','tomek@focik.net','FULL_TIME','WORKER',0);
 
 insert into stawka (id_stawki, id_pracownika, godz_mies, data_od, stawka) values (1, 22, 'PER_MONTH', '2015-02-01',2700);
 insert into stawka (id_stawki, id_pracownika, godz_mies, data_od, stawka) values (2, 22, 'PER_MONTH', '2017-09-01',2700);

@@ -7,7 +7,7 @@ import net.focik.hr.employee.api.mapper.ApiSalaryMapper;
 import net.focik.hr.employee.domain.port.primary.CalculateSalaryUseCase;
 import net.focik.hr.employee.domain.salary.Salary;
 import net.focik.hr.employee.domain.utils.PrivilegeHelper;
-import net.focik.hr.team.domain.exceptions.AccessDeniedException;
+import net.focik.hr.utils.exceptions.AccessDeniedException;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,22 +28,21 @@ class SalaryController {
     private CalculateSalaryUseCase calculateSalaryUseCase;
     private ApiSalaryMapper salaryMapper;
 
-//    @CrossOrigin(origins = "http://localhost:8080", methods = RequestMethod.GET)
     @GetMapping("/{idEmployee}")
     ResponseEntity<SalaryDto> calculateSalaryByEmployeeIdAndDate(@PathVariable int idEmployee,
                                                                  @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
                                                                  @RequestHeader(name = AUTHORITIES, required = false) String[] roles) {
-        int i = 0;
 
         log.info("Try calculate salary for employee id: " + idEmployee + " in " + date.toString());
 
-        final List<String> accessRole = List.of("HR_SALARIES_READ_ALL","HR_SALARIES_READ");
+        final List<String> accessRole = List.of("ROLE_ADMIN", "HR_SALARIES_READ_ALL","HR_SALARIES_READ");
 
         if(!PrivilegeHelper.checkAccess(List.of(roles), accessRole)){
             throw new AccessDeniedException();
         }
-//        if (!isValid(idEmployee, date))
-//            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+
+        if (!isValid(idEmployee, date))
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 
         Salary calculatedSalary = calculateSalaryUseCase.calculate(idEmployee, date);
 

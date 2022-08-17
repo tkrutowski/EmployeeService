@@ -3,6 +3,7 @@ package net.focik.hr.employee.api.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
+import net.focik.hr.employee.domain.share.EmploymentStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -33,7 +34,6 @@ public class EmployeeDto {
     private String workTime;
 
     private String employeeType;
-
     private String city;
     private String street;
     private String zip;
@@ -46,4 +46,6 @@ public class EmployeeDto {
     private double rateOvertimeValue;
 
     private int idTeam;
+
+    private String pesel;
 }

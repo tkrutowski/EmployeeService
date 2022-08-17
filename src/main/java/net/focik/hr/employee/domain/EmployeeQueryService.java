@@ -1,7 +1,7 @@
 package net.focik.hr.employee.domain;
 
 import lombok.AllArgsConstructor;
-import net.focik.hr.employee.domain.exceptions.EmployeeNotExistException;
+import net.focik.hr.employee.domain.exceptions.EmployeeNotFoundException;
 import net.focik.hr.employee.domain.port.secondary.EmployeeQueryRepository;
 import net.focik.hr.employee.domain.share.EmploymentStatus;
 import net.focik.hr.employee.query.EmployeeQueryBasicDto;
@@ -19,7 +19,7 @@ class EmployeeQueryService {
         Optional<EmployeeQueryBasicDto> byId = employeeQueryRepository.findById(id);
 
         if (byId.isEmpty())
-            throw new EmployeeNotExistException(id);
+            throw new EmployeeNotFoundException(id);
 
         return byId.get();
     }

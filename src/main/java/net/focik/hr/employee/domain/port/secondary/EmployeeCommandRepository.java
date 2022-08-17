@@ -8,5 +8,7 @@ import java.util.Optional;
 @Component
 public interface EmployeeCommandRepository {
     Integer add(Employee e);
+    Employee update(Employee e);
     Optional<Employee> findById(Integer id);
+    void delete(Integer id);
 }

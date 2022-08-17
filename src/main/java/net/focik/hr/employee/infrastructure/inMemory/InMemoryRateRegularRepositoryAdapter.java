@@ -3,7 +3,7 @@ package net.focik.hr.employee.infrastructure.inMemory;
 import lombok.extern.java.Log;
 import net.focik.hr.employee.domain.RateRegular;
 import net.focik.hr.employee.domain.port.secondary.RateRegularRepository;
-import net.focik.hr.employee.infrastructure.dto.RateRegularDto;
+import net.focik.hr.employee.infrastructure.dto.RateRegularDbDto;
 import net.focik.hr.employee.infrastructure.mapper.JpaRateMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
@@ -20,20 +20,20 @@ import java.util.Optional;
 @Profile({"test"})
 @Log
 public class InMemoryRateRegularRepositoryAdapter implements RateRegularRepository {
-    private Map<Integer, RateRegularDto> rateRegularHashMap = new HashMap<>();
+    private Map<Integer, RateRegularDbDto> rateRegularHashMap = new HashMap<>();
     private JpaRateMapper jpaMapper = new JpaRateMapper();
     public int getSize(){
         return rateRegularHashMap.size();
     }
 
    @Override
-    public Integer add(RateRegular rate, Integer idEmployee) {
+    public RateRegular add(RateRegular rate, Integer idEmployee) {
         log.info("Try add into inMemoryDb rate: "+rate.toString());
         Integer id = rateRegularHashMap.size() + 1;
 //        rate.setIdRate(id);
         rateRegularHashMap.put(id, jpaMapper.toDto(rate, idEmployee));
         log.info("Succssec id = " + rate.getIdRate());
-        return rate.getIdRate();
+        return rate;
     }
 
 
@@ -43,7 +43,7 @@ public class InMemoryRateRegularRepositoryAdapter implements RateRegularReposito
     }
 
     // @Override
-    public Optional<RateRegularDto> findRateRegularById(Integer id) {
+    public Optional<RateRegularDbDto> findRateRegularById(Integer id) {
         return Optional.ofNullable(rateRegularHashMap.get(id));
     }
 
@@ -58,7 +58,7 @@ public class InMemoryRateRegularRepositoryAdapter implements RateRegularReposito
 //    }
 
     //@Override
-    public Optional<RateRegularDto> findRateRegularByDate(LocalDate date) {
+    public Optional<RateRegularDbDto> findRateRegularByDate(LocalDate date) {
         return Optional.empty();
     }
 

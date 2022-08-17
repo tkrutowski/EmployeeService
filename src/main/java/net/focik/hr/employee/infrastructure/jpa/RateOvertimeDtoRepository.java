@@ -1,11 +1,12 @@
 package net.focik.hr.employee.infrastructure.jpa;
 
-import net.focik.hr.employee.infrastructure.dto.RateOvertimeDto;
+import net.focik.hr.employee.infrastructure.dto.RateOvertimeDbDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-interface RateOvertimeDtoRepository extends JpaRepository<RateOvertimeDto, Integer> {
+interface RateOvertimeDtoRepository extends JpaRepository<RateOvertimeDbDto, Integer> {
 
-    List<RateOvertimeDto> findAllByIdEmployee(Integer EmployeeId);
+    List<RateOvertimeDbDto> findAllByIdEmployee(Integer idEmployee);
+    void deleteByIdEmployee(Integer idEmployee);
 }

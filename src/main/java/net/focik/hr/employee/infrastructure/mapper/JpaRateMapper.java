@@ -2,15 +2,15 @@ package net.focik.hr.employee.infrastructure.mapper;
 
 import net.focik.hr.employee.domain.RateOvertime;
 import net.focik.hr.employee.domain.RateRegular;
-import net.focik.hr.employee.infrastructure.dto.RateOvertimeDto;
-import net.focik.hr.employee.infrastructure.dto.RateRegularDto;
+import net.focik.hr.employee.infrastructure.dto.RateOvertimeDbDto;
+import net.focik.hr.employee.infrastructure.dto.RateRegularDbDto;
 import org.springframework.stereotype.Component;
 
 @Component
 public class JpaRateMapper {
 
 
-    public RateRegular toDomain (RateRegularDto dto){
+    public RateRegular toDomain (RateRegularDbDto dto){
         RateRegular rateRegular = RateRegular.builder()
                 .idRate(dto.getIdRate())
                 .rateType(dto.getRateType())
@@ -21,7 +21,7 @@ public class JpaRateMapper {
         return rateRegular;
     }
 
-    public RateOvertime toDomain (RateOvertimeDto dto){
+    public RateOvertime toDomain (RateOvertimeDbDto dto){
         RateOvertime rateOvertime = RateOvertime.builder()
                 .idRate(dto.getIdRate())
                 .dateFrom(dto.getDateFrom())
@@ -31,8 +31,8 @@ public class JpaRateMapper {
         return rateOvertime;
     }
 
-    public RateRegularDto toDto(RateRegular rateRegular, Integer idEmployee){
-        RateRegularDto rateRegularDto = RateRegularDto.builder()
+    public RateRegularDbDto toDto(RateRegular rateRegular, Integer idEmployee){
+        RateRegularDbDto rateRegularDbDto = RateRegularDbDto.builder()
                 .idRate(rateRegular.getIdRate())
                 .idEmployee(idEmployee)
                 .dateFrom(rateRegular.getDateFrom())
@@ -40,11 +40,11 @@ public class JpaRateMapper {
                 .rateValue(rateRegular.getRateValue())
                 .build();
 
-        return rateRegularDto;
+        return rateRegularDbDto;
     }
 
-    public RateOvertimeDto toDto(RateOvertime rateOvertime, Integer idEmployee){
-        RateOvertimeDto overtimeDto = RateOvertimeDto.builder()
+    public RateOvertimeDbDto toDto(RateOvertime rateOvertime, Integer idEmployee){
+        RateOvertimeDbDto overtimeDto = RateOvertimeDbDto.builder()
                 .idRate(rateOvertime.getIdRate())
                 .idEmployee(idEmployee)
                 .dateFrom(rateOvertime.getDateFrom())

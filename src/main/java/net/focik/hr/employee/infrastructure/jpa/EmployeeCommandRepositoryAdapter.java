@@ -3,9 +3,9 @@ package net.focik.hr.employee.infrastructure.jpa;
 import lombok.AllArgsConstructor;
 import net.focik.hr.employee.domain.Employee;
 import net.focik.hr.employee.domain.port.secondary.EmployeeCommandRepository;
-import net.focik.hr.employee.infrastructure.dto.EmployeeDto;
-import net.focik.hr.employee.infrastructure.dto.RateOvertimeDto;
-import net.focik.hr.employee.infrastructure.dto.RateRegularDto;
+import net.focik.hr.employee.infrastructure.dto.EmployeeDbDto;
+import net.focik.hr.employee.infrastructure.dto.RateOvertimeDbDto;
+import net.focik.hr.employee.infrastructure.dto.RateRegularDbDto;
 import net.focik.hr.employee.infrastructure.mapper.JpaEmployeeMapper;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
@@ -19,32 +19,42 @@ import java.util.Optional;
 @AllArgsConstructor
 class EmployeeCommandRepositoryAdapter implements EmployeeCommandRepository {
 
-    EmployeeDtoRepository employeeDtoRepository;
-    RateRegularDtoRepository rateRegularDtoRepository;
-    RateOvertimeDtoRepository rateOvertimeDtoRepository;
-    JpaEmployeeMapper mapper;
+    private final EmployeeDtoRepository employeeDtoRepository;
+    private final RateRegularDtoRepository rateRegularDtoRepository;
+    private final RateOvertimeDtoRepository rateOvertimeDtoRepository;
+    private final JpaEmployeeMapper mapper;
 
     @Override
-    @Transactional
     public Integer add(Employee e) {
-        EmployeeDto employeeDto = employeeDtoRepository.save(mapper.toDto(e));
-        RateRegularDto rateRegularDto = new RateRegularDto(null, employeeDto.getId(), e.getLatestRateRegularType(),e.getLatestRateRegularDateFrom(),e.getLatestRateRegularValue());
-        rateRegularDtoRepository.save(rateRegularDto);
-        RateOvertimeDto rateOvertimeDto = new RateOvertimeDto(null, employeeDto.getId(),e.getLatestRateOvertimeDateFrom(),e.getLatestRateOvertimeValue());
-        rateOvertimeDtoRepository.save(rateOvertimeDto);
+        EmployeeDbDto employeeDto = employeeDtoRepository.save(mapper.toDto(e));
         return employeeDto.getId();
     }
 
     @Override
+    public Employee update(Employee e) {
+        EmployeeDbDto employeeDto = employeeDtoRepository.save(mapper.toDto(e));
+        List<RateOvertimeDbDto> ratesOvertime = rateOvertimeDtoRepository.findAllByIdEmployee(e.getId());
+        List<RateRegularDbDto> ratesRegular = rateRegularDtoRepository.findAllByIdEmployee(e.getId());
+        return mapper.toDomain(employeeDto, ratesRegular, ratesOvertime);
+    }
+
+    @Override
     public Optional<Employee> findById(Integer id) {
-        Optional<EmployeeDto> byId = employeeDtoRepository.findById(id);
-        List<RateOvertimeDto> rateOvertimeDtos = rateOvertimeDtoRepository.findAllByIdEmployee(id);
-        List<RateRegularDto> rateRegularDtos = rateRegularDtoRepository.findAllByIdEmployee(id);
-        if(byId.isEmpty())
+        Optional<EmployeeDbDto> byId = employeeDtoRepository.findById(id);
+        List<RateOvertimeDbDto> rateOvertimeDbDtos = rateOvertimeDtoRepository.findAllByIdEmployee(id);
+        List<RateRegularDbDto> rateRegularDbDtos = rateRegularDtoRepository.findAllByIdEmployee(id);
+        if (byId.isEmpty())
             return Optional.empty();
 
+        return Optional.of(mapper.toDomain(byId.get(), rateRegularDbDtos, rateOvertimeDbDtos));
+    }
 
-        return Optional.of(mapper.toDomain(byId.get(), rateRegularDtos, rateOvertimeDtos));
+    @Override
+    @Transactional
+    public void delete(Integer id) {
+        rateRegularDtoRepository.deleteByIdEmployee(id);
+        rateOvertimeDtoRepository.deleteByIdEmployee(id);
+        employeeDtoRepository.deleteById(id);
     }
 
 }

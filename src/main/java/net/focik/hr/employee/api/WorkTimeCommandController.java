@@ -8,7 +8,7 @@ import net.focik.hr.employee.api.dto.WorkTimeDto;
 import net.focik.hr.employee.api.mapper.ApiDayOffMapper;
 import net.focik.hr.employee.api.mapper.ApiIllnessMapper;
 import net.focik.hr.employee.api.mapper.ApiWorkTimeMapper;
-import net.focik.hr.employee.application.WorkTimeService;
+import net.focik.hr.employee.application.WorkTimeApiService;
 import net.focik.hr.employee.domain.port.primary.AddWorkTimeUseCase;
 import net.focik.hr.employee.domain.port.primary.GetWorkTimeRecordsUseCase;
 import net.focik.hr.employee.domain.utils.PrivilegeHelper;
@@ -16,7 +16,7 @@ import net.focik.hr.employee.domain.workTimeRecords.IWorkTime;
 import net.focik.hr.employee.domain.workTimeRecords.share.DayOffType;
 import net.focik.hr.employee.domain.workTimeRecords.share.IllnessType;
 import net.focik.hr.employee.domain.workTimeRecords.share.WorkType;
-import net.focik.hr.team.domain.exceptions.AccessDeniedException;
+import net.focik.hr.utils.exceptions.AccessDeniedException;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +34,7 @@ import static net.focik.hr.employee.domain.utils.PrivilegeConstant.AUTHORITIES;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/employee/worktime")
-//@CrossOrigin
+@CrossOrigin
 class WorkTimeCommandController {
 
     private GetWorkTimeRecordsUseCase getWorkTimeRecordsUseCase;
@@ -42,23 +42,21 @@ class WorkTimeCommandController {
     private ApiDayOffMapper dayOffMapper;
     private ApiIllnessMapper illnessMapper;
     private ApiWorkTimeMapper workTimeMapper;
-    private WorkTimeService workTimeService;
+    private WorkTimeApiService workTimeApiService;
 
     @PostMapping("")
     public ResponseEntity addWorkTime(@RequestBody Object dto, @RequestParam(required = true) WorkType workType,
                                       @RequestHeader(name = AUTHORITIES, required = false) String[] roles) {
-        int i =0;
-        final List<String> accessRole = List.of("HR_WORKTIME_WRITE_ALL","HR_WORKTIME_WRITE");
+        final List<String> accessRole = List.of("ROLE_ADMIN", "HR_WORKTIME_WRITE_ALL", "HR_WORKTIME_WRITE");
 
-        if(!PrivilegeHelper.checkAccess(List.of(roles), accessRole)){
-            throw new AccessDeniedException();
-        }
+//        if (!PrivilegeHelper.checkAccess(List.of(roles), accessRole)) {
+//            throw new AccessDeniedException();
+//        }
 
         addWorkTimeUseCase.addWorkTime(workTimeMapper.toDomain((Map) dto, workType));
 
         return new ResponseEntity(HttpStatus.CREATED);
     }
-
 
     @GetMapping("/dayofftype")
     ResponseEntity<List<DayOffTypeDto>> getDayOffType() {
@@ -72,15 +70,20 @@ class WorkTimeCommandController {
     }
 
     @GetMapping("/{idEmployee}")
-    ResponseEntity<List<WorkTimeDto>> getWorkTime(@PathVariable Integer idEmployee, @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
+    ResponseEntity<List<WorkTimeDto>> getWorkTime(@PathVariable Integer idEmployee,
+                                                  @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
+                                                  @RequestHeader(name = AUTHORITIES, required = false)  String[] roles) {
 
+        final List<String> accessRole = List.of("ROLE_ADMIN", "HR_WORKTIME_READ_ALL", "HR_WORKTIME_READ");
+
+        if (!PrivilegeHelper.checkAccess(List.of(roles), accessRole)) {
+            throw new AccessDeniedException();
+        }
         List<IWorkTime> iWorkTimes = getWorkTimeRecordsUseCase.getWorkTimeByEmployeeAndDate(idEmployee, date);
-        List<WorkTimeDto> workTimeDtos = workTimeService.addEmptyDays(iWorkTimes, date);
+        List<WorkTimeDto> workTimeDtos = workTimeApiService.addEmptyDays(iWorkTimes, date);
 
         return new ResponseEntity<>(workTimeDtos, HttpStatus.OK);
     }
-
-
 
     @GetMapping("/illnesstype")
     ResponseEntity<List<IllnessTypeDto>> getIllnessType() {
@@ -92,19 +95,5 @@ class WorkTimeCommandController {
                 .collect(Collectors.toList());
         return new ResponseEntity<>(illnessTypeDtos, HttpStatus.OK);
     }
-//
-//    @PostMapping("/rate_regular/")
-//    public ResponseEntity<Boolean> addRateRegular(@RequestBody RateRegularDto rateRegularDto){
-//        log.info("Try add new rate regular.");
-//        modelMapper.map(rateRegularDto, );
-//        Integer result = addNewEmployeeUseCase.addEmployee(employee);
-//
-//        log.info(result > 0 ? "Employee added with id = " + result : "No employee added!");
-//
-//        if(result <= 0)
-//            return new ResponseEntity<>(0, HttpStatus.BAD_REQUEST);
-//
-//        return new ResponseEntity<>(result, HttpStatus.CREATED);
-//    }
 
 }

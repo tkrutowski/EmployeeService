@@ -1,11 +1,12 @@
 package net.focik.hr.employee.infrastructure.jpa;
 
-import net.focik.hr.employee.infrastructure.dto.RateRegularDto;
+import net.focik.hr.employee.infrastructure.dto.RateRegularDbDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-interface RateRegularDtoRepository extends JpaRepository<RateRegularDto, Integer> {
+interface RateRegularDtoRepository extends JpaRepository<RateRegularDbDto, Integer> {
 
-    List<RateRegularDto> findAllByIdEmployee(Integer EmployeeId);
+    List<RateRegularDbDto> findAllByIdEmployee(Integer EmployeeId);
+    void deleteByIdEmployee(Integer idEmployee);
 }

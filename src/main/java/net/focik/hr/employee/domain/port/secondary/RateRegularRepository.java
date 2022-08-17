@@ -8,7 +8,7 @@ import java.util.List;
 
 @Component
 public interface RateRegularRepository {
-    Integer add(RateRegular rateRegular, Integer idEmployee);
+    RateRegular add(RateRegular rateRegular, Integer idEmployee);
 
     List<RateRegular> findRateRegularByEmployeeId(Integer idEmployee);
 

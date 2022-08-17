@@ -1,21 +1,18 @@
 package net.focik.hr.employee.query;
 
-import net.focik.hr.employee.domain.share.EmploymentStatus;
-import net.focik.hr.employee.infrastructure.dto.EmployeeDto;
-import net.focik.hr.employee.infrastructure.dto.WorkDto;
+import net.focik.hr.employee.infrastructure.dto.EmployeeDbDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
-import java.util.Optional;
 
-interface EmployeeQueryDtoRepository extends JpaRepository<EmployeeDto, Integer> {
+interface EmployeeQueryDtoRepository extends JpaRepository<EmployeeDbDto, Integer> {
 
 //    @Query(value = "select id_pracownika, imie, nazwisko from pracownik where zatrudniony = ?1 order by nazwisko asc",
     @Query(value = "select * from pracownik  where zatrudniony = ?1 order by nazwisko asc",
 //    @Query(value = "select * from pracownik ",
             nativeQuery = true)
-    List<EmployeeDto> findAllByEmploymentStatus(String status);
+    List<EmployeeDbDto> findAllByEmploymentStatus(String status);
 
 //    @Override
 //    List<EmployeeQueryDto> findAll();

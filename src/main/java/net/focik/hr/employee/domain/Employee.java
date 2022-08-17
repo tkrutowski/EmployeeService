@@ -9,17 +9,12 @@ import net.focik.hr.employee.domain.share.EmployeeType;
 import net.focik.hr.employee.domain.share.EmploymentStatus;
 import net.focik.hr.employee.domain.share.RateType;
 import net.focik.hr.employee.domain.share.WorkTime;
-import org.javamoney.moneta.Money;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 //AgregateRoot
 @Builder
@@ -33,7 +28,7 @@ public class Employee {
     private String lastName;
     private Float numberDaysOffLeft;
     private Integer numberDaysOffAnnually;
-    private String telNumber;
+    private String phoneNumber;
     private String otherInfo;
     private String email;
     private EmploymentStatus employmentStatus;
@@ -45,6 +40,7 @@ public class Employee {
     private EmployeeType employeeType;
     private Address address;
     private Integer idTeam;
+    private String pesel;
 
     void setRateRegular(Set<RateRegular> rateRegular) {
         this.rateRegular = rateRegular;
@@ -83,77 +79,39 @@ public class Employee {
         return address.getZip();
     }
 
-    public LocalDate getLatestRateRegularDateFrom() {
+
+    public RateRegular getLatestRateRegular() {
         return rateRegular.stream()
                 .sorted(RateRegular::compareTo)
                 .sorted(Comparator.reverseOrder())
                 .findFirst()
-                .get()
-                .getDateFrom();// rateRegular.getDateFrom();
+                .orElse(null);
     }
 
-    public BigDecimal getLatestRateRegularValue() {
-        return rateRegular.stream()
-                .sorted(RateRegular::compareTo)
-                .sorted(Comparator.reverseOrder())
-                .findFirst()
-                .get()
-                .getRateValue();
-    }
-
-    public RateType getLatestRateRegularType() {
-        return
-                rateRegular.stream()
-                        .sorted(RateRegular::compareTo)
-                        .sorted(Comparator.reverseOrder())
-                        .findFirst()
-                        .get()
-                        .getRateType();
-    }
-
-    public BigDecimal getRateRegularValueByDate(LocalDate date) {
+    public RateRegular getRateRegularByDate(LocalDate date) {
         return rateRegular.stream()
                 .sorted(Comparator.reverseOrder())
                 .filter(rate -> rate.getDateFrom().isBefore(date))
-                .findFirst().orElse(RateRegular.builder().rateValue(BigDecimal.ZERO).build())
-                .getRateValue();
+                .findFirst().orElse(RateRegular.builder().rateValue(BigDecimal.ZERO).build());
     }
 
-    public RateType getRateRegularTypeByDate(LocalDate date) {
-        return
-                rateRegular.stream()
-                        .sorted(RateRegular::compareTo)
-                        .sorted(Comparator.reverseOrder())
-                        .filter(rate -> rate.getDateFrom().isBefore(date))
-                        .findFirst().orElse(RateRegular.builder().rateType(null).build())
-                        .getRateType();
-    }
-
-    public LocalDate getLatestRateOvertimeDateFrom() {
-        return rateOvertime.stream()
-                .sorted(RateOvertime::compareTo)
-                .sorted(Comparator.reverseOrder())
-                .findFirst()
-                .get()
-                .getDateFrom();
-        //getDateFrom();
-    }
-
-    public BigDecimal getLatestRateOvertimeValue() {
-        return rateOvertime.stream()
-                .sorted(RateOvertime::compareTo)
-                .sorted(Comparator.reverseOrder())
-                .findFirst()
-                .get()
-                .getRateValue();
-    }
-
-    public BigDecimal getRateOvertimeValueByDate(LocalDate date) {
+    public RateOvertime getRateOvertimeByDate(LocalDate date) {
         return rateOvertime.stream()
                 .sorted(RateOvertime::compareTo)
                 .sorted(Comparator.reverseOrder())
                 .filter(rate -> rate.getDateFrom().isBefore(date))
-                .findFirst().orElse(RateOvertime.builder().rateValue(BigDecimal.ZERO).build())
-                .getRateValue();
+                .findFirst().orElse(RateOvertime.builder().rateValue(BigDecimal.ZERO).build());
+    }
+
+    public RateOvertime getLatestRateOvertime() {
+        return rateOvertime.stream()
+                .sorted(RateOvertime::compareTo)
+                .sorted(Comparator.reverseOrder())
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void changeEmploymentStatus(EmploymentStatus newEmploymentStatus){
+        this.employmentStatus = newEmploymentStatus;
     }
 }

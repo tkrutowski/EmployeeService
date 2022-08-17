@@ -29,7 +29,17 @@ public class InMemoryEmployeeCommandRepositoryAdapter implements EmployeeCommand
     }
 
     @Override
+    public Employee update(Employee e) {
+        return null;
+    }
+
+    @Override
     public Optional<Employee> findById(Integer id) {
         return Optional.ofNullable(DataBaseEmployee.getEmployeeHashMap().get(id));
+    }
+
+    @Override
+    public void delete(Integer id) {
+
     }
 }

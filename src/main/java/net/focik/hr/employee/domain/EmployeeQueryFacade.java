@@ -13,7 +13,6 @@ public class EmployeeQueryFacade {
 
     EmployeeQueryService employeeQueryService;
 
-
     public EmployeeQueryBasicDto getEmployee(Integer id){
         return employeeQueryService.findEmployeeById(id);
     }

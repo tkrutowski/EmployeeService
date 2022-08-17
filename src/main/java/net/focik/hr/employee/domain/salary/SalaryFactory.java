@@ -36,12 +36,12 @@ class SalaryFactory {
                 .workOvertime50Minutes(salaryService.getWorkOvertime50Minutes())
                 .workOvertime100Minutes(salaryService.getWorkOvertime100Minutes())
 
-                .forDayOff(salaryService.calculateForDayOff(employee.getRateRegularValueByDate(date), employee.getRateRegularTypeByDate(date), daysToWork.getHoursToWork()))
-                .forIllness80(salaryService.calculateForIllness80(employee.getRateRegularValueByDate(date), employee.getRateRegularTypeByDate(date), daysToWork.getHoursToWork()))
-                .forIllness100(salaryService.calculateForIllness100(employee.getRateRegularValueByDate(date), employee.getRateRegularTypeByDate(date), daysToWork.getHoursToWork()))
-                .forRegularRate(salaryService.calculateForWorkRegular(employee.getRateRegularValueByDate(date), employee.getRateRegularTypeByDate(date), daysToWork.getHoursToWork()))
-                .forOvertime50(salaryService.calculateForWorkOvertime50(employee.getRateOvertimeValueByDate(date)))
-                .forOvertime100(salaryService.calculateForWorkOvertime100(employee.getRateOvertimeValueByDate(date)))
+                .forDayOff(salaryService.calculateForDayOff(employee.getRateRegularByDate(date).getRateValue(), employee.getRateRegularByDate(date).getRateType(), daysToWork.getHoursToWork()))
+                .forIllness80(salaryService.calculateForIllness80(employee.getRateRegularByDate(date).getRateValue(), employee.getRateRegularByDate(date).getRateType(), daysToWork.getHoursToWork()))
+                .forIllness100(salaryService.calculateForIllness100(employee.getRateRegularByDate(date).getRateValue(), employee.getRateRegularByDate(date).getRateType(), daysToWork.getHoursToWork()))
+                .forRegularRate(salaryService.calculateForWorkRegular(employee.getRateRegularByDate(date).getRateValue(), employee.getRateRegularByDate(date).getRateType(), daysToWork.getHoursToWork()))
+                .forOvertime50(salaryService.calculateForWorkOvertime50(employee.getRateOvertimeByDate(date).getRateValue()))
+                .forOvertime100(salaryService.calculateForWorkOvertime100(employee.getRateOvertimeByDate(date).getRateValue()))
                 .build();
         return salary;
     }

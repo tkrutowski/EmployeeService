@@ -32,7 +32,7 @@ class EmployeeTest {
         Employee employee = Employee.builder().rateRegular(rateRegularSet).build();
 
         //when
-        BigDecimal result = employee.getRateRegularValueByDate(date);
+        BigDecimal result = employee.getRateRegularByDate(date).getRateValue();
 
         //then
         assertEquals(3000d, result.doubleValue());
@@ -45,7 +45,7 @@ class EmployeeTest {
         Employee employee = Employee.builder().rateRegular(rateRegularSet).build();
 
         //when
-        BigDecimal result = employee.getRateRegularValueByDate(date);
+        BigDecimal result = employee.getRateRegularByDate(date).getRateValue();
 
         //then
         assertEquals(0d, result.doubleValue());
@@ -57,7 +57,7 @@ class EmployeeTest {
         Employee employee = Employee.builder().rateRegular(rateRegularSet).build();
 
         //when
-        BigDecimal result = employee.getRateRegularValueByDate(date);
+        BigDecimal result = employee.getRateRegularByDate(date).getRateValue();
 
         //then
         assertEquals(4000d, result.doubleValue());
@@ -70,7 +70,7 @@ class EmployeeTest {
         Employee employee = Employee.builder().rateRegular(rateRegularSet).build();
 
         //when
-        LocalDate result = employee.getLatestRateRegularDateFrom();
+        LocalDate result = employee.getLatestRateRegular().getDateFrom();
 
         //then
         assertEquals(date, result);
@@ -82,7 +82,7 @@ class EmployeeTest {
         Employee employee = Employee.builder().rateRegular(rateRegularSet).build();
 
         //when
-        BigDecimal result = employee.getLatestRateRegularValue();
+        BigDecimal result = employee.getLatestRateRegular().getRateValue();
 
         //then
         assertEquals(4000d, result.doubleValue());
@@ -94,7 +94,7 @@ class EmployeeTest {
         Employee employee = Employee.builder().rateRegular(rateRegularSet).build();
 
         //when
-        RateType result = employee.getLatestRateRegularType();
+        RateType result = employee.getLatestRateRegular().getRateType();
 
         //then
         assertEquals(RateType.PER_MONTH, result);
@@ -108,7 +108,7 @@ class EmployeeTest {
         Employee employee = Employee.builder().rateRegular(rateRegularSet).build();
 
         //when
-        RateType result = employee.getRateRegularTypeByDate(date);
+        RateType result = employee.getRateRegularByDate(date).getRateType();
 
         //then
         assertEquals(null, result);

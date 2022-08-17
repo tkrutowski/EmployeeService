@@ -1,6 +1,7 @@
 package net.focik.hr.employee.query;
 
 import lombok.*;
+import net.focik.hr.employee.domain.share.EmploymentStatus;
 import net.focik.hr.employee.domain.share.RateType;
 
 import javax.persistence.Column;
@@ -24,12 +25,27 @@ public class EmployeeQueryBasicDto {
     private String firstName;
     private String lastName;
 
-//    private String street;
-//    private String city;
-//    private String zipCode;
-//    private String telNumber;
-//    private String otherInfo;
+    private String street;
+    private String city;
+    private String zip;
+    private String telNumber;
+    private String otherInfo;
     private String email;
+
+    private LocalDate hiredDate;
+    private LocalDate releaseDate;
+    private LocalDate nextMedicalExaminationDate;
+    private LocalDate nextBhpTrainingDate;
+
+    private String numberDaysOffLeft;
+    private String numberDaysOffAnnually;
+
+    private String employmentStatus;
+
+    private String pesel;
+
     private int idTeam;
+    private String employeeType;
+    private String workTime;
 
 }

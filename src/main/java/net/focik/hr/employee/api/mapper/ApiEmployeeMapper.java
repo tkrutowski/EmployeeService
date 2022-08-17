@@ -15,11 +15,12 @@ public class ApiEmployeeMapper {
 
     public Employee toDomain (EmployeeDto dto){
         Employee build = Employee.builder()
+                .id(dto.getId())
                 .firstName(dto.getFirstName())
                 .lastName(dto.getLastName())
                 .numberDaysOffLeft(dto.getNumberDaysOffLeft())
                 .numberDaysOffAnnually(dto.getNumberDaysOffAnnually())
-                .telNumber(dto.getTelNumber())
+                .phoneNumber(dto.getTelNumber())
                 .email(dto.getEmail())
                 .otherInfo(dto.getOtherInfo())
                 .employmentStatus(EmploymentStatus.valueOf(dto.getEmploymentStatus()))
@@ -29,10 +30,11 @@ public class ApiEmployeeMapper {
                 .nextBhpTrainingDate(dto.getNextBhpTrainingDate())
                 .workTime(WorkTime.valueOf(dto.getWorkTime()))
                 .employeeType(EmployeeType.valueOf(dto.getEmployeeType()))
+                .pesel(dto.getPesel())
                 .build();
                 build.setAddress(dto.getCity(), dto.getStreet(), dto.getZip());
-                build.setRateRegular(null, RateType.valueOf(dto.getRateRegularType()), dto.getRateRegularDateFrom(), BigDecimal.valueOf(dto.getRateRegularValue()));
-                build.setRateOvertime( null, dto.getRateOvertimeDateFrom(), BigDecimal.valueOf(dto.getRateOvertimeValue()));
+                //build.setRateRegular(null, RateType.valueOf(dto.getRateRegularType()), dto.getRateRegularDateFrom(), BigDecimal.valueOf(dto.getRateRegularValue()));
+                //build.setRateOvertime( null, dto.getRateOvertimeDateFrom(), BigDecimal.valueOf(dto.getRateOvertimeValue()));
         return build;
     }
 
@@ -43,7 +45,7 @@ public class ApiEmployeeMapper {
                 .lastName(e.getLastName())
                 .numberDaysOffLeft(e.getNumberDaysOffLeft())
                 .numberDaysOffAnnually(e.getNumberDaysOffAnnually())
-                .telNumber(e.getTelNumber())
+                .telNumber(e.getPhoneNumber())
                 .otherInfo(e.getOtherInfo())
                 .email(e.getEmail())
                 .employmentStatus(e.getEmploymentStatus().toString())
@@ -56,11 +58,12 @@ public class ApiEmployeeMapper {
                 .city(e.getCity())
                 .street(e.getStreet())
                 .zip(e.getZip())
-                .rateRegularType(e.getLatestRateRegularType().toString())
-                .rateRegularDateFrom(e.getLatestRateRegularDateFrom())
-                .rateRegularValue(e.getLatestRateRegularValue().doubleValue())
-                .rateOvertimeDateFrom(e.getLatestRateRegularDateFrom())
-                .rateOvertimeValue(e.getLatestRateOvertimeValue().doubleValue())
+                .pesel(e.getPesel())
+//                .rateRegularType(e.getLatestRateRegular().getRateType().toString())
+//                .rateRegularDateFrom(e.getLatestRateRegular().getDateFrom())
+//                .rateRegularValue(e.getLatestRateRegular().getRateValue().doubleValue())
+//                .rateOvertimeDateFrom(e.getLatestRateRegular().getDateFrom())
+//                .rateOvertimeValue(e.getLatestRateOvertime().getRateValue().doubleValue())
                 .build();
         return build;
     }
