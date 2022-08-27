@@ -1,7 +1,7 @@
 package net.focik.hr.employee.infrastructure.mapper;
 
-import net.focik.hr.employee.domain.workTimeRecords.Illness;
-import net.focik.hr.employee.domain.workTimeRecords.share.IllnessType;
+import net.focik.hr.employee.domain.worktimerecords.Illness;
+import net.focik.hr.employee.domain.worktimerecords.share.IllnessType;
 import net.focik.hr.employee.infrastructure.dto.IllnessDto;
 import net.focik.hr.employee.infrastructure.dto.IllnessId;
 import org.junit.jupiter.api.Test;

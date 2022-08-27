@@ -5,7 +5,9 @@ import net.focik.hr.employee.domain.EmployeeFacade;
 import net.focik.hr.employee.domain.RateOvertime;
 import net.focik.hr.employee.domain.RateRegular;
 import net.focik.hr.employee.domain.port.primary.AddNewRateUseCase;
+import net.focik.hr.employee.domain.port.primary.DeleteRateUseCase;
 import net.focik.hr.employee.domain.port.primary.GetRateUseCase;
+import net.focik.hr.employee.domain.port.primary.UpdateRateUseCase;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -15,11 +17,11 @@ import java.util.List;
 
 @AllArgsConstructor
 @Service
-public class RateApiService implements AddNewRateUseCase, GetRateUseCase {
+public class RateApiService implements AddNewRateUseCase, GetRateUseCase, DeleteRateUseCase, UpdateRateUseCase {
     EmployeeFacade commandFacade;
 
 
-//    @Override
+    //    @Override
     public void changeRateRegular(int idEmployee, LocalDate fromDate, BigDecimal rateValue) {
         //pobrać employee po id
 
@@ -34,6 +36,11 @@ public class RateApiService implements AddNewRateUseCase, GetRateUseCase {
     @Override
     public RateRegular getLastRateRegular(int employeeId) {
         return commandFacade.getLastRateRegular(employeeId);
+    }
+
+    @Override
+    public RateRegular getRateRegularByEmployeeIdAndDate(int employeeId, LocalDate date) {
+        return commandFacade.getRateRegularByEmployeeIdAndDate(employeeId, date);
     }
 
     @Override
@@ -59,5 +66,25 @@ public class RateApiService implements AddNewRateUseCase, GetRateUseCase {
     @Override
     public RateOvertime addRateOvertime(int employeeId, RateOvertime rateOvertime) {
         return commandFacade.addRateOvertime(employeeId, rateOvertime);
+    }
+
+    @Override
+    public void deleteRateRegularById(int id) {
+        commandFacade.deleteRateRegular(id);
+    }
+
+    @Override
+    public void deleteRateOvertimeById(int id) {
+        commandFacade.deleteRateOvertime(id);
+    }
+
+    @Override
+    public RateRegular updateRateRegular(int employeeId, RateRegular rateRegular) {
+        return commandFacade.updateRateRegular(employeeId, rateRegular);
+    }
+
+    @Override
+    public RateOvertime updateRateOvertime(int employeeId, RateOvertime rateOvertime) {
+        return commandFacade.updateRateOvertime(employeeId, rateOvertime);
     }
 }

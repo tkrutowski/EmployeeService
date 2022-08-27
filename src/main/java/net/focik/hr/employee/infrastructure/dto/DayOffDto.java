@@ -1,18 +1,9 @@
 package net.focik.hr.employee.infrastructure.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import net.focik.hr.employee.domain.workTimeRecords.share.DayOffType;
+import lombok.*;
+import net.focik.hr.employee.domain.worktimerecords.share.DayOffType;
 
-import javax.persistence.AttributeConverter;
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor

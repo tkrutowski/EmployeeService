@@ -6,6 +6,9 @@ import net.focik.hr.employee.domain.port.secondary.RateOvertimeRepository;
 import net.focik.hr.employee.domain.port.secondary.RateRegularRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 class RateService {
@@ -25,21 +28,40 @@ class RateService {
         return rateOvertimeRepository.add(rateOvertime, employeeId);
     }
 
+    public List<RateRegular> findRateRegularByEmployeeId(Integer id) {
+        return rateRegularRepository.findRateRegularByEmployeeId(id);
+    }
+
+    public List<RateOvertime> findRateOvertimeEmployeeId(Integer id) {
+        return rateOvertimeRepository.findRateOvertimeEmployeeId(id);
+    }
+
+
+    public void deleteRateRegularByIdEmployee(int idEmployee) {
+        rateRegularRepository.deleteRateRegularByIdEmployee(idEmployee);
+    }
+
+    public void deleteRateOvertimeByIdEmployee(int idEmployee) {
+        rateOvertimeRepository.deleteRateOvertimeByIdEmployee(idEmployee);
+    }
+
     private boolean validateRateRegular(RateRegular r) {
-            if (r.getRateType() == null)
-                return false;
-            if (r.getDateFrom() == null)
-                return false;
-            if (r.getRateValue() == null)
-                return false;
-        return true;
+        return (r.getRateType() != null) || (r.getDateFrom() != null) || (r.getRateValue() != null);
     }
 
     private boolean validateRateOvertime(RateOvertime r) {
-        if (r.getDateFrom() == null)
-            return false;
-        if (r.getRateValue() == null)
-            return false;
-        return true;
+        return (r.getDateFrom() != null) || (r.getRateValue() != null);
+    }
+
+    public void deleteRateRegularById(int id) {
+        rateRegularRepository.deleteRateRegularById(id);
+    }
+
+    public void deleteRateOvertimeById(int id) {
+        rateOvertimeRepository.deleteRateOvertimeById(id);
+    }
+
+    public RateRegular getRateRegularByEmployeeIdAndDate(int employeeId, LocalDate date) {
+        return rateRegularRepository.findRateRegularByIdAndDate(employeeId, date);
     }
 }

@@ -1,6 +1,6 @@
 package net.focik.hr.employee.infrastructure.mapper;
 
-import net.focik.hr.employee.domain.workTimeRecords.Work;
+import net.focik.hr.employee.domain.worktimerecords.Work;
 import net.focik.hr.employee.infrastructure.dto.WorkDto;
 import net.focik.hr.employee.infrastructure.dto.WorkId;
 import org.junit.jupiter.api.Test;

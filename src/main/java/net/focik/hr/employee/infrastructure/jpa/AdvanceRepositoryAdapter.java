@@ -33,7 +33,7 @@ class AdvanceRepositoryAdapter implements AdvanceRepository {
 
     @Override
     public List<Advance> findByEmployeeIdAndDate(Integer employeeId, LocalDate date) {
-        String dateFormat = date.getYear()+String.format("-%02d", date.getMonthValue());
+        String dateFormat = date.getYear() + String.format("-%02d", date.getMonthValue());
         List<AdvanceDto> allByIdEmployeeAndDate = advanceDtoRepository.findAllByEmployeeAndDate(employeeId, dateFormat);
         return allByIdEmployeeAndDate.stream()
                 .map(advanceDto -> mapper.toDomain(advanceDto))

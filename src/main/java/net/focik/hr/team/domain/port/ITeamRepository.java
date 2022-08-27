@@ -1,6 +1,6 @@
 package net.focik.hr.team.domain.port;
 
-import net.focik.hr.team.infrastructure.dto.TeamDbDto;
+import net.focik.hr.team.domain.Team;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -8,11 +8,11 @@ import java.util.Optional;
 
 @Component
 public interface ITeamRepository {
-    Integer add(TeamDbDto dto);
+    Integer add(Team dto);
 
-    Optional<TeamDbDto> findById(Integer id);
+    Optional<Team> findById(Integer id);
 
-    List<TeamDbDto> findAll();
+    List<Team> findAll();
 
-    List<TeamDbDto> findAllByIsActive(Boolean isActive);
+    List<Team> findAllByIsActive(Boolean isActive);
 }

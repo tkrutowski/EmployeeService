@@ -1,59 +1,45 @@
 package net.focik.hr.employee.infrastructure.mapper;
 
-import net.focik.hr.employee.domain.workTimeRecords.DayOff;
-import net.focik.hr.employee.domain.workTimeRecords.Illness;
-import net.focik.hr.employee.domain.workTimeRecords.Work;
-import net.focik.hr.employee.infrastructure.dto.DayOffDto;
-import net.focik.hr.employee.infrastructure.dto.DayOffId;
-import net.focik.hr.employee.infrastructure.dto.IllnessDto;
-import net.focik.hr.employee.infrastructure.dto.IllnessId;
-import net.focik.hr.employee.infrastructure.dto.WorkDto;
-import net.focik.hr.employee.infrastructure.dto.WorkId;
+import net.focik.hr.employee.domain.worktimerecords.DayOff;
+import net.focik.hr.employee.domain.worktimerecords.Illness;
+import net.focik.hr.employee.domain.worktimerecords.Work;
+import net.focik.hr.employee.infrastructure.dto.*;
 import org.springframework.stereotype.Component;
 
 @Component
 public class JpaWorkMapper {
 
-    public WorkDto toDto(Work work){
-        WorkDto workDto = WorkDto.builder()
+    public WorkDto toDto(Work work) {
+        return WorkDto.builder()
                 .workId(new WorkId(work.getIdEmployee(), work.getDate()))
                 .startTime(work.getStartTime())
                 .stopTime(work.getStopTime())
                 .build();
-        return workDto;
     }
 
-    public Work toDomain(WorkDto dto){
-        Work work = new Work(dto.getWorkId().getIdEmployee(),dto.getWorkId().getDate(), dto.getStartTime(), dto.getStopTime());
-
-        return work;
+    public Work toDomain(WorkDto dto) {
+        return new Work(dto.getWorkId().getIdEmployee(), dto.getWorkId().getDate(), dto.getStartTime(), dto.getStopTime());
     }
 
-    public IllnessDto toDto(Illness illness){
-        IllnessDto illnessDto = IllnessDto.builder()
+    public IllnessDto toDto(Illness illness) {
+        return IllnessDto.builder()
                 .illnessId(new IllnessId(illness.getIdEmployee(), illness.getDate()))
                 .illnessType(illness.getIllnessType())
                 .build();
-        return illnessDto;
     }
 
-    public Illness toDomain(IllnessDto dto){
-        Illness illness = new Illness(dto.getIllnessId().getIdEmployee(),dto.getIllnessId().getDate(),dto.getIllnessType());
-
-        return illness;
+    public Illness toDomain(IllnessDto dto) {
+        return new Illness(dto.getIllnessId().getIdEmployee(), dto.getIllnessId().getDate(), dto.getIllnessType());
     }
 
-    public DayOffDto toDto(DayOff dayOff){
-        DayOffDto dayOffDto = DayOffDto.builder()
+    public DayOffDto toDto(DayOff dayOff) {
+        return DayOffDto.builder()
                 .dayOffId(new DayOffId(dayOff.getIdEmployee(), dayOff.getDate()))
                 .dayOffType(dayOff.getDayOffType())
                 .build();
-        return dayOffDto;
     }
 
-    public DayOff toDomain(DayOffDto dto){
-        DayOff dayOff = new DayOff(dto.getDayOffId().getIdEmployee(),dto.getDayOffId().getDate(),dto.getDayOffType());
-
-        return dayOff;
+    public DayOff toDomain(DayOffDto dto) {
+        return new DayOff(dto.getDayOffId().getIdEmployee(), dto.getDayOffId().getDate(), dto.getDayOffType());
     }
 }

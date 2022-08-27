@@ -1,8 +1,8 @@
 package net.focik.hr.employee.infrastructure.jpa;
 
 import lombok.AllArgsConstructor;
-import net.focik.hr.employee.domain.workTimeRecords.DaysToWork;
-import net.focik.hr.employee.domain.workTimeRecords.port.secondary.DaysToWorkRepository;
+import net.focik.hr.employee.domain.worktimerecords.DaysToWork;
+import net.focik.hr.employee.domain.worktimerecords.port.secondary.DaysToWorkRepository;
 import net.focik.hr.employee.infrastructure.dto.HolidaysDto;
 import net.focik.hr.employee.infrastructure.dto.WorkHoursDto;
 import net.focik.hr.employee.infrastructure.mapper.JpaDaysToWorkMapper;

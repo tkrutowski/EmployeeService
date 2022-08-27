@@ -1,15 +1,11 @@
 package net.focik.hr.employee.infrastructure.jpa;
 
 import lombok.AllArgsConstructor;
-import net.focik.hr.employee.domain.advance.Advance;
-import net.focik.hr.employee.domain.advance.port.secondary.AdvanceRepository;
 import net.focik.hr.employee.domain.loans.Loan;
 import net.focik.hr.employee.domain.loans.LoanInstallment;
 import net.focik.hr.employee.domain.loans.port.secondary.LoanRepository;
-import net.focik.hr.employee.infrastructure.dto.AdvanceDto;
 import net.focik.hr.employee.infrastructure.dto.LoanDto;
 import net.focik.hr.employee.infrastructure.dto.LoanInstallmentDto;
-import net.focik.hr.employee.infrastructure.mapper.JpaAdvanceMapper;
 import net.focik.hr.employee.infrastructure.mapper.JpaLoanMapper;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
@@ -43,7 +39,7 @@ class LoanRepositoryAdapter implements LoanRepository {
     @Override
     public Optional<Loan> findLoanById(Integer id) {
         Optional<LoanDto> loanById = loanDtoRepository.findById(id);
-        if(loanById.isEmpty())
+        if (loanById.isEmpty())
             return Optional.empty();
         List<LoanInstallmentDto> loanInstallmentByIdLoan = loanInstallmentDtoRepository.findAllByIdLoan(id);
 
@@ -54,7 +50,7 @@ class LoanRepositoryAdapter implements LoanRepository {
     public Optional<LoanInstallment> findLoanInstallmentById(Integer id) {
         Optional<LoanInstallmentDto> byId = loanInstallmentDtoRepository.findById(id);
 
-        if(byId.isEmpty())
+        if (byId.isEmpty())
             return Optional.empty();
 
         return Optional.of(mapper.toDomain(byId.get()));
@@ -64,15 +60,13 @@ class LoanRepositoryAdapter implements LoanRepository {
     public List<LoanInstallment> findLoanInstallmentByEmployeeIdAndDate(Integer employeeId, LocalDate date) {
         List<LoanDto> loansByIdEmployee = loanDtoRepository.findAllByIdEmployee(employeeId);
         List<LoanInstallmentDto> loanInstallmentDtos = new ArrayList<>();
-        String dateFormat = date.getYear()+String.format("-%02d", date.getMonthValue());
-        for (LoanDto dto : loansByIdEmployee ) {
-            loanInstallmentDtoRepository.findAllByIdLoanAndDate(dto.getId(), dateFormat).stream()
-                    .forEach(loanInstallmentDto -> loanInstallmentDtos.add(loanInstallmentDto));
+        String dateFormat = date.getYear() + String.format("-%02d", date.getMonthValue());
+        for (LoanDto dto : loansByIdEmployee) {
+            loanInstallmentDtos.addAll(loanInstallmentDtoRepository.findAllByIdLoanAndDate(dto.getId(), dateFormat));
         }
 
         return loanInstallmentDtos.stream()
                 .map(l -> mapper.toDomain(l))
                 .collect(Collectors.toList());
     }
-
 }

@@ -8,14 +8,10 @@ import net.focik.hr.employee.infrastructure.dto.RateOvertimeDbDto;
 import net.focik.hr.employee.infrastructure.dto.RateRegularDbDto;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 @Component
 public class JpaEmployeeMapper {
 
-    public Employee toDomain(EmployeeDbDto dto, List<RateRegularDbDto> rateRegularDbDtos, List<RateOvertimeDbDto> rateOvertimeDbDtos){
+    public Employee toDomain(EmployeeDbDto dto) {
         Employee employee = Employee.builder()
                 .id(dto.getId())
                 .firstName(dto.getFirstName())
@@ -32,18 +28,16 @@ public class JpaEmployeeMapper {
                 .nextBhpTrainingDate(dto.getNextBhpTrainingDate())
                 .workTime(dto.getWorkTime())
                 .employeeType(dto.getEmployeeType())
-                .rateOvertime(convertRateOvertimeListToSet(rateOvertimeDbDtos))
-                .rateRegular(convertRateRegularListToSet(rateRegularDbDtos))
                 .pesel(dto.getPesel())
                 .build();
 
-                employee.setAddress(dto.getCity(), dto.getStreet(), dto.getZip());
+        employee.setAddress(dto.getCity(), dto.getStreet(), dto.getZip());
 
         return employee;
     }
 
-   public EmployeeDbDto toDto(Employee e){
-        EmployeeDbDto employeeDto = EmployeeDbDto.builder()
+    public EmployeeDbDto toDto(Employee e) {
+        return EmployeeDbDto.builder()
                 .id(e.getId())
                 .firstName(e.getFirstName())
                 .lastName(e.getLastName())
@@ -64,48 +58,22 @@ public class JpaEmployeeMapper {
                 .email(e.getEmail())
                 .pesel(e.getPesel())
                 .build();
-
-        return employeeDto;
     }
 
-    public RateRegular toDomain(RateRegularDbDto dto){
-        RateRegular rateRegular = RateRegular.builder()
+    public RateRegular toDomain(RateRegularDbDto dto) {
+        return RateRegular.builder()
                 .idRate(dto.getIdRate())
                 .dateFrom(dto.getDateFrom())
                 .rateType(dto.getRateType())
                 .rateValue(dto.getRateValue())
                 .build();
-
-        return rateRegular;
     }
 
-    public RateOvertime toDomain(RateOvertimeDbDto dto){
-        RateOvertime rateOvertime = RateOvertime.builder()
+    public RateOvertime toDomain(RateOvertimeDbDto dto) {
+        return RateOvertime.builder()
                 .idRate(dto.getIdRate())
                 .dateFrom(dto.getDateFrom())
                 .rateValue(dto.getRateValue())
                 .build();
-
-        return rateOvertime;
-    }
-
-    private Set<RateRegular> convertRateRegularListToSet(List<RateRegularDbDto> rateRegularDbDtos) {
-        Set<RateRegular> rateRegularSet = new HashSet<>();
-        if(rateRegularDbDtos == null)
-            return rateRegularSet;
-
-        rateRegularDbDtos.stream()
-                .forEach(rateRegularDto -> rateRegularSet.add(toDomain(rateRegularDto)));
-        return rateRegularSet;
-    }
-
-    private Set<RateOvertime> convertRateOvertimeListToSet(List<RateOvertimeDbDto> rateOvertimeDbDtos) {
-        Set<RateOvertime> rateOvertimeSet = new HashSet<>();
-        if(rateOvertimeDbDtos == null)
-            return rateOvertimeSet;
-
-        rateOvertimeDbDtos.stream()
-                .forEach(rateOvertimeDto ->  rateOvertimeSet.add(toDomain(rateOvertimeDto)));
-        return rateOvertimeSet;
     }
 }

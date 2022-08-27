@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import net.focik.hr.employee.domain.workTimeRecords.share.WorkType;
+import net.focik.hr.employee.domain.worktimerecords.share.WorkType;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,4 +22,6 @@ public class WorkTimeDto {
     @Setter private Boolean isHoliday;
     private Integer idEmployee;
     private WorkType workType;
+    private Integer idIllnessType;
+    private Integer idDayOffType;
 }

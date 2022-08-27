@@ -10,5 +10,4 @@ import lombok.NoArgsConstructor;
 public class EmployeeTypeDto {
     private String name;
     private String viewName;
-
 }

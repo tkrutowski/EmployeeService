@@ -19,12 +19,11 @@ import static org.springframework.http.HttpStatus.*;
 @Slf4j
 @RestControllerAdvice
 public class ExceptionHandling implements ErrorController {
-    public final String METHOD_IS_NOT_ALLOWED = "This request method is not allowed on this endpoint. Please send a '%s' request.";
-    public final String INTERNAL_SERVER_ERROR_MSG = "An error occurred while processing the request.";
-    public final String ERROR_PROCESSING_FILE = "Error occurred while processing file team.";
-    public final String NOT_ENOUGH_PERMISSION = "Nie masz wystarczających uprawnień.";
-    public static final String ERROR_PATH = "/error";
-
+    public static final  String METHOD_IS_NOT_ALLOWED = "This request method is not allowed on this endpoint. Please send a '%s' request.";
+    public static final  String INTERNAL_SERVER_ERROR_MSG = "An error occurred while processing the request.";
+    public static final  String ERROR_PROCESSING_FILE = "Error occurred while processing file team.";
+    public static final  String NOT_ENOUGH_PERMISSION = "Nie masz wystarczających uprawnień.";
+    public static final  String ERROR_PATH = "/error";
 
 
     @ExceptionHandler(AccessDeniedException.class)
@@ -33,12 +32,17 @@ public class ExceptionHandling implements ErrorController {
     }
 
     @ExceptionHandler(ObjectAlreadyExistException.class)
-    public ResponseEntity<HttpResponse> usernameExistException(ObjectAlreadyExistException exception) {
+    public ResponseEntity<HttpResponse> alreadyExistException(ObjectAlreadyExistException exception) {
         return createHttpResponse(CONFLICT, exception.getMessage());
     }
 
     @ExceptionHandler(ObjectNotFoundException.class)
-    public ResponseEntity<HttpResponse> emailNotFoundException(ObjectNotFoundException exception) {
+    public ResponseEntity<HttpResponse> notFoundException(ObjectNotFoundException exception) {
+        return createHttpResponse(NOT_FOUND, exception.getMessage());
+    }
+
+    @ExceptionHandler(ObjectNotValidException.class)
+    public ResponseEntity<HttpResponse> notValidException(ObjectNotValidException exception) {
         return createHttpResponse(NOT_FOUND, exception.getMessage());
     }
 
@@ -68,21 +72,17 @@ public class ExceptionHandling implements ErrorController {
 
     @RequestMapping(ERROR_PATH)
     public ResponseEntity<HttpResponse> notFound404(Exception exception) {
-        int i=0;
         return createHttpResponse(NOT_FOUND, "There is no mapping for this URL");
     }
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<HttpResponse> runtimeException(RuntimeException exception) {
-        int i=0;
-//        return createHttpResponse(UNAUTHORIZED, exception.getMessage());
         return createHttpResponse(INTERNAL_SERVER_ERROR, ERROR_PROCESSING_FILE);
     }
 
 
-
-    private ResponseEntity<HttpResponse> createHttpResponse(HttpStatus httpStatus, String message){
-        HttpResponse httpResponse = new HttpResponse(httpStatus.value(), httpStatus ,
+    private ResponseEntity<HttpResponse> createHttpResponse(HttpStatus httpStatus, String message) {
+        HttpResponse httpResponse = new HttpResponse(httpStatus.value(), httpStatus,
                 httpStatus.getReasonPhrase().toUpperCase(), message);
 
         return new ResponseEntity<>(httpResponse, httpStatus);

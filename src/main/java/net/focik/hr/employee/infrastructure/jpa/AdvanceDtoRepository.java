@@ -9,7 +9,7 @@ import java.util.List;
 
 interface AdvanceDtoRepository extends JpaRepository<AdvanceDto, Integer> {
 
-//    @Query(value = "select * from zaliczka where id_pracownika = ?1 AND extract(year from data)= ?2  AND extract(month from data) = ?3",
+    //    @Query(value = "select * from zaliczka where id_pracownika = ?1 AND extract(year from data)= ?2  AND extract(month from data) = ?3",
 //    @Query(value = "select * from zaliczka where id_pracownika = ?1 AND datepart(year, data)= ?2  AND datepart(month, data) = ?3",
     @Query(value = "select * from zaliczka where id_pracownika = ?1 AND  data like ?2%",
             nativeQuery = true)

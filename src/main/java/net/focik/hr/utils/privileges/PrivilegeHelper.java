@@ -1,0 +1,43 @@
+package net.focik.hr.utils.privileges;
+
+import java.util.List;
+
+public class PrivilegeHelper {
+    public static final String AUTHORITIES = "authorities";
+    public static final String HR_EMPLOYEE_WRITE_ALL = "HR_EMPLOYEE_WRITE_ALL";
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
+    public static final String HR_ADDITION_WRITE_ALL = "HR_ADDITION_WRITE_ALL";
+    public static final String HR_ADDITION_READ_ALL = "HR_ADDITION_READ_ALL";
+    public static final String HR_EMPLOYEE_DELETE_ALL = "HR_EMPLOYEE_DELETE_ALL";
+    public static final String HR_EMPLOYEE_READ_ALL = "HR_EMPLOYEE_READ_ALL";
+    public static final String HR_EMPLOYEE_READ = "HR_EMPLOYEE_READ";
+    public static final String HR_RATE_READ_ALL = "HR_RATE_READ_ALL";
+    public static final String HR_RATE_WRITE_ALL = "HR_RATE_WRITE_ALL";
+    public static final String HR_SALARIES_READ_ALL = "HR_SALARIES_READ_ALL";
+    public static final String HR_SALARIES_READ = "HR_SALARIES_READ";
+    public static final String HR_WORKTIME_WRITE_ALL = "HR_WORKTIME_WRITE_ALL";
+    public static final String HR_WORKTIME_WRITE = "HR_WORKTIME_WRITE";
+    public static final String HR_WORKTIME_READ_ALL = "HR_WORKTIME_READ_ALL";
+    public static final String HR_WORKTIME_READ = "HR_WORKTIME_READ";
+    public static final String TASK_CALENDAR_READ_ALL = "TASK_CALENDAR_READ_ALL";
+    public static final String TASK_CALENDAR_READ = "TASK_CALENDAR_READ";
+    public static final String HR_RATE_DELETE_ALL = "HR_RATE_DELETE_ALL";
+    public static final String HR_ADDITION_DELETE_ALL = "HR_ADDITION_DELETE_ALL";
+
+    private PrivilegeHelper() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    /**
+     * @param roles       list of access roles
+     * @param searchRoles list of roles to be checked
+     * @return true if any role from @roles is found in @searchRoles
+     */
+    public static boolean dontHaveAccess(List<String> roles, List<String> searchRoles) {
+        for (String role : roles) {
+            if (searchRoles.contains(role))
+                return false;
+        }
+        return true;
+    }
+}

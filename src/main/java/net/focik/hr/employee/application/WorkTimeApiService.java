@@ -5,9 +5,9 @@ import net.focik.hr.employee.api.dto.WorkTimeDto;
 import net.focik.hr.employee.api.mapper.ApiWorkTimeMapper;
 import net.focik.hr.employee.domain.port.primary.AddWorkTimeUseCase;
 import net.focik.hr.employee.domain.port.primary.GetWorkTimeRecordsUseCase;
-import net.focik.hr.employee.domain.workTimeRecords.DaysToWork;
-import net.focik.hr.employee.domain.workTimeRecords.IWorkTime;
-import net.focik.hr.employee.domain.workTimeRecords.WorkTimeFacade;
+import net.focik.hr.employee.domain.worktimerecords.DaysToWork;
+import net.focik.hr.employee.domain.worktimerecords.IWorkTime;
+import net.focik.hr.employee.domain.worktimerecords.WorkTimeFacade;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
@@ -75,14 +75,13 @@ public class WorkTimeApiService implements GetWorkTimeRecordsUseCase, AddWorkTim
     }
 
 
-
     public void resolveHolidays(List<WorkTimeDto> workTimeDtos, LocalDate date) {
         DaysToWork daysToWorkByDate = workTimeFacade.getDaysToWorkByDate(date.getYear(), date.getMonth().getValue());
 
         for (WorkTimeDto dto : workTimeDtos) {
-            LocalDate localDate = LocalDate.of(Integer.parseInt(dto.getDate().substring(6)),Integer.parseInt(dto.getDate().substring(3,5)),Integer.parseInt(dto.getDate().substring(0,2)));
+            LocalDate localDate = LocalDate.of(Integer.parseInt(dto.getDate().substring(6)), Integer.parseInt(dto.getDate().substring(3, 5)), Integer.parseInt(dto.getDate().substring(0, 2)));
             dto.setIsHoliday(daysToWorkByDate.getHolidays().keySet().stream()
-                    .anyMatch(date1 ->  date1.equals(localDate)));
+                    .anyMatch(date1 -> date1.equals(localDate)));
             if (localDate.getDayOfWeek() == DayOfWeek.SATURDAY || localDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
                 dto.setIsHoliday(true);
             }

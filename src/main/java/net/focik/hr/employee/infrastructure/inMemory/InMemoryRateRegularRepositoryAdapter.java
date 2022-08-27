@@ -42,6 +42,21 @@ public class InMemoryRateRegularRepositoryAdapter implements RateRegularReposito
         return null;
     }
 
+    @Override
+    public void deleteRateRegularByIdEmployee(Integer idEmployee) {
+
+    }
+
+    @Override
+    public void deleteRateRegularById(Integer id) {
+
+    }
+
+    @Override
+    public RateRegular findRateRegularByIdAndDate(Integer id, LocalDate date) {
+        return null;
+    }
+
     // @Override
     public Optional<RateRegularDbDto> findRateRegularById(Integer id) {
         return Optional.ofNullable(rateRegularHashMap.get(id));

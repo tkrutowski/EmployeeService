@@ -3,6 +3,7 @@ package net.focik.hr.employee.domain.port.secondary;
 import net.focik.hr.employee.domain.RateRegular;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -12,5 +13,10 @@ public interface RateRegularRepository {
 
     List<RateRegular> findRateRegularByEmployeeId(Integer idEmployee);
 
-//    Optional<RateRegular> findRateRegularById(Integer id);
+    void deleteRateRegularByIdEmployee(Integer idEmployee);
+
+    void deleteRateRegularById(Integer id);
+
+    RateRegular  findRateRegularByIdAndDate(Integer id, LocalDate date);
+
 }

@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AdditionFacadeInMemoryTest {
     static AdditionRepository additionRepository = new InMemoryAdditionRepositoryAdapter();
-    static AdditionService additionService = new AdditionService(additionRepository);
+    static AdditionService additionService = new AdditionService(additionRepository, null);
     static AdditionFacade additionFacade = new AdditionFacade(additionService);
     static final Integer ID_EMPLOYEE = 222;
     static final LocalDate CALCULATE_SALARY_DATE = LocalDate.of(2021,10,1);

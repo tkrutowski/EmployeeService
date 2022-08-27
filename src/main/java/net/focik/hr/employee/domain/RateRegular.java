@@ -35,7 +35,6 @@ public class RateRegular implements Comparable<RateRegular> {
 
     @Override
     public int compareTo(RateRegular rateRegular) {
-        int i = getDateFrom().compareTo(rateRegular.getDateFrom());
-        return i;
+        return getDateFrom().compareTo(rateRegular.getDateFrom());
     }
 }

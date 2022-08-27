@@ -11,10 +11,10 @@ public class HttpResponse {
 
     private int httpStatusCode;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy HH:mm:ss", timezone = "Europe/Warsaw")
-    private  Date timestamp;
-    private  HttpStatus httpStatus;
-    private  String reason;
-    private  String message;
+    private Date timestamp;
+    private HttpStatus httpStatus;
+    private String reason;
+    private String message;
 
     public HttpResponse(int httpStatusCode, HttpStatus httpStatus, String reason, String message) {
         this.httpStatusCode = httpStatusCode;

@@ -24,8 +24,7 @@ class EmployeeFacadeTest {
   //  @Autowired
     //@Qualifier("inMemory")
     EmployeeCommandRepository employeeCommandRepository = new InMemoryEmployeeCommandRepositoryAdapter();
-
-    EmployeeService employeeService = new EmployeeService(employeeCommandRepository);
+    EmployeeService employeeService = new EmployeeService(employeeCommandRepository, null);
 
     @Test
     void should_add_Employee() {

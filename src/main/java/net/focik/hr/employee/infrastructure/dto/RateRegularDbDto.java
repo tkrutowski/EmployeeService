@@ -1,21 +1,9 @@
 package net.focik.hr.employee.infrastructure.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import net.focik.hr.employee.domain.share.RateType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -30,7 +18,8 @@ public class RateRegularDbDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_stawki")
-    @Setter Integer idRate;
+    @Setter
+    Integer idRate;
     @Column(name = "id_pracownika")
     private Integer idEmployee;
     @Column(name = "godz_mies")

@@ -27,20 +27,16 @@ public class Salary {
     private Integer workOvertime100Minutes;
 
 
-
-
-    public String getWorkTimeAll(){
-        int allMinutes = dayOffMinutesPay + dayOffMinutesFree + illnessMinutes80 + illnessMinutes100 + workRegularMinutes + workOvertime50Minutes + workOvertime100Minutes;
-        StringBuilder builder= new StringBuilder();
-        builder.append(allMinutes / 60);
-        builder.append(":");
-        builder.append(String.format("%02d", allMinutes % 60));
-
-        return builder.toString();
+    public String getWorkTimeAll() {
+        int allMinutes = dayOffMinutesPay + dayOffMinutesFree + illnessMinutes80 + illnessMinutes100 +
+                workRegularMinutes + workOvertime50Minutes + workOvertime100Minutes;
+        return allMinutes / 60 +
+                ":" +
+                String.format("%02d", allMinutes % 60);
     }
 
-    public Money getAmountForAllWorktime(){
-        Money forAll = Money.of(0,"PLN");
+    public Money getAmountForAllWorktime() {
+        Money forAll = Money.of(0, "PLN");
         forAll = forAll.add(forRegularRate);
         forAll = forAll.add(forOvertime50);
         forAll = forAll.add(forOvertime100);
@@ -51,7 +47,7 @@ public class Salary {
         return forAll;
     }
 
-    public Money getAmountToPay(){
+    public Money getAmountToPay() {
         Money toPay = getAmountForAllWorktime();
         toPay = toPay.subtract(advancesSum);
         toPay = toPay.subtract(loanInstallmentSum);

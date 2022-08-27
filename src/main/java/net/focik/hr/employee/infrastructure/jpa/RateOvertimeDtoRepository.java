@@ -5,8 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-interface RateOvertimeDtoRepository extends JpaRepository<RateOvertimeDbDto, Integer> {
+public interface RateOvertimeDtoRepository extends JpaRepository<RateOvertimeDbDto, Integer> {
 
     List<RateOvertimeDbDto> findAllByIdEmployee(Integer idEmployee);
+
     void deleteByIdEmployee(Integer idEmployee);
 }

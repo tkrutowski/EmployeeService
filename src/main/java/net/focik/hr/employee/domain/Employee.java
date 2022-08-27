@@ -1,10 +1,6 @@
 package net.focik.hr.employee.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import net.focik.hr.employee.domain.share.EmployeeType;
 import net.focik.hr.employee.domain.share.EmploymentStatus;
 import net.focik.hr.employee.domain.share.RateType;
@@ -12,9 +8,9 @@ import net.focik.hr.employee.domain.share.WorkTime;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 //AgregateRoot
 @Builder
@@ -42,12 +38,8 @@ public class Employee {
     private Integer idTeam;
     private String pesel;
 
-    void setRateRegular(Set<RateRegular> rateRegular) {
-        this.rateRegular = rateRegular;
-    }
-
-    private Set<RateRegular> rateRegular;
-    private Set<RateOvertime> rateOvertime;
+    private List<RateRegular> rateRegular;
+    private List<RateOvertime> rateOvertime;
 
     public void setAddress(String city, String street, String zip) {
         this.address = new Address(city, street, zip);
@@ -56,14 +48,22 @@ public class Employee {
 
     public void setRateRegular(Integer id, RateType rateType, LocalDate fromDate, BigDecimal value) {
         if (rateRegular == null)
-            rateRegular = new HashSet<>();
+            rateRegular = new ArrayList<>();
         this.rateRegular.add(new RateRegular(id, rateType, fromDate, value));
+    }
+
+    public void setRateRegular(List<RateRegular> rateRegular) {
+        this.rateRegular = rateRegular;
     }
 
     public void setRateOvertime(Integer id, LocalDate fromDate, BigDecimal value) {
         if (rateOvertime == null)
-            rateOvertime = new HashSet<>();
+            rateOvertime = new ArrayList<>();
         this.rateOvertime.add(new RateOvertime(id, fromDate, value));
+    }
+
+    public void setRateOvertime(List<RateOvertime> rateOvertime) {
+        this.rateOvertime = rateOvertime;
     }
 
 
@@ -83,8 +83,7 @@ public class Employee {
     public RateRegular getLatestRateRegular() {
         return rateRegular.stream()
                 .sorted(RateRegular::compareTo)
-                .sorted(Comparator.reverseOrder())
-                .findFirst()
+                .max(Comparator.naturalOrder())
                 .orElse(null);
     }
 
@@ -106,12 +105,11 @@ public class Employee {
     public RateOvertime getLatestRateOvertime() {
         return rateOvertime.stream()
                 .sorted(RateOvertime::compareTo)
-                .sorted(Comparator.reverseOrder())
-                .findFirst()
+                .max(Comparator.naturalOrder())
                 .orElse(null);
     }
 
-    public void changeEmploymentStatus(EmploymentStatus newEmploymentStatus){
+    public void changeEmploymentStatus(EmploymentStatus newEmploymentStatus) {
         this.employmentStatus = newEmploymentStatus;
     }
 }

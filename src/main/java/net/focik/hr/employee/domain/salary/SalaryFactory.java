@@ -5,8 +5,8 @@ import net.focik.hr.employee.domain.Employee;
 import net.focik.hr.employee.domain.addition.AdditionFacade;
 import net.focik.hr.employee.domain.advance.AdvanceFacade;
 import net.focik.hr.employee.domain.loans.LoanFacade;
-import net.focik.hr.employee.domain.workTimeRecords.DaysToWork;
-import net.focik.hr.employee.domain.workTimeRecords.WorkTimeFacade;
+import net.focik.hr.employee.domain.worktimerecords.DaysToWork;
+import net.focik.hr.employee.domain.worktimerecords.WorkTimeFacade;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -24,7 +24,7 @@ class SalaryFactory {
 
         salaryService.calculateMinutes(workTimeFacade.getAllByEmployeeIdAndDate(employee.getId(), date));
 
-        Salary salary = Salary.builder()
+        return Salary.builder()
                 .advancesSum(advanceFacade.getAdvancesSumByIdEmployeeAndDate(employee.getId(), date))
                 .additionsSum(additionFacade.getAdditionsSumByIdEmployeeAndDate(employee.getId(), date))
                 .loanInstallmentSum(loanFacade.getInstallmentLoansSumByIdEmployeeAndDate(employee.getId(), date))
@@ -43,7 +43,5 @@ class SalaryFactory {
                 .forOvertime50(salaryService.calculateForWorkOvertime50(employee.getRateOvertimeByDate(date).getRateValue()))
                 .forOvertime100(salaryService.calculateForWorkOvertime100(employee.getRateOvertimeByDate(date).getRateValue()))
                 .build();
-        return salary;
     }
-
 }

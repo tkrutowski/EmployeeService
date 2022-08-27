@@ -10,48 +10,39 @@ import org.springframework.stereotype.Component;
 public class JpaRateMapper {
 
 
-    public RateRegular toDomain (RateRegularDbDto dto){
-        RateRegular rateRegular = RateRegular.builder()
+    public RateRegular toDomain(RateRegularDbDto dto) {
+        return RateRegular.builder()
                 .idRate(dto.getIdRate())
                 .rateType(dto.getRateType())
                 .dateFrom(dto.getDateFrom())
                 .rateValue(dto.getRateValue())
                 .build();
-
-        return rateRegular;
     }
 
-    public RateOvertime toDomain (RateOvertimeDbDto dto){
-        RateOvertime rateOvertime = RateOvertime.builder()
+    public RateOvertime toDomain(RateOvertimeDbDto dto) {
+        return RateOvertime.builder()
                 .idRate(dto.getIdRate())
                 .dateFrom(dto.getDateFrom())
                 .rateValue(dto.getRateValue())
                 .build();
-
-        return rateOvertime;
     }
 
-    public RateRegularDbDto toDto(RateRegular rateRegular, Integer idEmployee){
-        RateRegularDbDto rateRegularDbDto = RateRegularDbDto.builder()
+    public RateRegularDbDto toDto(RateRegular rateRegular, Integer idEmployee) {
+        return RateRegularDbDto.builder()
                 .idRate(rateRegular.getIdRate())
                 .idEmployee(idEmployee)
                 .dateFrom(rateRegular.getDateFrom())
                 .rateType(rateRegular.getRateType())
                 .rateValue(rateRegular.getRateValue())
                 .build();
-
-        return rateRegularDbDto;
     }
 
-    public RateOvertimeDbDto toDto(RateOvertime rateOvertime, Integer idEmployee){
-        RateOvertimeDbDto overtimeDto = RateOvertimeDbDto.builder()
+    public RateOvertimeDbDto toDto(RateOvertime rateOvertime, Integer idEmployee) {
+        return RateOvertimeDbDto.builder()
                 .idRate(rateOvertime.getIdRate())
                 .idEmployee(idEmployee)
                 .dateFrom(rateOvertime.getDateFrom())
                 .rateValue(rateOvertime.getRateValue())
                 .build();
-
-        return overtimeDto;
     }
-
 }

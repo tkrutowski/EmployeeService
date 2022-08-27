@@ -1,12 +1,12 @@
 package net.focik.hr.employee.domain.salary;
 
 import net.focik.hr.employee.domain.share.RateType;
-import net.focik.hr.employee.domain.workTimeRecords.DayOff;
-import net.focik.hr.employee.domain.workTimeRecords.IWorkTime;
-import net.focik.hr.employee.domain.workTimeRecords.Illness;
-import net.focik.hr.employee.domain.workTimeRecords.Work;
-import net.focik.hr.employee.domain.workTimeRecords.share.DayOffType;
-import net.focik.hr.employee.domain.workTimeRecords.share.IllnessType;
+import net.focik.hr.employee.domain.worktimerecords.DayOff;
+import net.focik.hr.employee.domain.worktimerecords.IWorkTime;
+import net.focik.hr.employee.domain.worktimerecords.Illness;
+import net.focik.hr.employee.domain.worktimerecords.Work;
+import net.focik.hr.employee.domain.worktimerecords.share.DayOffType;
+import net.focik.hr.employee.domain.worktimerecords.share.IllnessType;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -67,7 +67,7 @@ class SalaryServiceTest {
         int EXPECTED = 960;
         List<IWorkTime> list = new ArrayList<>();
         list.add(new DayOff(ID_EMPLOYEE, LocalDate.of(2021,11,5), DayOffType.FREE));
-        list.add(new DayOff(ID_EMPLOYEE, LocalDate.of(2021,11,6), DayOffType.EDUCAIONAL));
+        list.add(new DayOff(ID_EMPLOYEE, LocalDate.of(2021,11,6), DayOffType.EDUCATIONAL));
         list.add(new DayOff(ID_EMPLOYEE, LocalDate.of(2021,11,6), DayOffType.FATHERLY));
 
         //when

@@ -1,17 +1,12 @@
 package net.focik.hr.employee.infrastructure.jpa;
 
 import lombok.AllArgsConstructor;
-import net.focik.hr.employee.domain.workTimeRecords.DayOff;
-import net.focik.hr.employee.domain.workTimeRecords.IWorkTime;
-import net.focik.hr.employee.domain.workTimeRecords.Illness;
-import net.focik.hr.employee.domain.workTimeRecords.Work;
-import net.focik.hr.employee.domain.workTimeRecords.port.secondary.WorkTimeRepository;
-import net.focik.hr.employee.infrastructure.dto.DayOffDto;
-import net.focik.hr.employee.infrastructure.dto.DayOffId;
-import net.focik.hr.employee.infrastructure.dto.IllnessDto;
-import net.focik.hr.employee.infrastructure.dto.IllnessId;
-import net.focik.hr.employee.infrastructure.dto.WorkDto;
-import net.focik.hr.employee.infrastructure.dto.WorkId;
+import net.focik.hr.employee.domain.worktimerecords.DayOff;
+import net.focik.hr.employee.domain.worktimerecords.IWorkTime;
+import net.focik.hr.employee.domain.worktimerecords.Illness;
+import net.focik.hr.employee.domain.worktimerecords.Work;
+import net.focik.hr.employee.domain.worktimerecords.port.secondary.WorkTimeRepository;
+import net.focik.hr.employee.infrastructure.dto.*;
 import net.focik.hr.employee.infrastructure.mapper.JpaWorkMapper;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
@@ -71,11 +66,11 @@ class WorkTimeRepositoryAdapter implements WorkTimeRepository {
         List<IWorkTime> iWorkTimes = new ArrayList<>();
         String dateFormat = date.getYear() + String.format("-%02d", date.getMonthValue());
 //        workDtoRepository.findAllByIdEmployeeAndDate(idEmployee, date).stream()
-        workDtoRepository.findAllByIdEmployeeAndDate(idEmployee, dateFormat).stream()
+        workDtoRepository.findAllByIdEmployeeAndDate(idEmployee, dateFormat)
                 .forEach(workDto -> iWorkTimes.add(mapper.toDomain(workDto)));
-        dayOffDtoRepository.findAllByIdEmployeeAndDate(idEmployee, dateFormat).stream()
+        dayOffDtoRepository.findAllByIdEmployeeAndDate(idEmployee, dateFormat)
                 .forEach(dayOffDto -> iWorkTimes.add(mapper.toDomain(dayOffDto)));
-        illnessDtoRepository.findAllByIdEmployeeAndDate(idEmployee, dateFormat).stream()
+        illnessDtoRepository.findAllByIdEmployeeAndDate(idEmployee, dateFormat)
                 .forEach(illnessDto -> iWorkTimes.add(mapper.toDomain(illnessDto)));
         return iWorkTimes;
     }

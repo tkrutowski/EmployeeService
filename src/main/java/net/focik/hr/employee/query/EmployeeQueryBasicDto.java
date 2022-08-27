@@ -1,17 +1,7 @@
 package net.focik.hr.employee.query;
 
 import lombok.*;
-import net.focik.hr.employee.domain.share.EmploymentStatus;
-import net.focik.hr.employee.domain.share.RateType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.time.LocalDate;
 
 @AllArgsConstructor

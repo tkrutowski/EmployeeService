@@ -13,8 +13,8 @@ import java.util.Set;
 @Component
 public class JpaLoanMapper {
 
-    public LoanDto toDto(Loan loan){
-        LoanDto loanDto = LoanDto.builder()
+    public LoanDto toDto(Loan loan) {
+        return LoanDto.builder()
                 .id(loan.getIdLoan())
                 .idEmployee(loan.getIdEmployee())
                 .amount(loan.getAmount())
@@ -24,11 +24,10 @@ public class JpaLoanMapper {
                 .name(loan.getName())
                 .loanStatus(loan.getLoanStatus())
                 .build();
-        return loanDto;
     }
 
-    public Loan toDomain(LoanDto dto, List<LoanInstallmentDto> loanInstallments){
-        Loan loan = Loan.builder()
+    public Loan toDomain(LoanDto dto, List<LoanInstallmentDto> loanInstallments) {
+        return Loan.builder()
                 .idLoan(dto.getId())
                 .idEmployee(dto.getIdEmployee())
                 .amount(dto.getAmount())
@@ -39,40 +38,35 @@ public class JpaLoanMapper {
                 .loanStatus(dto.getLoanStatus())
                 .loanInstallments(mapListLoanInstallmentToSet(loanInstallments))
                 .build();
-
-        return loan;
     }
 
     private Set<LoanInstallment> mapListLoanInstallmentToSet(List<LoanInstallmentDto> installmentDtoList) {
         Set<LoanInstallment> loanInstallmentSet = new HashSet<>();
 
         installmentDtoList.stream()
-                .map(loanInstallmentDto -> toDomain(loanInstallmentDto))
-                .forEach(loanInstallment -> loanInstallmentSet.add(loanInstallment));
+                .map(this::toDomain)
+                .forEach(loanInstallmentSet::add);
 
         return loanInstallmentSet;
     }
 
-    public LoanInstallmentDto toDto(LoanInstallment loanInstallment){
-        LoanInstallmentDto loanDto = LoanInstallmentDto.builder()
+    public LoanInstallmentDto toDto(LoanInstallment loanInstallment) {
+        return LoanInstallmentDto.builder()
                 .id(loanInstallment.getIdLoanInstallment())
                 .idLoan(loanInstallment.getIdLoan())
                 .amount(loanInstallment.getInstallmentAmount())
                 .date(loanInstallment.getDate())
                 .isOwnRepayment(loanInstallment.isOwnRepayment())
                 .build();
-        return loanDto;
     }
 
-    public LoanInstallment toDomain(LoanInstallmentDto dto){
-        LoanInstallment loan = LoanInstallment.builder()
+    public LoanInstallment toDomain(LoanInstallmentDto dto) {
+        return LoanInstallment.builder()
                 .idLoanInstallment(dto.getId())
                 .idLoan(dto.getIdLoan())
                 .installmentAmount(dto.getAmount())
                 .date(dto.getDate())
                 .isOwnRepayment(dto.getIsOwnRepayment())
                 .build();
-
-        return loan;
     }
 }

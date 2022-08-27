@@ -3,10 +3,8 @@ package net.focik.hr.employee.infrastructure.jpa;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import net.focik.hr.employee.domain.RateOvertime;
-import net.focik.hr.employee.domain.RateRegular;
 import net.focik.hr.employee.domain.port.secondary.RateOvertimeRepository;
 import net.focik.hr.employee.infrastructure.dto.RateOvertimeDbDto;
-import net.focik.hr.employee.infrastructure.dto.RateRegularDbDto;
 import net.focik.hr.employee.infrastructure.mapper.JpaRateMapper;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +14,7 @@ import java.util.stream.Collectors;
 @Component()
 @Log
 @AllArgsConstructor
-public class RateOvertimeRepositoryAdapter implements  RateOvertimeRepository {
+public class RateOvertimeRepositoryAdapter implements RateOvertimeRepository {
     private final JpaRateMapper jpaMapper;
     private final RateOvertimeDtoRepository rateOvertimeDtoRepository;
 
@@ -33,7 +31,17 @@ public class RateOvertimeRepositoryAdapter implements  RateOvertimeRepository {
     @Override
     public List<RateOvertime> findRateOvertimeEmployeeId(Integer idEmployee) {
         return rateOvertimeDtoRepository.findAllByIdEmployee(idEmployee).stream()
-                .map(dto -> jpaMapper.toDomain(dto))
+                .map(jpaMapper::toDomain)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteRateOvertimeByIdEmployee(Integer idEmployee) {
+        rateOvertimeDtoRepository.deleteByIdEmployee(idEmployee);
+    }
+
+    @Override
+    public void deleteRateOvertimeById(Integer id) {
+        rateOvertimeDtoRepository.deleteById(id);
     }
 }

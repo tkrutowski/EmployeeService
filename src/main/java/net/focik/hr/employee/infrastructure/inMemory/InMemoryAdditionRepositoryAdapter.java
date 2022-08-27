@@ -41,7 +41,7 @@ public class InMemoryAdditionRepositoryAdapter implements AdditionRepository {
                 .collect(Collectors.toList());
     }
     @Override
-    public Integer add(Addition addition) {
+    public Integer addAddition(Addition addition) {
         AdditionDto additionDto = jpaMapper.toDto(addition);
         log.info("Try add into inMemoryDb addition: " + additionDto.toString());
         if (additionDto == null)
@@ -51,5 +51,16 @@ public class InMemoryAdditionRepositoryAdapter implements AdditionRepository {
         DataBaseAddition.getAdditionsHashMap().put(id, additionDto);
         log.info("Succssec id = " + id);
         return id;
+    }
+
+    @Override
+    public Integer updateAddition(Addition addition) {
+        return null;
+    }
+
+    @Override
+    public void deleteAddition(Integer additionId) {
+//        AdditionDto additionDto = jpaMapper.toDto(addition);
+//        DataBaseAddition.getAdditionsHashMap().remove()
     }
 }

@@ -19,6 +19,4 @@ class Address {
                 ",city='" + city + '\'' +
                 '}';
     }
-
-
 }

@@ -3,10 +3,6 @@ package net.focik.hr.employee.api.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Value;
-import org.javamoney.moneta.Money;
-
-import java.time.LocalDate;
 
 @AllArgsConstructor
 @Getter

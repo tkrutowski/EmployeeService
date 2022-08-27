@@ -4,16 +4,13 @@ import net.focik.hr.employee.api.dto.EmployeeDto;
 import net.focik.hr.employee.domain.Employee;
 import net.focik.hr.employee.domain.share.EmployeeType;
 import net.focik.hr.employee.domain.share.EmploymentStatus;
-import net.focik.hr.employee.domain.share.RateType;
 import net.focik.hr.employee.domain.share.WorkTime;
 import org.springframework.stereotype.Component;
-
-import java.math.BigDecimal;
 
 @Component
 public class ApiEmployeeMapper {
 
-    public Employee toDomain (EmployeeDto dto){
+    public Employee toDomain(EmployeeDto dto) {
         Employee build = Employee.builder()
                 .id(dto.getId())
                 .firstName(dto.getFirstName())
@@ -32,14 +29,12 @@ public class ApiEmployeeMapper {
                 .employeeType(EmployeeType.valueOf(dto.getEmployeeType()))
                 .pesel(dto.getPesel())
                 .build();
-                build.setAddress(dto.getCity(), dto.getStreet(), dto.getZip());
-                //build.setRateRegular(null, RateType.valueOf(dto.getRateRegularType()), dto.getRateRegularDateFrom(), BigDecimal.valueOf(dto.getRateRegularValue()));
-                //build.setRateOvertime( null, dto.getRateOvertimeDateFrom(), BigDecimal.valueOf(dto.getRateOvertimeValue()));
+        build.setAddress(dto.getCity(), dto.getStreet(), dto.getZip());
         return build;
     }
 
-    public EmployeeDto toDto(Employee e){
-        EmployeeDto build = EmployeeDto.builder()
+    public EmployeeDto toDto(Employee e) {
+        return EmployeeDto.builder()
                 .id(e.getId())
                 .firstName(e.getFirstName())
                 .lastName(e.getLastName())
@@ -65,6 +60,5 @@ public class ApiEmployeeMapper {
 //                .rateOvertimeDateFrom(e.getLatestRateRegular().getDateFrom())
 //                .rateOvertimeValue(e.getLatestRateOvertime().getRateValue().doubleValue())
                 .build();
-        return build;
     }
 }

@@ -2,6 +2,7 @@ package net.focik.hr.employee.domain.addition;
 
 import lombok.AllArgsConstructor;
 import net.focik.hr.employee.domain.addition.port.secondary.AdditionRepository;
+import net.focik.hr.employee.domain.addition.port.secondary.AdditionTypeRepository;
 import net.focik.hr.employee.domain.exceptions.AdvanceNotValidException;
 import org.javamoney.moneta.Money;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 class AdditionService {
 
-    private AdditionRepository additionRepository;
+    private final AdditionRepository additionRepository;
+    private final AdditionTypeRepository additionTypeRepository;
 
     Money getAdditionsSumByIdEmployeeAndDate(int idEmployee, LocalDate date) {
         Money sum = Money.of(0, "PLN");
@@ -29,17 +31,36 @@ class AdditionService {
     }
 
     Integer addAddition(Addition addition) {
-        if(!validate(addition))
+        if (isNotValid(addition))
             throw new AdvanceNotValidException();
-        return additionRepository.add(addition);
+        return additionRepository.addAddition(addition);
     }
 
-    private boolean validate(Addition a){
+    public List<AdditionType> getAdditionTypes() {
+        return additionTypeRepository.findAll();
+    }
 
-        if( a.getAmount() == BigDecimal.ZERO)
-            return false;
-        if(a.getDate() == null )
-            return false;
-        return true;
+    public List<Addition> findByEmployeeIdAndDate(Integer idEmployee, LocalDate date) {
+        return additionRepository.findByEmployeeIdAndDate(idEmployee, date);
+    }
+
+    public Integer updateAddition(Addition addition) {
+        return additionRepository.updateAddition(addition);
+    }
+
+    public void deleteAddition(int id) {
+        additionRepository.deleteAddition(id);
+    }
+
+    public List<AdditionType> findAll() {
+        return additionTypeRepository.findAll();
+    }
+
+    public Integer add(AdditionType additionType) {
+        return additionTypeRepository.add(additionType);
+    }
+
+    private boolean isNotValid(Addition a) {
+        return (a.getAmount().equals(BigDecimal.ZERO) || a.getDate() == null);
     }
 }

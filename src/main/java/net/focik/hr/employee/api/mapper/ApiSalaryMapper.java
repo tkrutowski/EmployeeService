@@ -15,7 +15,7 @@ import java.util.Locale;
 public class ApiSalaryMapper {
 
     public SalaryDto toDto(Salary s){
-        SalaryDto dto = SalaryDto.builder()
+        return SalaryDto.builder()
                 .dayOffWorkTimePay(mapMinutesToTime(s.getDayOffMinutesPay()))
                 .dayOffWorkTimeFree(mapMinutesToTime(s.getDayOffMinutesFree()))
                 .illnessWorkTime80(mapMinutesToTime(s.getIllnessMinutes80()))
@@ -37,15 +37,12 @@ public class ApiSalaryMapper {
                 .additionsSum(mapMoneyToString(s.getAdditionsSum()))
                 .loanInstallmentSum(mapMoneyToString(s.getLoanInstallmentSum()))
                 .build();
-        return dto;
     }
 
     private String mapMinutesToTime(Integer dayOffMinutesPay) {
-        StringBuilder result = new StringBuilder();
-        result.append(dayOffMinutesPay/60)
-                .append(":")
-                .append(String.format("%02d", dayOffMinutesPay%60));
-        return result.toString();
+        return dayOffMinutesPay / 60 +
+                ":" +
+                String.format("%02d", dayOffMinutesPay % 60);
     }
 
     private String mapMoneyToString(Money money) {

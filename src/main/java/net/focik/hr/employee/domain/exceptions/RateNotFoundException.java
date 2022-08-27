@@ -6,4 +6,7 @@ public class RateNotFoundException extends ObjectNotFoundException {
     public RateNotFoundException(Integer id) {
         super("Rate with id = " + id + " does not exist");
     }
+    public RateNotFoundException(String message) {
+        super(message);
+    }
 }

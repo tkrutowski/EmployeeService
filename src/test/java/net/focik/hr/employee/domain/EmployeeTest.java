@@ -6,14 +6,16 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeeTest {
 
-        Set<RateRegular> rateRegularSet = new HashSet<RateRegular>();
+        List<RateRegular> rateRegularSet = new ArrayList<>();
 
     @BeforeEach
     void setUp() {

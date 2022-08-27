@@ -3,9 +3,7 @@ package net.focik.hr.employee.api.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
-import net.focik.hr.employee.domain.share.EmploymentStatus;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @AllArgsConstructor
@@ -16,7 +14,6 @@ public class EmployeeDto {
     private Integer id;
     private String firstName;
     private String lastName;
-
 
     private float numberDaysOffLeft;
     private int numberDaysOffAnnually;

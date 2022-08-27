@@ -7,25 +7,22 @@ import org.springframework.stereotype.Component;
 @Component
 public class JpaAdvanceMapper {
 
-    public AdvanceDto toDto(Advance advance){
-        AdvanceDto advanceDto = AdvanceDto.builder()
+    public AdvanceDto toDto(Advance advance) {
+        return AdvanceDto.builder()
                 .id(advance.getId())
                 .idEmployee(advance.getIdEmployee())
                 .amount(advance.getAmount())
                 .date(advance.getDate())
                 .otherInfo(advance.getOtherInfo())
                 .build();
-        return advanceDto;
     }
 
-    public Advance toDomain (AdvanceDto dto){
-        Advance advance = Advance.builder()
+    public Advance toDomain(AdvanceDto dto) {
+        return Advance.builder()
                 .id(dto.getId())
                 .amount(dto.getAmount())
                 .date(dto.getDate())
                 .otherInfo(dto.getOtherInfo())
                 .build();
-
-        return advance;
     }
 }

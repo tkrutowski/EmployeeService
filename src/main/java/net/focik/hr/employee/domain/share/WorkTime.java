@@ -4,7 +4,7 @@ public enum WorkTime {
     FULL_TIME("pełny etat"),
     PART_TIME("pół etatu");
 
-    private String viewValue;
+    private final String viewValue;
 
     WorkTime(String viewValue) {
         this.viewValue = viewValue;

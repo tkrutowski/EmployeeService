@@ -13,15 +13,15 @@ public class EmployeeQueryFacade {
 
     EmployeeQueryService employeeQueryService;
 
-    public EmployeeQueryBasicDto getEmployee(Integer id){
+    public EmployeeQueryBasicDto getEmployee(Integer id) {
         return employeeQueryService.findEmployeeById(id);
     }
 
-    public List<EmployeeQueryBasicDto> getAllEmployee(){
+    public List<EmployeeQueryBasicDto> getAllEmployee() {
         return employeeQueryService.findAll();
     }
 
-    public List<EmployeeQueryBasicDto> getAllEmployeesByEmploymentStatus(EmploymentStatus status){
+    public List<EmployeeQueryBasicDto> getAllEmployeesByEmploymentStatus(EmploymentStatus status) {
         return employeeQueryService.findAllByEmploymentStatus(status);
     }
 

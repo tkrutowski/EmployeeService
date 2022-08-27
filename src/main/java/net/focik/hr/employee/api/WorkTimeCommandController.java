@@ -11,12 +11,12 @@ import net.focik.hr.employee.api.mapper.ApiWorkTimeMapper;
 import net.focik.hr.employee.application.WorkTimeApiService;
 import net.focik.hr.employee.domain.port.primary.AddWorkTimeUseCase;
 import net.focik.hr.employee.domain.port.primary.GetWorkTimeRecordsUseCase;
-import net.focik.hr.employee.domain.utils.PrivilegeHelper;
-import net.focik.hr.employee.domain.workTimeRecords.IWorkTime;
-import net.focik.hr.employee.domain.workTimeRecords.share.DayOffType;
-import net.focik.hr.employee.domain.workTimeRecords.share.IllnessType;
-import net.focik.hr.employee.domain.workTimeRecords.share.WorkType;
+import net.focik.hr.employee.domain.worktimerecords.IWorkTime;
+import net.focik.hr.employee.domain.worktimerecords.share.DayOffType;
+import net.focik.hr.employee.domain.worktimerecords.share.IllnessType;
+import net.focik.hr.employee.domain.worktimerecords.share.WorkType;
 import net.focik.hr.utils.exceptions.AccessDeniedException;
+import net.focik.hr.utils.privileges.PrivilegeHelper;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,16 +25,15 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
-import static net.focik.hr.employee.domain.utils.PrivilegeConstant.AUTHORITIES;
+import static net.focik.hr.utils.privileges.PrivilegeHelper.*;
 
 @Log4j2
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/employee/worktime")
-@CrossOrigin
+//@CrossOrigin
 class WorkTimeCommandController {
 
     private GetWorkTimeRecordsUseCase getWorkTimeRecordsUseCase;
@@ -45,17 +44,17 @@ class WorkTimeCommandController {
     private WorkTimeApiService workTimeApiService;
 
     @PostMapping("")
-    public ResponseEntity addWorkTime(@RequestBody Object dto, @RequestParam(required = true) WorkType workType,
-                                      @RequestHeader(name = AUTHORITIES, required = false) String[] roles) {
-        final List<String> accessRole = List.of("ROLE_ADMIN", "HR_WORKTIME_WRITE_ALL", "HR_WORKTIME_WRITE");
+    public ResponseEntity<WorkTimeDto> addWorkTime(@RequestBody WorkTimeDto workTimeDto, @RequestParam WorkType workType,
+                                                   @RequestHeader(name = AUTHORITIES, required = false) String[] roles) {
+        final List<String> accessRole = List.of(ROLE_ADMIN, HR_WORKTIME_WRITE_ALL, HR_WORKTIME_WRITE);
 
-//        if (!PrivilegeHelper.checkAccess(List.of(roles), accessRole)) {
-//            throw new AccessDeniedException();
-//        }
+        if (PrivilegeHelper.dontHaveAccess(List.of(roles), accessRole)) {
+            throw new AccessDeniedException();
+        }
 
-        addWorkTimeUseCase.addWorkTime(workTimeMapper.toDomain((Map) dto, workType));
+        addWorkTimeUseCase.addWorkTime(workTimeMapper.toDomain(workTimeDto, workType));
 
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/dayofftype")
@@ -72,13 +71,14 @@ class WorkTimeCommandController {
     @GetMapping("/{idEmployee}")
     ResponseEntity<List<WorkTimeDto>> getWorkTime(@PathVariable Integer idEmployee,
                                                   @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
-                                                  @RequestHeader(name = AUTHORITIES, required = false)  String[] roles) {
+                                                  @RequestHeader(name = AUTHORITIES, required = false) String[] roles) {
 
-        final List<String> accessRole = List.of("ROLE_ADMIN", "HR_WORKTIME_READ_ALL", "HR_WORKTIME_READ");
+        final List<String> accessRole = List.of(ROLE_ADMIN, HR_WORKTIME_READ_ALL, HR_WORKTIME_READ);
 
-        if (!PrivilegeHelper.checkAccess(List.of(roles), accessRole)) {
+        if (PrivilegeHelper.dontHaveAccess(List.of(roles), accessRole)) {
             throw new AccessDeniedException();
         }
+
         List<IWorkTime> iWorkTimes = getWorkTimeRecordsUseCase.getWorkTimeByEmployeeAndDate(idEmployee, date);
         List<WorkTimeDto> workTimeDtos = workTimeApiService.addEmptyDays(iWorkTimes, date);
 

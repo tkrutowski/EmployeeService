@@ -1,12 +1,8 @@
 package net.focik.hr.employee.domain.salary;
 
 import net.focik.hr.employee.domain.share.RateType;
-import net.focik.hr.employee.domain.workTimeRecords.DayOff;
-import net.focik.hr.employee.domain.workTimeRecords.IWorkTime;
-import net.focik.hr.employee.domain.workTimeRecords.Illness;
-import net.focik.hr.employee.domain.workTimeRecords.Work;
-import net.focik.hr.employee.domain.workTimeRecords.share.DayOffType;
-import net.focik.hr.employee.domain.workTimeRecords.share.IllnessType;
+import net.focik.hr.employee.domain.worktimerecords.IWorkTime;
+import net.focik.hr.employee.domain.worktimerecords.Work;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

@@ -1,7 +1,7 @@
 package net.focik.hr.employee.infrastructure.mapper;
 
-import net.focik.hr.employee.domain.workTimeRecords.DayOff;
-import net.focik.hr.employee.domain.workTimeRecords.share.DayOffType;
+import net.focik.hr.employee.domain.worktimerecords.DayOff;
+import net.focik.hr.employee.domain.worktimerecords.share.DayOffType;
 import net.focik.hr.employee.infrastructure.dto.DayOffDto;
 import net.focik.hr.employee.infrastructure.dto.DayOffId;
 import org.junit.jupiter.api.Test;

@@ -13,5 +13,4 @@ public class RateOvertimeDto {
     private Integer idRate;
     private String dateFrom;
     private String rateValue;
-
 }

@@ -49,4 +49,14 @@ public class InMemoryRateOvertimeRepositoryAdapter implements  RateOvertimeRepos
                 .map(rateOvertimeDto -> jpaMapper.toDomain(rateOvertimeDto))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteRateOvertimeByIdEmployee(Integer idEmployee) {
+
+    }
+
+    @Override
+    public void deleteRateOvertimeById(Integer id) {
+
+    }
 }

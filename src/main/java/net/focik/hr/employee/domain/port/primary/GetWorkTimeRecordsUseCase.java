@@ -1,6 +1,6 @@
 package net.focik.hr.employee.domain.port.primary;
 
-import net.focik.hr.employee.domain.workTimeRecords.IWorkTime;
+import net.focik.hr.employee.domain.worktimerecords.IWorkTime;
 
 import java.time.LocalDate;
 import java.util.List;
