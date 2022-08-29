@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 class AdvanceService {
 
-    private AdvanceRepository advanceRepository;
+    private final AdvanceRepository advanceRepository;
 
     Money getAdvancesSumByIdEmployeeAndDate(int idEmployee, LocalDate date) {
         Money sum = Money.of(0, "PLN");
@@ -27,18 +27,28 @@ class AdvanceService {
         }
         return sum;
     }
+
     Integer addAdvance(Advance advance) {
-        if(!validate(advance))
+        if (isNotValid(advance))
             throw new AdvanceNotValidException();
-        return advanceRepository.add(advance);
+        return advanceRepository.addAdvance(advance);
     }
 
-    private boolean validate(Advance a){
-        if( a.getAmount() == BigDecimal.ZERO)
-            return false;
-        if(a.getDate() == null )
-            return false;
 
-        return true;
+    public List<Advance> findByEmployeeIdAndDate(Integer idEmployee, LocalDate date) {
+        return advanceRepository.findByEmployeeIdAndDate(idEmployee, date);
+    }
+
+    public Integer updateAdvance(Advance advance) {
+        return advanceRepository.updateAdvance(advance);
+    }
+
+    public void deleteAdvance(int id) {
+        advanceRepository.deleteAdvanceById(id);
+    }
+
+
+    private boolean isNotValid(Advance a) {
+        return (a.getAmount().equals(BigDecimal.ZERO) || a.getDate() == null);
     }
 }

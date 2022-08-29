@@ -3,7 +3,7 @@ package net.focik.hr.employee.domain.addition;
 import lombok.AllArgsConstructor;
 import net.focik.hr.employee.domain.addition.port.secondary.AdditionRepository;
 import net.focik.hr.employee.domain.addition.port.secondary.AdditionTypeRepository;
-import net.focik.hr.employee.domain.exceptions.AdvanceNotValidException;
+import net.focik.hr.employee.domain.exceptions.AdditionNotValidException;
 import org.javamoney.moneta.Money;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +32,7 @@ class AdditionService {
 
     Integer addAddition(Addition addition) {
         if (isNotValid(addition))
-            throw new AdvanceNotValidException();
+            throw new AdditionNotValidException("Date can't be null.");
         return additionRepository.addAddition(addition);
     }
 

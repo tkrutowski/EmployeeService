@@ -29,17 +29,18 @@ public class InMemoryAdvanceRepositoryAdapter implements AdvanceRepository {
     @Override
     public List<Advance> findByEmployeeIdAndDate(Integer employeeId, LocalDate date) {
         return DataBaseAdvances.getAdvancesHashMap()
-                .entrySet()
+                .values()
                 .stream()
-                .map(integerAdvanceDtoEntry -> integerAdvanceDtoEntry.getValue())
                 .filter(advanceDto -> advanceDto.getIdEmployee().equals(employeeId))
                 .filter(advanceDto -> advanceDto.getDate().getYear() == date.getYear())
                 .filter(advanceDto -> advanceDto.getDate().getMonth() == date.getMonth())
                 .map(advanceDto -> jpaMapper.toDomain(advanceDto))
                 .collect(Collectors.toList());
     }
+
+
     @Override
-    public Integer add(Advance advance) {
+    public Integer addAdvance(Advance advance) {
         AdvanceDto advanceDto = jpaMapper.toDto(advance);
         log.info("Try add into inMemoryDb advance: " + advanceDto.toString());
         if (advanceDto == null)
@@ -50,4 +51,15 @@ public class InMemoryAdvanceRepositoryAdapter implements AdvanceRepository {
         log.info("Succssec id = " + id);
         return id;
     }
+
+    @Override
+    public Integer updateAdvance(Advance advance) {
+        return null;
+    }
+
+    @Override
+    public void deleteAdvanceById(Integer advanceId) {
+
+    }
+
 }

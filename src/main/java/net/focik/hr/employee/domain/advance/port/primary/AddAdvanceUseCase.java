@@ -4,4 +4,6 @@ import net.focik.hr.employee.domain.advance.Advance;
 
 public interface AddAdvanceUseCase {
     Integer addAdvance(Advance advance);
+
+    Integer updateAdvance(Advance advance);
 }

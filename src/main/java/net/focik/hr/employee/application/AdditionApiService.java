@@ -1,7 +1,6 @@
 package net.focik.hr.employee.application;
 
 import lombok.AllArgsConstructor;
-import net.focik.hr.employee.domain.EmployeeFacade;
 import net.focik.hr.employee.domain.addition.Addition;
 import net.focik.hr.employee.domain.addition.AdditionFacade;
 import net.focik.hr.employee.domain.addition.AdditionType;
@@ -15,9 +14,8 @@ import java.util.List;
 
 @AllArgsConstructor
 @Service
-public class AdditionApiService implements  GetAdditionUseCase, AddAdditionUseCase, DeleteAdditionUseCase {
+public class AdditionApiService implements GetAdditionUseCase, AddAdditionUseCase, DeleteAdditionUseCase {
 
-    private final EmployeeFacade employeeFacade;
     private final AdditionFacade additionFacade;
 
 

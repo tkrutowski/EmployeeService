@@ -8,6 +8,7 @@ public class PrivilegeHelper {
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
     public static final String HR_ADDITION_WRITE_ALL = "HR_ADDITION_WRITE_ALL";
     public static final String HR_ADDITION_READ_ALL = "HR_ADDITION_READ_ALL";
+    public static final String HR_ADDITION_READ = "HR_ADDITION_READ";
     public static final String HR_EMPLOYEE_DELETE_ALL = "HR_EMPLOYEE_DELETE_ALL";
     public static final String HR_EMPLOYEE_READ_ALL = "HR_EMPLOYEE_READ_ALL";
     public static final String HR_EMPLOYEE_READ = "HR_EMPLOYEE_READ";
@@ -23,6 +24,10 @@ public class PrivilegeHelper {
     public static final String TASK_CALENDAR_READ = "TASK_CALENDAR_READ";
     public static final String HR_RATE_DELETE_ALL = "HR_RATE_DELETE_ALL";
     public static final String HR_ADDITION_DELETE_ALL = "HR_ADDITION_DELETE_ALL";
+    public static final String HR_ADVANCE_READ_ALL = "HR_ADVANCE_READ_ALL";
+    public static final String HR_ADVANCE_READ = "HR_ADVANCE_READ";
+    public static final String HR_ADVANCE_WRITE_ALL = "HR_ADDITION_WRITE_ALL";
+    public static final String HR_ADVANCE_DELETE_ALL = "HR_ADVANCE_DELETE_ALL";
 
     private PrivilegeHelper() {
         throw new IllegalStateException("Utility class");

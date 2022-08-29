@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 class AdvanceRepositoryAdapter implements AdvanceRepository {
 
-    AdvanceDtoRepository advanceDtoRepository;
-    JpaAdvanceMapper mapper;
+    private final AdvanceDtoRepository advanceDtoRepository;
+    private final JpaAdvanceMapper mapper;
 
 
     @Override
@@ -36,13 +36,23 @@ class AdvanceRepositoryAdapter implements AdvanceRepository {
         String dateFormat = date.getYear() + String.format("-%02d", date.getMonthValue());
         List<AdvanceDto> allByIdEmployeeAndDate = advanceDtoRepository.findAllByEmployeeAndDate(employeeId, dateFormat);
         return allByIdEmployeeAndDate.stream()
-                .map(advanceDto -> mapper.toDomain(advanceDto))
+                .map(mapper::toDomain)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Integer add(Advance advance) {
-        return null;
+    public Integer addAdvance(Advance advance) {
+        return advanceDtoRepository.save(mapper.toDto(advance)).getId();
+    }
+
+    @Override
+    public Integer updateAdvance(Advance advance) {
+        return advanceDtoRepository.save(mapper.toDto(advance)).getId();
+    }
+
+    @Override
+    public void deleteAdvanceById(Integer advanceId) {
+advanceDtoRepository.deleteById(advanceId);
     }
 
 }

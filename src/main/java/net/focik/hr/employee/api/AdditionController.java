@@ -48,7 +48,7 @@ class AdditionController {
 
         log.info("Get additions for employee id: " + idEmployee);
 
-        final List<String> accessRole = List.of(ROLE_ADMIN, HR_ADDITION_READ_ALL);
+        final List<String> accessRole = List.of(ROLE_ADMIN, HR_ADDITION_READ_ALL, HR_ADDITION_READ);
 
         if (PrivilegeHelper.dontHaveAccess(List.of(roles), accessRole)) {
             throw new AccessDeniedException();
@@ -124,7 +124,7 @@ class AdditionController {
     @PutMapping
     public ResponseEntity<Integer> updateAddition(@RequestBody AdditionDto additionDto,
                                                   @RequestHeader(name = AUTHORITIES, required = false) String[] roles) {
-        log.info("Try update new addition.");
+        log.info("Try update addition.");
         final List<String> accessRole = List.of(ROLE_ADMIN, HR_ADDITION_WRITE_ALL);
 
         if (PrivilegeHelper.dontHaveAccess(List.of(roles), accessRole)) {
