@@ -41,7 +41,7 @@ class SalaryController {
             throw new AccessDeniedException();
         }
 
-        if (!isValid(idEmployee, date))
+        if (isNotValid(idEmployee, date))
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         Salary calculatedSalary = calculateSalaryUseCase.calculate(idEmployee, date);
@@ -54,7 +54,7 @@ class SalaryController {
         return new ResponseEntity<>(salaryMapper.toDto(calculatedSalary), HttpStatus.OK);
     }
 
-    private boolean isValid(int idEmployee, LocalDate date) {
+    private boolean isNotValid(int idEmployee, LocalDate date) {
         return (idEmployee < 1 || date == null);
     }
 
