@@ -1,10 +1,11 @@
 package net.focik.hr.employee.infrastructure.jpa;
 
 import lombok.AllArgsConstructor;
+import net.focik.hr.employee.domain.exceptions.LoanNotFoundException;
 import net.focik.hr.employee.domain.loans.Loan;
 import net.focik.hr.employee.domain.loans.LoanInstallment;
 import net.focik.hr.employee.domain.loans.port.secondary.LoanRepository;
-import net.focik.hr.employee.infrastructure.dto.LoanDto;
+import net.focik.hr.employee.infrastructure.dto.LoanDbDto;
 import net.focik.hr.employee.infrastructure.dto.LoanInstallmentDto;
 import net.focik.hr.employee.infrastructure.mapper.JpaLoanMapper;
 import org.springframework.context.annotation.Primary;
@@ -27,23 +28,22 @@ class LoanRepositoryAdapter implements LoanRepository {
 
 
     @Override
-    public Integer addLoan(Loan loan) {
+    public Integer saveLoan(Loan loan) {
         return loanDtoRepository.save(mapper.toDto(loan)).getId();
     }
 
     @Override
-    public Integer addLoanInstallment(LoanInstallment loanInstallment) {
+    public Integer saveLoanInstallment(LoanInstallment loanInstallment) {
         return loanInstallmentDtoRepository.save(mapper.toDto(loanInstallment)).getId();
     }
 
     @Override
     public Optional<Loan> findLoanById(Integer id) {
-        Optional<LoanDto> loanById = loanDtoRepository.findById(id);
+        Optional<LoanDbDto> loanById = loanDtoRepository.findById(id);
         if (loanById.isEmpty())
             return Optional.empty();
-        List<LoanInstallmentDto> loanInstallmentByIdLoan = loanInstallmentDtoRepository.findAllByIdLoan(id);
 
-        return Optional.of(mapper.toDomain(loanById.get(), loanInstallmentByIdLoan));
+        return Optional.of(mapper.toDomain(loanById.get()));
     }
 
     @Override
@@ -57,16 +57,52 @@ class LoanRepositoryAdapter implements LoanRepository {
     }
 
     @Override
+    public List<Loan> findLoanByEmployeeId(Integer idEmployee) {
+        return loanDtoRepository.findAllByIdEmployee(idEmployee).stream()
+                .map(loanDto -> mapper.toDomain(loanDto))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Loan> findAll() {
+        return loanDtoRepository.findAll().stream()
+                .map(loanDto -> mapper.toDomain(loanDto))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<LoanInstallment> findLoanInstallmentByEmployeeIdAndDate(Integer employeeId, LocalDate date) {
-        List<LoanDto> loansByIdEmployee = loanDtoRepository.findAllByIdEmployee(employeeId);
+        List<LoanDbDto> loansByIdEmployee = loanDtoRepository.findAllByIdEmployee(employeeId);
         List<LoanInstallmentDto> loanInstallmentDtos = new ArrayList<>();
         String dateFormat = date.getYear() + String.format("-%02d", date.getMonthValue());
-        for (LoanDto dto : loansByIdEmployee) {
+        for (LoanDbDto dto : loansByIdEmployee) {
             loanInstallmentDtos.addAll(loanInstallmentDtoRepository.findAllByIdLoanAndDate(dto.getId(), dateFormat));
         }
 
         return loanInstallmentDtos.stream()
                 .map(l -> mapper.toDomain(l))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<LoanInstallment> findLoanInstallmentByLoanId(Integer loanId) {
+        return loanInstallmentDtoRepository.findAllByIdLoan(loanId).stream()
+                .map(loanInstallmentDto -> mapper.toDomain(loanInstallmentDto))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteLoanById(int idLoan) {
+        loanDtoRepository.deleteById(idLoan);
+    }
+
+    @Override
+    public void deleteLoanInstallmentById(int idLoanInstallment) {
+        loanInstallmentDtoRepository.deleteById(idLoanInstallment);
+    }
+
+    @Override
+    public void deleteLoanInstallmentByIdLoan(int idLoan) {
+        loanInstallmentDtoRepository.deleteByIdLoan(idLoan);
     }
 }

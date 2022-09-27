@@ -10,13 +10,25 @@ import java.util.Optional;
 
 @Component
 public interface LoanRepository {
-    Integer addLoan(Loan loan);
+    Integer saveLoan(Loan loan);
 
-    Integer addLoanInstallment(LoanInstallment loanInstallment);
+    Integer saveLoanInstallment(LoanInstallment loanInstallment);
 
     Optional<Loan> findLoanById(Integer id);
 
     Optional<LoanInstallment> findLoanInstallmentById(Integer id);
 
+    List<Loan> findLoanByEmployeeId(Integer idEmployee);
+
+    List<Loan> findAll();
+
     List<LoanInstallment> findLoanInstallmentByEmployeeIdAndDate(Integer employeeId, LocalDate date);
+
+    List<LoanInstallment> findLoanInstallmentByLoanId(Integer loanId);
+
+    void deleteLoanById(int idLoan);
+
+    void deleteLoanInstallmentById(int idLoanInstallment);
+
+    void deleteLoanInstallmentByIdLoan(int idLoan);
 }

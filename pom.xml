@@ -79,6 +79,12 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>io.vavr</groupId>
+			<artifactId>vavr</artifactId>
+			<version>0.10.4</version>
+		</dependency>
+
 		<!-- Micrometer Prometheus registry  -->
 		<dependency>
 			<groupId>io.micrometer</groupId>

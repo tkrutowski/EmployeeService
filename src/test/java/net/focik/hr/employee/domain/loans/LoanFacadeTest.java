@@ -65,25 +65,25 @@ class LoanFacadeTest {
 
     private static LoanInstallment createLoanInstallment1(){
         LoanInstallment loanInstallment = new LoanInstallment(1,1, BigDecimal.valueOf(450),
-                LocalDate.of(2021,7,24), false );
+                LocalDate.of(2021,7,24), false, "inne" );
         return loanInstallment;
     }
 
     private static LoanInstallment createLoanInstallment2(){
         LoanInstallment loanInstallment = new LoanInstallment(2,1, BigDecimal.valueOf(500),
-                LocalDate.of(2021,10,24), false );
+                LocalDate.of(2021,10,24), false,"inne" );
         return loanInstallment;
     }
 
     private static LoanInstallment createLoanInstallment3(){
         LoanInstallment loanInstallment = new LoanInstallment(3,2, BigDecimal.valueOf(500),
-                LocalDate.of(2021,7,24), false );
+                LocalDate.of(2021,7,24), false,"inne" );
         return loanInstallment;
     }
 
     private static LoanInstallment createLoanInstallment4(){
         LoanInstallment loanInstallment = new LoanInstallment(4,2, BigDecimal.valueOf(300),
-                LocalDate.of(2021,10,4), false );
+                LocalDate.of(2021,10,4), false,"inne" );
         return loanInstallment;
     }
 

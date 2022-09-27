@@ -28,6 +28,10 @@ public class PrivilegeHelper {
     public static final String HR_ADVANCE_READ = "HR_ADVANCE_READ";
     public static final String HR_ADVANCE_WRITE_ALL = "HR_ADDITION_WRITE_ALL";
     public static final String HR_ADVANCE_DELETE_ALL = "HR_ADVANCE_DELETE_ALL";
+    public static final String HR_LOAN_READ_ALL = "HR_LOAN_READ_ALL";
+    public static final String HR_LOAN_READ = "HR_LOAN_READ";
+    public static final String HR_LOAN_WRITE_ALL = "HR_LOAN_WRITE_ALL";
+    public static final String HR_LOAN_DELETE_ALL = "HR_LOAN_DELETE_ALL";
 
     private PrivilegeHelper() {
         throw new IllegalStateException("Utility class");

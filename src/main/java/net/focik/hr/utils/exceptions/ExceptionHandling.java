@@ -21,7 +21,7 @@ import static org.springframework.http.HttpStatus.*;
 public class ExceptionHandling implements ErrorController {
     public static final  String METHOD_IS_NOT_ALLOWED = "This request method is not allowed on this endpoint. Please send a '%s' request.";
     public static final  String INTERNAL_SERVER_ERROR_MSG = "An error occurred while processing the request.";
-    public static final  String ERROR_PROCESSING_FILE = "Error occurred while processing file team.";
+    public static final  String ERROR_PROCESSING_FILE = "Error occurred while processing file.";
     public static final  String NOT_ENOUGH_PERMISSION = "Nie masz wystarczających uprawnień.";
     public static final  String ERROR_PATH = "/error";
 

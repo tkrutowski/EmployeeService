@@ -4,7 +4,7 @@ import lombok.extern.java.Log;
 import net.focik.hr.employee.domain.loans.Loan;
 import net.focik.hr.employee.domain.loans.LoanInstallment;
 import net.focik.hr.employee.domain.loans.port.secondary.LoanRepository;
-import net.focik.hr.employee.infrastructure.dto.LoanDto;
+import net.focik.hr.employee.infrastructure.dto.LoanDbDto;
 import net.focik.hr.employee.infrastructure.dto.LoanInstallmentDto;
 import net.focik.hr.employee.infrastructure.inMemory.db.DataBaseLoans;
 import net.focik.hr.employee.infrastructure.mapper.JpaLoanMapper;
@@ -28,20 +28,20 @@ public class InMemoryLoanRepositoryAdapter implements LoanRepository {
     JpaLoanMapper jpaMapper=new JpaLoanMapper();
 
     @Override
-    public Integer addLoan(Loan loan) {
-        LoanDto loanDto = jpaMapper.toDto(loan);
-        log.info("Try add into inMemoryDb loan: " + loanDto.toString());
-        if (loanDto == null)
+    public Integer saveLoan(Loan loan) {
+        LoanDbDto loanDbDto = jpaMapper.toDto(loan);
+        log.info("Try add into inMemoryDb loan: " + loanDbDto.toString());
+        if (loanDbDto == null)
             throw new NullPointerException("Loan cannot be null");
         Integer id = DataBaseLoans.getLoansHashMap().size() + 1;
         // employee.setId(id);
-        DataBaseLoans.getLoansHashMap().put(id, loanDto);
+        DataBaseLoans.getLoansHashMap().put(id, loanDbDto);
         log.info("Succssec id = " + id);
         return id;
     }
 
     @Override
-    public Integer addLoanInstallment(LoanInstallment loanInstallment) {
+    public Integer saveLoanInstallment(LoanInstallment loanInstallment) {
         LoanInstallmentDto loanInstallmentDto = jpaMapper.toDto(loanInstallment);
         log.info("Try add into inMemoryDb loan installment: " + loanInstallmentDto.toString());
         if (loanInstallmentDto == null)
@@ -64,20 +64,30 @@ public class InMemoryLoanRepositoryAdapter implements LoanRepository {
     }
 
     @Override
+    public List<Loan> findLoanByEmployeeId(Integer idEmployee) {
+        return null;
+    }
+
+    @Override
+    public List<Loan> findAll() {
+        return null;
+    }
+
+    @Override
     public List<LoanInstallment> findLoanInstallmentByEmployeeIdAndDate(Integer employeeId, LocalDate date) {
 
         List<LoanInstallment> loanInstallments = new ArrayList<>();
 
-        List<LoanDto> loanDtosByIdEmployee = DataBaseLoans.getLoansHashMap()
+        List<LoanDbDto> loanDbDtosByIdEmployee = DataBaseLoans.getLoansHashMap()
                 .entrySet()
                 .stream()
                 .map(dtoEntry -> dtoEntry.getValue())
                 .filter(loanDto -> loanDto.getIdEmployee().equals(employeeId))
                 .collect(Collectors.toList());
 
-        for (LoanDto loanDto : loanDtosByIdEmployee) {
+        for (LoanDbDto loanDbDto : loanDbDtosByIdEmployee) {
             DataBaseLoans.getLoanInstallmentTypesHashMap().entrySet().stream()
-                    .filter(e -> loanDto.getId().equals(e.getValue().getIdLoan()))
+                    .filter(e -> loanDbDto.getId().equals(e.getValue().getIdLoan()))
                     .map(Map.Entry::getValue)
                     .filter(loanInstallmentDto -> loanInstallmentDto.getDate().getYear() == date.getYear())
                     .filter(loanInstallmentDto -> loanInstallmentDto.getDate().getMonth() == date.getMonth())
@@ -85,5 +95,25 @@ public class InMemoryLoanRepositoryAdapter implements LoanRepository {
                     .forEach(loanInstallment -> loanInstallments.add(loanInstallment));
         }
         return loanInstallments;
+    }
+
+    @Override
+    public List<LoanInstallment> findLoanInstallmentByLoanId(Integer loanId) {
+        return null;
+    }
+
+    @Override
+    public void deleteLoanById(int idLoan) {
+
+    }
+
+    @Override
+    public void deleteLoanInstallmentById(int idLoanInstallment) {
+
+    }
+
+    @Override
+    public void deleteLoanInstallmentByIdLoan(int idLoan) {
+
     }
 }

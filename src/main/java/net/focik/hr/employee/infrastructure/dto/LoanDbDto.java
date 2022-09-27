@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Getter
 @ToString
 @Builder
-public class LoanDto {
+public class LoanDbDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pozyczki")

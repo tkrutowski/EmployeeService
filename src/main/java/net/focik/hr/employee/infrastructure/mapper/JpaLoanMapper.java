@@ -2,19 +2,18 @@ package net.focik.hr.employee.infrastructure.mapper;
 
 import net.focik.hr.employee.domain.loans.Loan;
 import net.focik.hr.employee.domain.loans.LoanInstallment;
-import net.focik.hr.employee.infrastructure.dto.LoanDto;
+import net.focik.hr.employee.infrastructure.dto.LoanDbDto;
 import net.focik.hr.employee.infrastructure.dto.LoanInstallmentDto;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Component
 public class JpaLoanMapper {
 
-    public LoanDto toDto(Loan loan) {
-        return LoanDto.builder()
+    public LoanDbDto toDto(Loan loan) {
+        return LoanDbDto.builder()
                 .id(loan.getIdLoan())
                 .idEmployee(loan.getIdEmployee())
                 .amount(loan.getAmount())
@@ -26,7 +25,7 @@ public class JpaLoanMapper {
                 .build();
     }
 
-    public Loan toDomain(LoanDto dto, List<LoanInstallmentDto> loanInstallments) {
+    public Loan toDomain(LoanDbDto dto, List<LoanInstallmentDto> loanInstallments) {
         return Loan.builder()
                 .idLoan(dto.getId())
                 .idEmployee(dto.getIdEmployee())
@@ -39,9 +38,21 @@ public class JpaLoanMapper {
                 .loanInstallments(mapListLoanInstallmentToSet(loanInstallments))
                 .build();
     }
+    public Loan toDomain(LoanDbDto dto) {
+        return Loan.builder()
+                .idLoan(dto.getId())
+                .idEmployee(dto.getIdEmployee())
+                .amount(dto.getAmount())
+                .date(dto.getDate())
+                .otherInfo(dto.getOtherInfo())
+                .installmentAmount(dto.getInstallmentAmount())
+                .name(dto.getName())
+                .loanStatus(dto.getLoanStatus())
+                .build();
+    }
 
-    private Set<LoanInstallment> mapListLoanInstallmentToSet(List<LoanInstallmentDto> installmentDtoList) {
-        Set<LoanInstallment> loanInstallmentSet = new HashSet<>();
+    private List<LoanInstallment> mapListLoanInstallmentToSet(List<LoanInstallmentDto> installmentDtoList) {
+        List<LoanInstallment> loanInstallmentSet = new ArrayList<>();
 
         installmentDtoList.stream()
                 .map(this::toDomain)
@@ -66,7 +77,7 @@ public class JpaLoanMapper {
                 .idLoan(dto.getIdLoan())
                 .installmentAmount(dto.getAmount())
                 .date(dto.getDate())
-                .isOwnRepayment(dto.getIsOwnRepayment())
+                .isOwnRepayment(dto.getIsOwnRepayment() != null ? dto.getIsOwnRepayment():false)
                 .build();
     }
 }

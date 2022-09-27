@@ -16,4 +16,5 @@ public class LoanInstallment {
     private BigDecimal installmentAmount;
     private LocalDate date;
     private boolean isOwnRepayment;
+    private String otherInfo;
 }

@@ -1,12 +1,12 @@
 package net.focik.hr.employee.infrastructure.jpa;
 
-import net.focik.hr.employee.infrastructure.dto.LoanDto;
+import net.focik.hr.employee.infrastructure.dto.LoanDbDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
 
-interface LoanDtoRepository extends JpaRepository<LoanDto, Integer> {
+interface LoanDtoRepository extends JpaRepository<LoanDbDto, Integer> {
 
-    List<LoanDto> findAllByIdEmployee(Integer idEmployee);
+    List<LoanDbDto> findAllByIdEmployee(Integer idEmployee);
 }

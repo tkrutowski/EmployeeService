@@ -1,38 +1,36 @@
 package net.focik.hr.employee.domain.loans;
 
 import lombok.AllArgsConstructor;
-import net.focik.hr.employee.domain.exceptions.AdvanceNotValidException;
+import net.focik.hr.employee.domain.exceptions.LoanNotFoundException;
+import net.focik.hr.employee.domain.exceptions.LoanNotValidException;
 import net.focik.hr.employee.domain.loans.port.secondary.LoanRepository;
+import net.focik.hr.employee.domain.share.LoanStatus;
 import org.javamoney.moneta.Money;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 class LoanService {
 
-    private LoanRepository loanRepository;
+    private final LoanRepository loanRepository;
 
-    Integer addLoan(Loan loan) {
-        if(!validate(loan))
-            throw new AdvanceNotValidException();
-        return loanRepository.addLoan(loan);
-    }
-
-    private boolean validate(Loan a){
-        if( a.getAmount() == BigDecimal.ZERO)
-            return false;
-        if(a.getDate() == null )
-            return false;
-
-        return true;
+    Integer saveLoan(Loan loan) {
+        if (isNotValid(loan))
+            throw new LoanNotValidException();
+        return loanRepository.saveLoan(loan);
     }
 
     public Integer addLoanInstallment(LoanInstallment loanInstallment) {
-        return loanRepository.addLoanInstallment(loanInstallment);
+        return loanRepository.saveLoanInstallment(loanInstallment);
     }
 
     Money getInstallmentLoansSumByIdEmployeeAndDate(int idEmployee, LocalDate date) {
@@ -46,4 +44,111 @@ class LoanService {
         }
         return sum;
     }
+
+    List<Loan> findLoansByEmployee(int idEmployee, LoanStatus loanStatus, boolean withLoanInstallment) {
+        List<Loan> loanByEmployeeId = loanRepository.findLoanByEmployeeId(idEmployee);
+
+        if (withLoanInstallment) {
+            for (Loan l : loanByEmployeeId) {
+                List<LoanInstallment> loanInstallmentList = findLoanInstallmentByLoanId(l.getIdLoan());
+                l.addLoanInstallment(loanInstallmentList);
+            }
+        }
+
+        if (loanStatus == null)
+            return loanByEmployeeId;
+
+        loanByEmployeeId = loanByEmployeeId.stream()
+                .filter(loan -> loan.getLoanStatus().equals(loanStatus))
+                .collect(Collectors.toList());
+
+
+        return loanByEmployeeId;
+    }
+
+    List<LoanInstallment> findLoanInstallmentByLoanId(int idLoan) {
+        return loanRepository.findLoanInstallmentByLoanId(idLoan);
+    }
+
+    List<LoanInstallment> getLoanInstallments(Integer idEmployee, LocalDate date) {
+        List<Loan> loansByEmployee = findLoansByEmployee(idEmployee, null, true);
+        return loansByEmployee.stream()
+                .map(Loan::getLoanInstallments)
+                .flatMap(Collection::stream)
+                .filter(loanInstallment -> loanInstallment.getDate().getYear() == (date.getYear()))
+                .filter(loanInstallment -> loanInstallment.getDate().getMonth().equals(date.getMonth()))
+                .collect(Collectors.toList());
+    }
+
+    Loan findLoanById(int idLoan, boolean withLoanInstallment) {
+        Optional<Loan> loanById = loanRepository.findLoanById(idLoan);
+
+        if (loanById.isEmpty()) {
+            throw new LoanNotFoundException(idLoan);
+        }
+
+        if (withLoanInstallment) {
+            List<LoanInstallment> loanInstallmentList = findLoanInstallmentByLoanId(loanById.get().getIdLoan());
+            loanById.get().addLoanInstallment(loanInstallmentList);
+        }
+
+        return loanById.get();
+    }
+
+    List<Loan> findLoansByStatus(LoanStatus loanStatus, boolean withInstallment) {
+        List<Loan> loans = loanRepository.findAll();
+
+        if (withInstallment) {
+            for (Loan l : loans) {
+                List<LoanInstallment> loanInstallmentList = findLoanInstallmentByLoanId(l.getIdLoan());
+                l.addLoanInstallment(loanInstallmentList);
+            }
+        }
+
+        if (loanStatus == null || LoanStatus.ALL.equals(loanStatus))
+            return loans;
+
+        loans = loans.stream()
+                .filter(loan -> loan.getLoanStatus().equals(loanStatus))
+                .collect(Collectors.toList());
+
+        return loans;
+    }
+
+    @Transactional
+    public void deleteLoan(int idLoan) {
+        loanRepository.deleteLoanInstallmentByIdLoan(idLoan);
+        loanRepository.deleteLoanById(idLoan);
+    }
+
+    public void updateLoan(Loan loan) {
+        if (isNotValid(loan))
+            throw new LoanNotValidException();
+        loanRepository.saveLoan(loan);
+    }
+
+    public Integer updateLoanInstallment(LoanInstallment loanInstallment) {
+        if (isNotValid(loanInstallment))
+            throw new LoanNotValidException();
+        return loanRepository.saveLoanInstallment(loanInstallment);
+    }
+
+    public void deleteLoanInstallment(int id) {
+        loanRepository.deleteLoanInstallmentById(id);
+    }
+
+    private boolean isNotValid(Loan a) {
+        if (Objects.equals(a.getAmount(), BigDecimal.ZERO))
+            return true;
+        if (Objects.equals(a.getInstallmentAmount(), BigDecimal.ZERO))
+            return true;
+        return a.getDate() == null;
+    }
+
+    private boolean isNotValid(LoanInstallment loanInstallment) {
+        if (Objects.equals(loanInstallment.getInstallmentAmount(), BigDecimal.ZERO))
+            return true;
+        return loanInstallment.getDate() == null;
+    }
+
 }

@@ -7,7 +7,7 @@ import net.focik.hr.employee.domain.share.LoanStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 @Builder
 @Getter
@@ -21,5 +21,13 @@ public class Loan {
     private BigDecimal installmentAmount;
     private String otherInfo;
     private LoanStatus loanStatus;
-    private Set<LoanInstallment> loanInstallments;
+    private List<LoanInstallment> loanInstallments;
+
+    public void addLoanInstallment(List<LoanInstallment> loanInstallments) {
+        this.loanInstallments = loanInstallments;
+    }
+
+    public void changeLoanStatus(LoanStatus loanStatus) {
+        this.loanStatus = loanStatus;
+    }
 }

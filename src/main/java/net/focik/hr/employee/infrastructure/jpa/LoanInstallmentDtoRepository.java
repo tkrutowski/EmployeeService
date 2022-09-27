@@ -14,4 +14,6 @@ interface LoanInstallmentDtoRepository extends JpaRepository<LoanInstallmentDto,
     List<LoanInstallmentDto> findAllByIdLoanAndDate(Integer idLoan, String data);
 
     List<LoanInstallmentDto> findAllByIdLoan(Integer idLoan);
+
+    void deleteByIdLoan(Integer integer);
 }

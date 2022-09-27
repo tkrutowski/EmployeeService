@@ -2,6 +2,7 @@ package net.focik.hr.employee.api;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import net.focik.hr.employee.api.dto.BasicDto;
 import net.focik.hr.employee.api.dto.EmployeeDto;
 import net.focik.hr.employee.api.dto.EmployeeTypeDto;
 import net.focik.hr.employee.api.dto.EmployeeWorktimeDto;
@@ -31,7 +32,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/employee")
-//@CrossOrigin
+@CrossOrigin
 class EmployeeController {
 
     private AddNewEmployeeUseCase addNewEmployeeUseCase;
@@ -100,16 +101,17 @@ class EmployeeController {
     }
 
     @PutMapping("/employeetype/{id}")
-    public ResponseEntity<HttpResponse> updateEmploymentStatus(@PathVariable int id, @RequestParam("status") EmploymentStatus employmentStatus,
+    public ResponseEntity<HttpResponse> updateEmploymentStatus(@PathVariable int id, @RequestBody BasicDto basicDto,
                                                                @RequestHeader(name = AUTHORITIES, required = false) String[] roles) {
         log.info("Try update employment status.");
+
         final List<String> accessRole = List.of(ROLE_ADMIN, HR_EMPLOYEE_WRITE_ALL);
 
-        if (PrivilegeHelper.dontHaveAccess(List.of(roles), accessRole)) {
-            throw new AccessDeniedException();
-        }
+//        if (PrivilegeHelper.dontHaveAccess(List.of(roles), accessRole)) {
+//            throw new AccessDeniedException();
+//        }
 
-        updateEmployeUseCase.updateEmploymentStatus(id, employmentStatus);
+        updateEmployeUseCase.updateEmploymentStatus(id, EmploymentStatus.valueOf(basicDto.getValue()));
         return response(HttpStatus.OK, "Zaaktualizowano status pracownika.");
     }
 
