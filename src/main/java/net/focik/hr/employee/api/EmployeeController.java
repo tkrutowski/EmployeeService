@@ -32,7 +32,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/employee")
-@CrossOrigin
+//@CrossOrigin
 class EmployeeController {
 
     private AddNewEmployeeUseCase addNewEmployeeUseCase;
@@ -107,9 +107,9 @@ class EmployeeController {
 
         final List<String> accessRole = List.of(ROLE_ADMIN, HR_EMPLOYEE_WRITE_ALL);
 
-//        if (PrivilegeHelper.dontHaveAccess(List.of(roles), accessRole)) {
-//            throw new AccessDeniedException();
-//        }
+        if (PrivilegeHelper.dontHaveAccess(List.of(roles), accessRole)) {
+            throw new AccessDeniedException();
+        }
 
         updateEmployeUseCase.updateEmploymentStatus(id, EmploymentStatus.valueOf(basicDto.getValue()));
         return response(HttpStatus.OK, "Zaaktualizowano status pracownika.");

@@ -19,7 +19,7 @@ import static net.focik.hr.utils.privileges.PrivilegeHelper.*;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/employee/query")
-@CrossOrigin
+//@CrossOrigin
 class EmployeeQueryController {
 
     private final EmployeeQueryFacade employeeFacade;
@@ -30,9 +30,9 @@ class EmployeeQueryController {
         log.info("Try find all employee by EmploymentStatus = " + status);
         final List<String> accessRole = List.of(ROLE_ADMIN, HR_EMPLOYEE_READ_ALL);
 
-//        if (PrivilegeHelper.dontHaveAccess(List.of(roles), accessRole)) {
-//            throw new AccessDeniedException();
-//        }
+        if (PrivilegeHelper.dontHaveAccess(List.of(roles), accessRole)) {
+            throw new AccessDeniedException();
+        }
 
         List<EmployeeQueryBasicDto> allEmployee;
         if (status.equals(EmploymentStatus.ALL)) {
