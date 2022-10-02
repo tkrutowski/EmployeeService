@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @Builder
 @ToString
 public class Addition  {
+
     @Getter protected Integer id;
     @Getter private int idEmployee;
     @Getter private BigDecimal amount;

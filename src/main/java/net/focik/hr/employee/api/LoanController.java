@@ -44,7 +44,6 @@ class LoanController {
     //
     //LOAN
     //
-
     @GetMapping("/status")
     ResponseEntity<List<LoanDto>> getLoansByStatus(@RequestParam(value = "status") LoanStatus loanStatus,
                                                    @RequestParam(value = "installment") boolean installment,
@@ -162,7 +161,6 @@ class LoanController {
         return response(HttpStatus.OK, "Zaaktualizowano status pożyczki.");
     }
 
-
     @DeleteMapping("/{idLoan}")
     public ResponseEntity<HttpResponse> deleteLoan(@PathVariable int idLoan,
                                                    @RequestHeader(name = AUTHORITIES, required = false) String[] roles) {
@@ -226,7 +224,6 @@ class LoanController {
                 , HttpStatus.OK);
     }
 
-
     @PostMapping("/installment")
     public ResponseEntity<Integer> addLoanInstallment(@RequestBody LoanInstallmentDto loanInstallmentDto,
                                                       @RequestHeader(name = AUTHORITIES, required = false) String[] roles) {
@@ -247,7 +244,6 @@ class LoanController {
 
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
-
 
     @PutMapping("/installment")
     public ResponseEntity<Integer> updateLoanInstallment(@RequestBody LoanInstallmentDto loanInstallmentDto,
@@ -270,7 +266,6 @@ class LoanController {
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
-
     @DeleteMapping("/installment/{idLoanInstallment}")
     public ResponseEntity<HttpResponse> deleteLoanInstallment(@PathVariable int idLoanInstallment,
                                                               @RequestHeader(name = AUTHORITIES, required = false) String[] roles) {
@@ -287,7 +282,6 @@ class LoanController {
 
         return response(HttpStatus.NO_CONTENT, "Pożyczka usunięta.");
     }
-
 
     private ResponseEntity<HttpResponse> response(HttpStatus status, String message) {
         HttpResponse body = new HttpResponse(status.value(), status, status.getReasonPhrase(), message);

@@ -18,7 +18,6 @@ import java.util.List;
 @Service
 class SalaryService {
 
-
     @Getter
     private int dayOffMinutesPay = 0;
     @Getter
@@ -36,7 +35,6 @@ class SalaryService {
 
     private final BigDecimal HOUR_IN_MINUTES = new BigDecimal("60");
 
-
     void calculateMinutes(List<IWorkTime> workTimeList) {
         resetValues();
         if (workTimeList != null) {
@@ -51,7 +49,6 @@ class SalaryService {
             }
         }
     }
-
 
     Money calculateForDayOff(BigDecimal rateRegularValueByDate, RateType rateType, int hoursToWork) {
         if (dayOffMinutesPay == 0)
@@ -82,7 +79,6 @@ class SalaryService {
 
         return getMoneyOfZero();
     }
-
 
     Money calculateForIllness100(BigDecimal rate, RateType rateType, int hoursToWork) {
         if (isZero(illnessMinutes100))

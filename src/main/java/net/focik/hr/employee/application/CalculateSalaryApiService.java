@@ -23,5 +23,4 @@ public class CalculateSalaryApiService implements CalculateSalaryUseCase {
 
         return salaryFacade.calculateSalary(employee, salaryDate);
     }
-
 }

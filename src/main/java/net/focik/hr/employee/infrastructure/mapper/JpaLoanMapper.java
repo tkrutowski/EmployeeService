@@ -3,7 +3,7 @@ package net.focik.hr.employee.infrastructure.mapper;
 import net.focik.hr.employee.domain.loans.Loan;
 import net.focik.hr.employee.domain.loans.LoanInstallment;
 import net.focik.hr.employee.infrastructure.dto.LoanDbDto;
-import net.focik.hr.employee.infrastructure.dto.LoanInstallmentDto;
+import net.focik.hr.employee.infrastructure.dto.LoanInstallmentDbDto;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class JpaLoanMapper {
                 .build();
     }
 
-    public Loan toDomain(LoanDbDto dto, List<LoanInstallmentDto> loanInstallments) {
+    public Loan toDomain(LoanDbDto dto, List<LoanInstallmentDbDto> loanInstallments) {
         return Loan.builder()
                 .idLoan(dto.getId())
                 .idEmployee(dto.getIdEmployee())
@@ -51,7 +51,7 @@ public class JpaLoanMapper {
                 .build();
     }
 
-    private List<LoanInstallment> mapListLoanInstallmentToSet(List<LoanInstallmentDto> installmentDtoList) {
+    private List<LoanInstallment> mapListLoanInstallmentToSet(List<LoanInstallmentDbDto> installmentDtoList) {
         List<LoanInstallment> loanInstallmentSet = new ArrayList<>();
 
         installmentDtoList.stream()
@@ -61,8 +61,8 @@ public class JpaLoanMapper {
         return loanInstallmentSet;
     }
 
-    public LoanInstallmentDto toDto(LoanInstallment loanInstallment) {
-        return LoanInstallmentDto.builder()
+    public LoanInstallmentDbDto toDto(LoanInstallment loanInstallment) {
+        return LoanInstallmentDbDto.builder()
                 .id(loanInstallment.getIdLoanInstallment())
                 .idLoan(loanInstallment.getIdLoan())
                 .amount(loanInstallment.getInstallmentAmount())
@@ -71,7 +71,7 @@ public class JpaLoanMapper {
                 .build();
     }
 
-    public LoanInstallment toDomain(LoanInstallmentDto dto) {
+    public LoanInstallment toDomain(LoanInstallmentDbDto dto) {
         return LoanInstallment.builder()
                 .idLoanInstallment(dto.getId())
                 .idLoan(dto.getIdLoan())

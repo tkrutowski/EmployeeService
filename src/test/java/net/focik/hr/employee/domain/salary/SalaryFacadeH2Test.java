@@ -271,7 +271,7 @@ class SalaryFacadeH2Test {
     void should_return_3132_44_for_toPay() {
 
         //when
-        Money result = salary.getAmountToPay();
+        Money result = salary.getPaycheckAmount();
 
         //then
         assertEquals(Money.of(3132.44, "PLN").with(Monetary.getDefaultRounding()), result.with(Monetary.getDefaultRounding()));

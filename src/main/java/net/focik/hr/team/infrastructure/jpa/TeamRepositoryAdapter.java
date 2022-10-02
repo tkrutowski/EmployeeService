@@ -24,7 +24,7 @@ public class TeamRepositoryAdapter implements ITeamRepository {
 
     @Override
     public Optional<Team> findById(Integer id) {
-        return Optional.of(mapper.map(repository.findById(id), Team.class));
+        return Optional.of(mapper.map(repository.findById(id).get(), Team.class));
     }
 
     @Override

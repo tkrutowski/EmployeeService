@@ -25,23 +25,29 @@ class SalaryFactory {
         salaryService.calculateMinutes(workTimeFacade.getAllByEmployeeIdAndDate(employee.getId(), date));
 
         return Salary.builder()
-                .advancesSum(advanceFacade.getAdvancesSumByIdEmployeeAndDate(employee.getId(), date))
-                .additionsSum(additionFacade.getAdditionsSumByIdEmployeeAndDate(employee.getId(), date))
-                .loanInstallmentSum(loanFacade.getInstallmentLoansSumByIdEmployeeAndDate(employee.getId(), date))
                 .dayOffMinutesPay(salaryService.getDayOffMinutesPay())
                 .dayOffMinutesFree(salaryService.getDayOffMinutesFree())
-                .illnessMinutes100(salaryService.getIllnessMinutes100())
                 .illnessMinutes80(salaryService.getIllnessMinutes80())
+                .illnessMinutes100(salaryService.getIllnessMinutes100())
                 .workRegularMinutes(salaryService.getWorkRegularMinutes())
                 .workOvertime50Minutes(salaryService.getWorkOvertime50Minutes())
                 .workOvertime100Minutes(salaryService.getWorkOvertime100Minutes())
 
-                .forDayOff(salaryService.calculateForDayOff(employee.getRateRegularByDate(date).getRateValue(), employee.getRateRegularByDate(date).getRateType(), daysToWork.getHoursToWork()))
-                .forIllness80(salaryService.calculateForIllness80(employee.getRateRegularByDate(date).getRateValue(), employee.getRateRegularByDate(date).getRateType(), daysToWork.getHoursToWork()))
-                .forIllness100(salaryService.calculateForIllness100(employee.getRateRegularByDate(date).getRateValue(), employee.getRateRegularByDate(date).getRateType(), daysToWork.getHoursToWork()))
                 .forRegularRate(salaryService.calculateForWorkRegular(employee.getRateRegularByDate(date).getRateValue(), employee.getRateRegularByDate(date).getRateType(), daysToWork.getHoursToWork()))
                 .forOvertime50(salaryService.calculateForWorkOvertime50(employee.getRateOvertimeByDate(date).getRateValue()))
                 .forOvertime100(salaryService.calculateForWorkOvertime100(employee.getRateOvertimeByDate(date).getRateValue()))
+                .forDayOff(salaryService.calculateForDayOff(employee.getRateRegularByDate(date).getRateValue(), employee.getRateRegularByDate(date).getRateType(), daysToWork.getHoursToWork()))
+                .forIllness80(salaryService.calculateForIllness80(employee.getRateRegularByDate(date).getRateValue(), employee.getRateRegularByDate(date).getRateType(), daysToWork.getHoursToWork()))
+                .forIllness100(salaryService.calculateForIllness100(employee.getRateRegularByDate(date).getRateValue(), employee.getRateRegularByDate(date).getRateType(), daysToWork.getHoursToWork()))
+
+                .daysToWork(daysToWork)
+                .daysOffLeft(employee.getNumberDaysOffLeft())
+                .loansToPay(loanFacade.getLoansToPaySum(employee.getId()))
+                .advancesSum(advanceFacade.getAdvancesSumByIdEmployeeAndDate(employee.getId(), date))
+                .additionsSum(additionFacade.getAdditionsSumByIdEmployeeAndDate(employee.getId(), date))
+                .loanInstallmentSum(loanFacade.getInstallmentLoansSumByIdEmployeeAndDate(employee.getId(), date))
+                .rateRegular(employee.getRateRegularByDate(date))
+                .rateOvertime(employee.getRateOvertimeByDate(date))
                 .build();
     }
 }

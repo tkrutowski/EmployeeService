@@ -3,9 +3,11 @@ package net.focik.hr.employee.domain.loans;
 import lombok.AllArgsConstructor;
 import net.focik.hr.employee.domain.loans.port.secondary.LoanQueryRepository;
 import net.focik.hr.employee.domain.share.LoanStatus;
+import net.focik.hr.employee.query.LoanInstallmentQueryDto;
 import net.focik.hr.employee.query.LoanQueryDto;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,5 +33,9 @@ class LoanQueryService {
                 .collect(Collectors.toList());
 
         return queryDtoList;
+    }
+
+    public List<LoanInstallmentQueryDto> findLoanInstallmentByEmployeeIdAndDate(Integer employeeId, LocalDate date) {
+        return loanRepository.findLoanInstallmentByEmployeeIdAndDate(employeeId, date);
     }
 }

@@ -14,7 +14,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-
 @AllArgsConstructor
 @Service
 public class RateApiService implements AddNewRateUseCase, GetRateUseCase, DeleteRateUseCase, UpdateRateUseCase {

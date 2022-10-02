@@ -95,5 +95,4 @@ class WorkTimeCommandController {
                 .collect(Collectors.toList());
         return new ResponseEntity<>(illnessTypeDtos, HttpStatus.OK);
     }
-
 }

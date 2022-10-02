@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @Component
 public class ApiIllnessMapper {
 
-
     public IllnessTypeDto toDto(IllnessType type) {
 
         return new IllnessTypeDto(type.getIdValue(), type.getDbValue());

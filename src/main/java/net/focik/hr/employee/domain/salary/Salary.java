@@ -2,21 +2,14 @@ package net.focik.hr.employee.domain.salary;
 
 import lombok.Builder;
 import lombok.Getter;
+import net.focik.hr.employee.domain.RateOvertime;
+import net.focik.hr.employee.domain.RateRegular;
+import net.focik.hr.employee.domain.worktimerecords.DaysToWork;
 import org.javamoney.moneta.Money;
 
 @Getter
 @Builder
 public class Salary {
-    private Money advancesSum;
-    private Money additionsSum;
-    private Money loanInstallmentSum;
-
-    private Money forRegularRate;
-    private Money forOvertime50;
-    private Money forOvertime100;
-    private Money forDayOff;
-    private Money forIllness80;
-    private Money forIllness100;
 
     private Integer dayOffMinutesPay;
     private Integer dayOffMinutesFree;
@@ -26,6 +19,21 @@ public class Salary {
     private Integer workOvertime50Minutes;
     private Integer workOvertime100Minutes;
 
+    private Money forRegularRate;
+    private Money forOvertime50;
+    private Money forOvertime100;
+    private Money forDayOff;
+    private Money forIllness80;
+    private Money forIllness100;
+
+    private DaysToWork daysToWork;
+    private float daysOffLeft;
+    private Money loansToPay;
+    private Money advancesSum;
+    private Money additionsSum;
+    private Money loanInstallmentSum;
+    private RateRegular rateRegular;
+    private RateOvertime rateOvertime;
 
     public String getWorkTimeAll() {
         int allMinutes = dayOffMinutesPay + dayOffMinutesFree + illnessMinutes80 + illnessMinutes100 +
@@ -47,7 +55,7 @@ public class Salary {
         return forAll;
     }
 
-    public Money getAmountToPay() {
+    public Money getPaycheckAmount() {
         Money toPay = getAmountForAllWorktime();
         toPay = toPay.subtract(advancesSum);
         toPay = toPay.subtract(loanInstallmentSum);
@@ -55,5 +63,4 @@ public class Salary {
 
         return toPay;
     }
-
 }

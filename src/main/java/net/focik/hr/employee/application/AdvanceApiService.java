@@ -1,12 +1,6 @@
 package net.focik.hr.employee.application;
 
 import lombok.AllArgsConstructor;
-import net.focik.hr.employee.domain.EmployeeFacade;
-import net.focik.hr.employee.domain.addition.Addition;
-import net.focik.hr.employee.domain.addition.AdditionType;
-import net.focik.hr.employee.domain.addition.port.primary.AddAdditionUseCase;
-import net.focik.hr.employee.domain.addition.port.primary.DeleteAdditionUseCase;
-import net.focik.hr.employee.domain.addition.port.primary.GetAdditionUseCase;
 import net.focik.hr.employee.domain.advance.Advance;
 import net.focik.hr.employee.domain.advance.AdvanceFacade;
 import net.focik.hr.employee.domain.advance.port.primary.AddAdvanceUseCase;
@@ -22,7 +16,6 @@ import java.util.List;
 public class AdvanceApiService implements GetAdvanceUseCase, AddAdvanceUseCase, DeleteAdvanceUseCase {
 
     private final AdvanceFacade advanceFacade;
-
 
     @Override
     public Advance getAdvance(Integer id) {

@@ -57,5 +57,4 @@ class SalaryController {
     private boolean isNotValid(int idEmployee, LocalDate date) {
         return (idEmployee < 1 || date == null);
     }
-
 }

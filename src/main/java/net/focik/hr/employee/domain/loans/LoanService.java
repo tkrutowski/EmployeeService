@@ -6,15 +6,17 @@ import net.focik.hr.employee.domain.exceptions.LoanNotValidException;
 import net.focik.hr.employee.domain.loans.port.secondary.LoanRepository;
 import net.focik.hr.employee.domain.share.LoanStatus;
 import org.javamoney.moneta.Money;
+import org.javamoney.moneta.format.AmountFormatParams;
 import org.springframework.stereotype.Service;
 
+import javax.money.format.AmountFormatQueryBuilder;
+import javax.money.format.MonetaryAmountFormat;
+import javax.money.format.MonetaryFormats;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Service
@@ -151,4 +153,24 @@ class LoanService {
         return loanInstallment.getDate() == null;
     }
 
+    public Money getLoansToPaySum(Integer employeeId) {
+        List<Loan> loans = findLoansByEmployee(employeeId, LoanStatus.TO_PAY, true);
+        Money result = Money.of(BigDecimal.ZERO, "PLN");
+
+        for (Loan loan : loans) {
+            Money loanAmount = mapToMoney(loan.getAmount());
+            BigDecimal reduce = loan.getLoanInstallments().stream()
+                    .map(LoanInstallment::getInstallmentAmount)
+                    .reduce(BigDecimal::add)
+                    .orElse(BigDecimal.ZERO);
+            Money loanInstallmentPayedOff = Money.of(reduce, "PLN");
+            result = result.add(loanAmount.subtract(loanInstallmentPayedOff));
+        }
+
+        return result;
+    }
+
+    private Money mapToMoney(Number amount ) {
+        return Money.of(amount, "PLN");
+    }
 }

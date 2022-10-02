@@ -14,5 +14,4 @@ public class RateRegularDto {
     private String rateType;
     private String dateFrom;
     private String rateValue;
-
 }

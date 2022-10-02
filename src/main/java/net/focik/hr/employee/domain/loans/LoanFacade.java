@@ -73,4 +73,8 @@ public class LoanFacade {
     public Integer updateLoanInstallment(LoanInstallment loanInstallment) {
         return loanService.updateLoanInstallment(loanInstallment);
     }
+
+    public Money getLoansToPaySum(Integer employeeId) {
+        return loanService.getLoansToPaySum(employeeId);
+    }
 }

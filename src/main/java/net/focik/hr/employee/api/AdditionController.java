@@ -54,7 +54,6 @@ class AdditionController {
             throw new AccessDeniedException();
         }
 
-
         List<Addition> additions = getAdditionUseCase.getAdditions(idEmployee, date);
 
         return new ResponseEntity<>(additions.stream()
@@ -62,7 +61,6 @@ class AdditionController {
                 .collect(Collectors.toList())
                 , HttpStatus.OK);
     }
-
 
     @GetMapping("/additiontype")
     ResponseEntity<List<AdditionTypeDto>> getEmployeeTypesView() {
@@ -119,7 +117,6 @@ class AdditionController {
 
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
-
 
     @PutMapping
     public ResponseEntity<Integer> updateAddition(@RequestBody AdditionDto additionDto,

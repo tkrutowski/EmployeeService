@@ -2,6 +2,7 @@ package net.focik.hr.employee.api.mapper;
 
 import net.focik.hr.employee.api.dto.SalaryDto;
 import net.focik.hr.employee.domain.salary.Salary;
+import net.focik.hr.employee.domain.share.RateType;
 import org.javamoney.moneta.Money;
 import org.javamoney.moneta.format.AmountFormatParams;
 import org.springframework.stereotype.Component;
@@ -33,9 +34,16 @@ public class ApiSalaryMapper {
                 .forIllness100(mapMoneyToString(s.getForIllness100()))
                 .forAll(mapMoneyToString(s.getAmountForAllWorktime()))
 
+                .hoursToWork(s.getDaysToWork().getHoursToWork().toString())
+                .daysOffLeft(String.valueOf(s.getDaysOffLeft()))
+                .loansToPay(mapMoneyToString(s.getLoansToPay()))
                 .advancesSum(mapMoneyToString(s.getAdvancesSum()))
                 .additionsSum(mapMoneyToString(s.getAdditionsSum()))
                 .loanInstallmentSum(mapMoneyToString(s.getLoanInstallmentSum()))
+                .rateRegular(String.format("%.2f %s" ,s.getRateRegular().getRateValue(),
+                                s.getRateRegular().getRateType().equals(RateType.PER_HOUR) ? "zł/h" : "zł/mc"))
+                .rateOvertime(String.format("%.2f", s.getRateOvertime().getRateValue()))
+                .paycheckAmount(mapMoneyToString(s.getPaycheckAmount()))
                 .build();
     }
 

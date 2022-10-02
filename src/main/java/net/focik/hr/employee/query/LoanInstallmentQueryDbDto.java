@@ -1,4 +1,4 @@
-package net.focik.hr.employee.infrastructure.dto;
+package net.focik.hr.employee.query;
 
 import lombok.*;
 
@@ -9,11 +9,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "rata_pozyczki")
+@Table(name = "LoanInstallment_view")
 @Getter
 @ToString
 @Builder
-public class LoanInstallmentDto {
+public class LoanInstallmentQueryDbDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_raty")
@@ -26,5 +26,6 @@ public class LoanInstallmentDto {
     private LocalDate date;
     @Column(name = "wplata_wlasna")
     private Boolean isOwnRepayment;
-
+    @Column(name = "nazwa")
+    private String loanName;
 }

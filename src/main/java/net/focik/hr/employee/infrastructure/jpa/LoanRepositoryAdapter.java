@@ -1,12 +1,11 @@
 package net.focik.hr.employee.infrastructure.jpa;
 
 import lombok.AllArgsConstructor;
-import net.focik.hr.employee.domain.exceptions.LoanNotFoundException;
 import net.focik.hr.employee.domain.loans.Loan;
 import net.focik.hr.employee.domain.loans.LoanInstallment;
 import net.focik.hr.employee.domain.loans.port.secondary.LoanRepository;
 import net.focik.hr.employee.infrastructure.dto.LoanDbDto;
-import net.focik.hr.employee.infrastructure.dto.LoanInstallmentDto;
+import net.focik.hr.employee.infrastructure.dto.LoanInstallmentDbDto;
 import net.focik.hr.employee.infrastructure.mapper.JpaLoanMapper;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
@@ -48,7 +47,7 @@ class LoanRepositoryAdapter implements LoanRepository {
 
     @Override
     public Optional<LoanInstallment> findLoanInstallmentById(Integer id) {
-        Optional<LoanInstallmentDto> byId = loanInstallmentDtoRepository.findById(id);
+        Optional<LoanInstallmentDbDto> byId = loanInstallmentDtoRepository.findById(id);
 
         if (byId.isEmpty())
             return Optional.empty();
@@ -73,13 +72,13 @@ class LoanRepositoryAdapter implements LoanRepository {
     @Override
     public List<LoanInstallment> findLoanInstallmentByEmployeeIdAndDate(Integer employeeId, LocalDate date) {
         List<LoanDbDto> loansByIdEmployee = loanDtoRepository.findAllByIdEmployee(employeeId);
-        List<LoanInstallmentDto> loanInstallmentDtos = new ArrayList<>();
+        List<LoanInstallmentDbDto> loanInstallmentDbDtos = new ArrayList<>();
         String dateFormat = date.getYear() + String.format("-%02d", date.getMonthValue());
         for (LoanDbDto dto : loansByIdEmployee) {
-            loanInstallmentDtos.addAll(loanInstallmentDtoRepository.findAllByIdLoanAndDate(dto.getId(), dateFormat));
+            loanInstallmentDbDtos.addAll(loanInstallmentDtoRepository.findAllByIdLoanAndDate(dto.getId(), dateFormat));
         }
 
-        return loanInstallmentDtos.stream()
+        return loanInstallmentDbDtos.stream()
                 .map(l -> mapper.toDomain(l))
                 .collect(Collectors.toList());
     }

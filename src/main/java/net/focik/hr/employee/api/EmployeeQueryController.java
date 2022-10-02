@@ -64,7 +64,5 @@ class EmployeeQueryController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         return new ResponseEntity<>(employee, HttpStatus.OK);
-
     }
-
 }

@@ -18,7 +18,6 @@ import java.util.Locale;
 @Component
 public class ApiWorkTimeMapper {
 
-
     public static final String ID_EMPLOYEE = "idEmployee";
     public static final String DATE_FORMAT = "dd.MM.yyyy";
     public static final String TIME_FORMAT = "H:mm";

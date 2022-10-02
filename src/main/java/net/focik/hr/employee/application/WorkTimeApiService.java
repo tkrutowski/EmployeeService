@@ -87,5 +87,4 @@ public class WorkTimeApiService implements GetWorkTimeRecordsUseCase, AddWorkTim
             }
         }
     }
-
 }

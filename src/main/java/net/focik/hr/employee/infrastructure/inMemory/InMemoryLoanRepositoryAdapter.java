@@ -5,7 +5,7 @@ import net.focik.hr.employee.domain.loans.Loan;
 import net.focik.hr.employee.domain.loans.LoanInstallment;
 import net.focik.hr.employee.domain.loans.port.secondary.LoanRepository;
 import net.focik.hr.employee.infrastructure.dto.LoanDbDto;
-import net.focik.hr.employee.infrastructure.dto.LoanInstallmentDto;
+import net.focik.hr.employee.infrastructure.dto.LoanInstallmentDbDto;
 import net.focik.hr.employee.infrastructure.inMemory.db.DataBaseLoans;
 import net.focik.hr.employee.infrastructure.mapper.JpaLoanMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -42,13 +42,13 @@ public class InMemoryLoanRepositoryAdapter implements LoanRepository {
 
     @Override
     public Integer saveLoanInstallment(LoanInstallment loanInstallment) {
-        LoanInstallmentDto loanInstallmentDto = jpaMapper.toDto(loanInstallment);
-        log.info("Try add into inMemoryDb loan installment: " + loanInstallmentDto.toString());
-        if (loanInstallmentDto == null)
+        LoanInstallmentDbDto loanInstallmentDbDto = jpaMapper.toDto(loanInstallment);
+        log.info("Try add into inMemoryDb loan installment: " + loanInstallmentDbDto.toString());
+        if (loanInstallmentDbDto == null)
             throw new NullPointerException("Loan installment cannot be null");
         Integer id = DataBaseLoans.getLoanInstallmentTypesHashMap().size() + 1;
         // employee.setId(id);
-        DataBaseLoans.getLoanInstallmentTypesHashMap().put(id, loanInstallmentDto);
+        DataBaseLoans.getLoanInstallmentTypesHashMap().put(id, loanInstallmentDbDto);
         log.info("Succssec id = " + id);
         return id;
     }

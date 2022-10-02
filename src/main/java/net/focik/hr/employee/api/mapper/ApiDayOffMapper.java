@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class ApiDayOffMapper {
 
-
     public DayOffTypeDto toDto(DayOffType type) {
 
         return new DayOffTypeDto(type.getIdValue(), type.getDbValue());

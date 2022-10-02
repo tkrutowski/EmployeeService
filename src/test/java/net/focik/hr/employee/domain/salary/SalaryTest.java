@@ -55,6 +55,6 @@ class SalaryTest {
         Money EXPECTED = Money.of(6449.83,"PLN");
 
         //then
-        assertEquals(EXPECTED, salary.getAmountToPay());
+        assertEquals(EXPECTED, salary.getPaycheckAmount());
     }
 }

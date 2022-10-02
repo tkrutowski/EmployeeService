@@ -20,7 +20,6 @@ public class LoanApiService implements GetLoanUseCase, AddLoanUseCase, UpdateLoa
 
     private final LoanFacade loanFacade;
 
-
     @Override
     public LoanInstallment getLoanInstallment(Integer idLoanInstallment) {
         return null;

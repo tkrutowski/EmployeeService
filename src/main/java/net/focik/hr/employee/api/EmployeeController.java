@@ -127,5 +127,4 @@ class EmployeeController {
         HttpResponse body = new HttpResponse(status.value(), status, status.getReasonPhrase(), message);
         return new ResponseEntity<>(body, status);
     }
-
 }

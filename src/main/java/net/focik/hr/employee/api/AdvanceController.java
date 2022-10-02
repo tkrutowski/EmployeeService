@@ -50,7 +50,6 @@ class AdvanceController {
             throw new AccessDeniedException();
         }
 
-
         List<Advance> advances = getAdvanceUseCase.getAdvances(idEmployee, date);
 
         return new ResponseEntity<>(advances.stream()
@@ -58,7 +57,6 @@ class AdvanceController {
                 .collect(Collectors.toList())
                 , HttpStatus.OK);
     }
-
 
     @PostMapping
     public ResponseEntity<Integer> addAdvance(@RequestBody AdvanceDto advanceDto,
@@ -80,7 +78,6 @@ class AdvanceController {
 
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
-
 
     @PutMapping
     public ResponseEntity<Integer> updateAdvance(@RequestBody AdvanceDto advanceDto,

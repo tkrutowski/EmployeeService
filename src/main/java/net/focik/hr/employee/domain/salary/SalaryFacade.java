@@ -15,10 +15,8 @@ public class SalaryFacade {
     private final SalaryFactory salaryFactory;
     private final WorkTimeFacade workTimeFacade;
 
-
     public Salary calculateSalary(Employee employee, LocalDate date) {
         DaysToWork daysToWorkByDate = workTimeFacade.getDaysToWorkByDate(date.getYear(), date.getMonth().getValue());
         return salaryFactory.createSalary(employee, date, daysToWorkByDate);
     }
-
 }

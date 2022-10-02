@@ -129,7 +129,6 @@ class RateController {
                 HttpStatus.OK);
     }
 
-
     @PostMapping("/{idEmployee}/regular")
     public ResponseEntity<RateRegularDto> addRateRegular(@PathVariable int idEmployee,
                                                          @RequestBody RateRegularDto rateRegularDto,

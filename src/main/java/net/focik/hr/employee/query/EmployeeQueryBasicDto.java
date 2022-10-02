@@ -37,5 +37,4 @@ public class EmployeeQueryBasicDto {
     private int idTeam;
     private String employeeType;
     private String workTime;
-
 }

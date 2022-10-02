@@ -12,5 +12,4 @@ import lombok.Setter;
 public class AdditionTypeDto {
     private Integer id;
     private String name;
-
 }

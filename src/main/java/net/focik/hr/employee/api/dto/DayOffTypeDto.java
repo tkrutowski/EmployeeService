@@ -10,5 +10,4 @@ import lombok.NoArgsConstructor;
 public class DayOffTypeDto {
     private Integer id;
     private String name;
-
 }

@@ -17,5 +17,4 @@ public class AdditionDto {
     private String otherInfo;
     private String additionType;
     private int additionTypeId;
-
 }

@@ -9,7 +9,6 @@ import net.focik.hr.employee.domain.port.primary.UpdateEmployeUseCase;
 import net.focik.hr.employee.domain.share.EmploymentStatus;
 import org.springframework.stereotype.Service;
 
-
 @AllArgsConstructor
 @Service
 public class EmployeeApiService implements AddNewEmployeeUseCase, UpdateEmployeUseCase, DeleteEmployeeUseCase {

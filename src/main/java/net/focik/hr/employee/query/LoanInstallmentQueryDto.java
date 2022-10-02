@@ -1,4 +1,4 @@
-package net.focik.hr.employee.api.dto;
+package net.focik.hr.employee.query;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class AdvanceDto {
-    private int id;
-    private int idEmployee;
+public class LoanInstallmentQueryDto {
+    private int idLoanInstallment;
+    private int idLoan;
     private String amount;
     private String date;
+    private boolean isOwnRepayment;
     private String otherInfo;
+    private String loanName;
 }

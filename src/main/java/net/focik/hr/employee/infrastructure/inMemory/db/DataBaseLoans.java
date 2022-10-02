@@ -1,7 +1,7 @@
 package net.focik.hr.employee.infrastructure.inMemory.db;
 
 import net.focik.hr.employee.infrastructure.dto.LoanDbDto;
-import net.focik.hr.employee.infrastructure.dto.LoanInstallmentDto;
+import net.focik.hr.employee.infrastructure.dto.LoanInstallmentDbDto;
 
 import java.util.HashMap;
 
@@ -13,14 +13,14 @@ public class DataBaseLoans {
         return loanDtoHashMap;
     }
 
-    public static HashMap<Integer, LoanInstallmentDto> getLoanInstallmentTypesHashMap() {
+    public static HashMap<Integer, LoanInstallmentDbDto> getLoanInstallmentTypesHashMap() {
         if(loanInstallmentDtoHashMap == null)
             loanInstallmentDtoHashMap = new HashMap<>();
         return loanInstallmentDtoHashMap;
     }
 
     private static HashMap<Integer, LoanDbDto> loanDtoHashMap;
-    private static HashMap<Integer, LoanInstallmentDto> loanInstallmentDtoHashMap;
+    private static HashMap<Integer, LoanInstallmentDbDto> loanInstallmentDtoHashMap;
 
     private DataBaseLoans( ){ }
 }

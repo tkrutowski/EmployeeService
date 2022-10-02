@@ -18,7 +18,6 @@ public class AdditionApiService implements GetAdditionUseCase, AddAdditionUseCas
 
     private final AdditionFacade additionFacade;
 
-
     @Override
     public Addition getAddition(Integer id) {
         return null;
