@@ -37,4 +37,9 @@ public class RateRegular implements Comparable<RateRegular> {
     public int compareTo(RateRegular rateRegular) {
         return getDateFrom().compareTo(rateRegular.getDateFrom());
     }
+
+    @Override
+    public String toString() {
+        return String.format("%.2f %s", rateValue, rateType.equals(RateType.PER_HOUR) ? "zł/h" : "zł/mc");
+    }
 }

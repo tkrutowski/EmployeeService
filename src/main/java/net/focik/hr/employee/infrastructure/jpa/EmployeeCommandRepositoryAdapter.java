@@ -9,7 +9,9 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 @Primary
@@ -38,6 +40,13 @@ class EmployeeCommandRepositoryAdapter implements EmployeeCommandRepository {
             return Optional.empty();
 
         return Optional.of(mapper.toDomain(byId.get()));
+    }
+
+    @Override
+    public List<Employee> findAll() {
+        return employeeDtoRepository.findAll().stream()
+                .map(mapper::toDomain)
+                .collect(Collectors.toList());
     }
 
     @Override

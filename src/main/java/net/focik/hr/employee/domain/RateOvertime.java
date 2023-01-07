@@ -34,4 +34,9 @@ public class RateOvertime implements Comparable<RateOvertime> {
     public int compareTo(RateOvertime rateOvertime) {
         return getDateFrom().compareTo(rateOvertime.getDateFrom());
     }
+
+    @Override
+    public String toString() {
+        return String.format("%.2f zł/h", rateValue);
+    }
 }

@@ -1,6 +1,7 @@
 package net.focik.hr.employee.domain;
 
 import lombok.AllArgsConstructor;
+import net.focik.hr.employee.domain.share.EmployeeType;
 import net.focik.hr.employee.domain.share.EmploymentStatus;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,10 @@ public class EmployeeFacade {
 
     public Employee getEmployee(Integer id) {
         return employeeService.findEmployeeById(id);
+    }
+
+    public List<Employee> getAllBy(EmploymentStatus employmentStatus, Boolean isGetRate, EmployeeType employeeType) {
+        return employeeService.findByAll(employmentStatus, isGetRate, employeeType);
     }
 
     public Integer addEmployee(Employee employee) {

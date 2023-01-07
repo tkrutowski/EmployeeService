@@ -18,8 +18,15 @@ public interface WorkTimeRepository {
     void add(IWorkTime  workTime);
 
     Optional<Work> findWorkById(WorkId id);
+    void deleteWorkById(WorkId id);
 
     Optional<Illness> findIllnessById(IllnessId id);
+    void deleteIllnessById(IllnessId id);
+
     Optional<DayOff> findDayOffById(DayOffId id);
+    void deleteDayOffById(DayOffId id);
+
+
     List<IWorkTime> findAllWorkTimeByIdEmployeeAndDateYearMonth(int idEmployee, LocalDate date);
+
 }

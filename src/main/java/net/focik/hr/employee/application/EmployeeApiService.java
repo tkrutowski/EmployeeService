@@ -3,10 +3,10 @@ package net.focik.hr.employee.application;
 import lombok.AllArgsConstructor;
 import net.focik.hr.employee.domain.Employee;
 import net.focik.hr.employee.domain.EmployeeFacade;
-import net.focik.hr.employee.domain.port.primary.AddNewEmployeeUseCase;
 import net.focik.hr.employee.domain.port.primary.DeleteEmployeeUseCase;
 import net.focik.hr.employee.domain.port.primary.UpdateEmployeUseCase;
 import net.focik.hr.employee.domain.share.EmploymentStatus;
+import net.focik.hr.employee.domain.worktimerecords.port.primary.AddNewEmployeeUseCase;
 import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
@@ -22,7 +22,6 @@ public class EmployeeApiService implements AddNewEmployeeUseCase, UpdateEmployeU
     @Override
     public void updateEmploymentStatus(int idEmployee, EmploymentStatus employmentStatus) {
         employeeFacade.updateEmploymentStatus(idEmployee, employmentStatus);
-
     }
 
     @Override

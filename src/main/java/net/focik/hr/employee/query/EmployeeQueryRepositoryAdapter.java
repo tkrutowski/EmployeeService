@@ -41,6 +41,13 @@ class EmployeeQueryRepositoryAdapter implements EmployeeQueryRepository {
         return convertToBasicDto(allByEmploymentStatus);
     }
 
+    @Override
+    public List<EmployeeQueryPrintDto> findAllByEmploymentStatusPrint(EmploymentStatus employmentStatus) {
+        List<EmployeeDbDto> allByEmploymentStatus = queryDtoRepository
+                .findAllByEmploymentStatus(employmentStatus.toString());
+        return convertToPrintDto(allByEmploymentStatus);
+    }
+
     private List<EmployeeQueryBasicDto> convertToBasicDto(List<EmployeeDbDto> dbDtos) {
         List<EmployeeQueryBasicDto> basicDtos = new ArrayList<>();
         dbDtos.forEach(employeeDto -> basicDtos.add(EmployeeQueryBasicDto.builder()
@@ -64,6 +71,20 @@ class EmployeeQueryRepositoryAdapter implements EmployeeQueryRepository {
                 .employeeType(employeeDto.getEmployeeType().toString())
                 .workTime(employeeDto.getWorkTime().toString())
                 .otherInfo(employeeDto.getOtherInfo())
+                .build()));
+
+        return basicDtos;
+    }
+
+    private List<EmployeeQueryPrintDto> convertToPrintDto(List<EmployeeDbDto> dbDtos) {
+        List<EmployeeQueryPrintDto> basicDtos = new ArrayList<>();
+        dbDtos.forEach(employeeDto -> basicDtos.add(EmployeeQueryPrintDto.builder()
+                .id(employeeDto.getId())
+                .firstName(employeeDto.getFirstName())
+                .lastName(employeeDto.getLastName())
+                .employmentStatus(employeeDto.getEmploymentStatus().toString())
+                .employeeType(employeeDto.getEmployeeType().getViewValue())
+                .workTime(employeeDto.getWorkTime().getViewValue())
                 .build()));
 
         return basicDtos;

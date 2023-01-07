@@ -38,6 +38,7 @@ public class ApiWorkTimeMapper {
                     .workType(WorkType.DAY_OFF)
                     .idEmployee(((DayOff) workTime).getIdEmployee())
                     .isHoliday(false)
+                    .idDayOffType(((DayOff) workTime).getDayOffType().getIdValue())
                     .build();
         } else if (workTime instanceof Illness) {
             workTimeDto = WorkTimeDto.builder()
@@ -51,6 +52,7 @@ public class ApiWorkTimeMapper {
                     .workType(WorkType.ILLNESS)
                     .idEmployee(((Illness) workTime).getIdEmployee())
                     .isHoliday(false)
+                    .idIllnessType(((Illness) workTime).getIllnessType().getIdValue())
                     .build();
         } else if (workTime instanceof Work) {
             workTimeDto = WorkTimeDto.builder()

@@ -20,6 +20,8 @@ public class PrivilegeHelper {
     public static final String HR_WORKTIME_WRITE = "HR_WORKTIME_WRITE";
     public static final String HR_WORKTIME_READ_ALL = "HR_WORKTIME_READ_ALL";
     public static final String HR_WORKTIME_READ = "HR_WORKTIME_READ";
+    public static final String HR_WORKTIME_DELETE_ALL = "HR_WORKTIME_DELETE_ALL";
+    public static final String HR_WORKTIME_DELETE = "HR_WORKTIME_DELETE";
     public static final String TASK_CALENDAR_READ_ALL = "TASK_CALENDAR_READ_ALL";
     public static final String TASK_CALENDAR_READ = "TASK_CALENDAR_READ";
     public static final String HR_RATE_DELETE_ALL = "HR_RATE_DELETE_ALL";

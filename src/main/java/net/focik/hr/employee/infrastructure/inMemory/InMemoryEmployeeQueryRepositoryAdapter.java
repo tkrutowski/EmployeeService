@@ -4,6 +4,7 @@ import lombok.extern.java.Log;
 import net.focik.hr.employee.domain.port.secondary.EmployeeQueryRepository;
 import net.focik.hr.employee.domain.share.EmploymentStatus;
 import net.focik.hr.employee.query.EmployeeQueryBasicDto;
+import net.focik.hr.employee.query.EmployeeQueryPrintDto;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +29,11 @@ public class InMemoryEmployeeQueryRepositoryAdapter implements EmployeeQueryRepo
 
     @Override
     public List<EmployeeQueryBasicDto> findAllByEmploymentStatus(EmploymentStatus employmentStatus) {
+        return null;
+    }
+
+    @Override
+    public List<EmployeeQueryPrintDto> findAllByEmploymentStatusPrint(EmploymentStatus employmentStatus) {
         return null;
     }
 }

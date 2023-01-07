@@ -15,9 +15,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class SalaryServiceOctoberTest {
+class SalaryFactoryServiceOctoberTest {
 
-    static SalaryService salaryService=new SalaryService();
+    static SalaryFactory salaryFactory;
     static List<IWorkTime> workTimeListOctober;
     static int  ID_EMPLOYEE=22;
 
@@ -54,7 +54,7 @@ class SalaryServiceOctoberTest {
         workTimeListOctober.add(new Work(ID_EMPLOYEE, LocalDate.of(2021,10,28), LocalTime.of(7,0),LocalTime.of(15,50)));
         workTimeListOctober.add(new Work(ID_EMPLOYEE, LocalDate.of(2021,10,29), LocalTime.of(7,0),LocalTime.of(15,50)));
 
-        salaryService.calculateMinutes(workTimeListOctober);
+        salaryFactory.calculateMinutes(workTimeListOctober);
     }
 
     @Test
@@ -63,7 +63,7 @@ class SalaryServiceOctoberTest {
         int EXPECTED = 0;
 
         //then
-        assertEquals(EXPECTED, salaryService.getDayOffMinutesPay());
+        assertEquals(EXPECTED, salaryFactory.getDayOffMinutesPay());
     }
     @Test
     void should_return_0_dayOffMinutesFree_when_workTimeListOctober() {
@@ -71,7 +71,7 @@ class SalaryServiceOctoberTest {
         int EXPECTED = 0;
 
         //then
-        assertEquals(EXPECTED, salaryService.getDayOffMinutesFree());
+        assertEquals(EXPECTED, salaryFactory.getDayOffMinutesFree());
     }
 
     @Test
@@ -80,7 +80,7 @@ class SalaryServiceOctoberTest {
         int EXPECTED = 0;
 
         //then
-        assertEquals(EXPECTED, salaryService.getIllnessMinutes80());
+        assertEquals(EXPECTED, salaryFactory.getIllnessMinutes80());
     }
 
     @Test
@@ -89,7 +89,7 @@ class SalaryServiceOctoberTest {
         int EXPECTED = 0;
 
         //then
-        assertEquals(EXPECTED, salaryService.getIllnessMinutes100());
+        assertEquals(EXPECTED, salaryFactory.getIllnessMinutes100());
     }
 
     @Test
@@ -98,7 +98,7 @@ class SalaryServiceOctoberTest {
         int EXPECTED = 10080;
 
         //then
-        assertEquals(EXPECTED, salaryService.getWorkRegularMinutes());
+        assertEquals(EXPECTED, salaryFactory.getWorkRegularMinutes());
     }
 
     @Test
@@ -107,7 +107,7 @@ class SalaryServiceOctoberTest {
         int EXPECTED = 1930;
 
         //then
-        assertEquals(EXPECTED, salaryService.getWorkOvertime50Minutes());
+        assertEquals(EXPECTED, salaryFactory.getWorkOvertime50Minutes());
     }
 
     @Test
@@ -116,7 +116,7 @@ class SalaryServiceOctoberTest {
         int EXPECTED = 480;
 
         //then
-        assertEquals(EXPECTED, salaryService.getWorkOvertime100Minutes());
+        assertEquals(EXPECTED, salaryFactory.getWorkOvertime100Minutes());
     }
 
 
@@ -132,7 +132,7 @@ class SalaryServiceOctoberTest {
         int HOURS_TO_WORK = 168;
 
         //when
-        Money result = salaryService.calculateForWorkRegular(RATE, RATE_TYPE, HOURS_TO_WORK);
+        Money result = salaryFactory.calculateForWorkRegular(RATE, RATE_TYPE, HOURS_TO_WORK);
 
         //then
         assertEquals(Money.of(5440, "PLN"), result);
@@ -144,7 +144,7 @@ class SalaryServiceOctoberTest {
         BigDecimal RATE = new BigDecimal("34");
 
         //when
-        Money result = salaryService.calculateForWorkOvertime50(RATE);
+        Money result = salaryFactory.calculateForWorkOvertime50(RATE);
 
         //then
         assertEquals(Money.of(1640.50, "PLN"), result);
@@ -156,7 +156,7 @@ class SalaryServiceOctoberTest {
         BigDecimal RATE = BigDecimal.valueOf(34.0d);
 
         //when
-        Money result = salaryService.calculateForWorkOvertime100(RATE);
+        Money result = salaryFactory.calculateForWorkOvertime100(RATE);
 
         //then
         assertEquals(Money.of(544, "PLN"), result);
@@ -170,7 +170,7 @@ class SalaryServiceOctoberTest {
         int HOURS_TO_WORK = 168;
 
         //when
-        Money result = salaryService.calculateForDayOff(RATE, RATE_TYPE, HOURS_TO_WORK);
+        Money result = salaryFactory.calculateForDayOff(RATE, RATE_TYPE, HOURS_TO_WORK);
 
         //then
         assertEquals(Money.of(0, "PLN"), result);
@@ -184,7 +184,7 @@ class SalaryServiceOctoberTest {
         int HOURS_TO_WORK = 168;
 
         //when
-        Money result = salaryService.calculateForIllness80(RATE, RATE_TYPE, HOURS_TO_WORK);
+        Money result = salaryFactory.calculateForIllness80(RATE, RATE_TYPE, HOURS_TO_WORK);
 
         //then
         assertEquals(Money.of(0, "PLN"), result);
@@ -198,7 +198,7 @@ class SalaryServiceOctoberTest {
         int HOURS_TO_WORK = 168;
 
         //when
-        Money result = salaryService.calculateForIllness100(RATE, RATE_TYPE, HOURS_TO_WORK);
+        Money result = salaryFactory.calculateForIllness100(RATE, RATE_TYPE, HOURS_TO_WORK);
 
         //then
         assertEquals(Money.of(0, "PLN"), result);

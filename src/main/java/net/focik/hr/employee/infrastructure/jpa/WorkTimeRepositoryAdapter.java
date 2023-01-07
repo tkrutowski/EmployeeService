@@ -46,6 +46,11 @@ class WorkTimeRepositoryAdapter implements WorkTimeRepository {
     }
 
     @Override
+    public void deleteWorkById(WorkId id) {
+        workDtoRepository.deleteById(id);
+    }
+
+    @Override
     public Optional<Illness> findIllnessById(IllnessId id) {
         Optional<IllnessDto> byId = illnessDtoRepository.findById(id);
         if (byId.isEmpty())
@@ -54,11 +59,21 @@ class WorkTimeRepositoryAdapter implements WorkTimeRepository {
     }
 
     @Override
+    public void deleteIllnessById(IllnessId id) {
+        illnessDtoRepository.deleteById(id);
+    }
+
+    @Override
     public Optional<DayOff> findDayOffById(DayOffId id) {
         Optional<DayOffDto> byId = dayOffDtoRepository.findById(id);
         if (byId.isEmpty())
             return Optional.empty();
         return Optional.of(mapper.toDomain(byId.get()));
+    }
+
+    @Override
+    public void deleteDayOffById(DayOffId id) {
+        dayOffDtoRepository.deleteById(id);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package net.focik.hr.employee.domain.port.primary;
+package net.focik.hr.employee.domain.worktimerecords.port.primary;
 
 import net.focik.hr.employee.domain.Employee;
 

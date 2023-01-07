@@ -1,5 +1,6 @@
 package net.focik.hr.employee.domain.salary;
 
+import lombok.AllArgsConstructor;
 import net.focik.hr.employee.domain.share.RateType;
 import net.focik.hr.employee.domain.worktimerecords.DayOff;
 import net.focik.hr.employee.domain.worktimerecords.IWorkTime;
@@ -19,9 +20,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SalaryServiceTest {
+@AllArgsConstructor
+class SalaryFactoryTest {
 
-    SalaryService salaryService=new SalaryService();
+    SalaryFactory salaryFactory;
     static List<IWorkTime> workTimeListNovember;
     static List<IWorkTime> workTimeListOctober;
     static int  ID_EMPLOYEE=22;
@@ -55,10 +57,10 @@ class SalaryServiceTest {
         list.add(new DayOff(ID_EMPLOYEE, LocalDate.of(2021,11,6), DayOffType.HALF_DAY));
 
         //when
-        salaryService.calculateMinutes(list);
+        salaryFactory.calculateMinutes(list);
 
         //then
-        assertEquals(EXPECTED, salaryService.getDayOffMinutesPay());
+        assertEquals(EXPECTED, salaryFactory.getDayOffMinutesPay());
     }
 
     @Test
@@ -71,10 +73,10 @@ class SalaryServiceTest {
         list.add(new DayOff(ID_EMPLOYEE, LocalDate.of(2021,11,6), DayOffType.FATHERLY));
 
         //when
-        salaryService.calculateMinutes(list);
+        salaryFactory.calculateMinutes(list);
 
         //then
-        assertEquals(EXPECTED, salaryService.getDayOffMinutesFree());
+        assertEquals(EXPECTED, salaryFactory.getDayOffMinutesFree());
     }
 
     @Test
@@ -87,10 +89,10 @@ class SalaryServiceTest {
         list.add(new Illness(ID_EMPLOYEE, LocalDate.of(2021,11,11), IllnessType.ILLNESS_80));
 
         //when
-        salaryService.calculateMinutes(list);
+        salaryFactory.calculateMinutes(list);
 
         //then
-        assertEquals(EXPECTED, salaryService.getIllnessMinutes80());
+        assertEquals(EXPECTED, salaryFactory.getIllnessMinutes80());
     }
 
     @Test
@@ -102,10 +104,10 @@ class SalaryServiceTest {
         list.add(new Illness(ID_EMPLOYEE, LocalDate.of(2021,11,13), IllnessType.ILLNESS_100));
 
         //when
-        salaryService.calculateMinutes(list);
+        salaryFactory.calculateMinutes(list);
 
         //then
-        assertEquals(EXPECTED, salaryService.getIllnessMinutes100());
+        assertEquals(EXPECTED, salaryFactory.getIllnessMinutes100());
     }
 
     @Test
@@ -120,10 +122,10 @@ class SalaryServiceTest {
 
 
         //when
-        salaryService.calculateMinutes(list);
+        salaryFactory.calculateMinutes(list);
 
         //then
-        assertEquals(EXPECTED, salaryService.getWorkOvertime50Minutes());
+        assertEquals(EXPECTED, salaryFactory.getWorkOvertime50Minutes());
     }
     @Test
     void should_return_540_workOver100Minutes_when_workTimeList_added() {
@@ -136,10 +138,10 @@ class SalaryServiceTest {
         list.add(new Work(ID_EMPLOYEE, LocalDate.of(2021,11,6), LocalTime.of(7,0),LocalTime.of(16,0)));
 
         //when
-        salaryService.calculateMinutes(list);
+        salaryFactory.calculateMinutes(list);
 
         //then
-        assertEquals(EXPECTED, salaryService.getWorkOvertime100Minutes());
+        assertEquals(EXPECTED, salaryFactory.getWorkOvertime100Minutes());
     }
     @Test
     void should_return_1440_workRegularMinutes_when_workTimeList_added() {
@@ -152,10 +154,10 @@ class SalaryServiceTest {
         list.add(new Work(ID_EMPLOYEE, LocalDate.of(2021,11,6), LocalTime.of(7,0),LocalTime.of(16,0)));
 
         //when
-        salaryService.calculateMinutes(list);
+        salaryFactory.calculateMinutes(list);
 
         //then
-        assertEquals(EXPECTED, salaryService.getWorkRegularMinutes());
+        assertEquals(EXPECTED, salaryFactory.getWorkRegularMinutes());
     }
     @Test
     void calculateForDayOff_PER_MONTH() {
@@ -168,8 +170,8 @@ class SalaryServiceTest {
         list.add(new DayOff(ID_EMPLOYEE, LocalDate.of(2021,11,6), DayOffType.HALF_DAY));
 
         //when
-        salaryService.calculateMinutes(list);
-        Money result = salaryService.calculateForDayOff(RATE, RATE_TYPE, HOURS_TO_WORK);
+        salaryFactory.calculateMinutes(list);
+        Money result = salaryFactory.calculateForDayOff(RATE, RATE_TYPE, HOURS_TO_WORK);
 
         //then
         assertEquals(Money.of(408, "PLN"), result);
@@ -186,8 +188,8 @@ class SalaryServiceTest {
         list.add(new DayOff(ID_EMPLOYEE, LocalDate.of(2021,11,6), DayOffType.HALF_DAY));
 
         //when
-        salaryService.calculateMinutes(list);
-        Money result = salaryService.calculateForDayOff(RATE, RATE_TYPE, HOURS_TO_WORK);
+        salaryFactory.calculateMinutes(list);
+        Money result = salaryFactory.calculateForDayOff(RATE, RATE_TYPE, HOURS_TO_WORK);
 
         //then
         assertEquals(Money.of(255.60, "PLN"), result);
@@ -205,8 +207,8 @@ class SalaryServiceTest {
         list.add(new Illness(ID_EMPLOYEE, LocalDate.of(2021,11,11), IllnessType.ILLNESS_80));
 
         //when
-        salaryService.calculateMinutes(list);
-        Money result = salaryService.calculateForIllness80(RATE, RATE_TYPE, HOURS_TO_WORK);
+        salaryFactory.calculateMinutes(list);
+        Money result = salaryFactory.calculateForIllness80(RATE, RATE_TYPE, HOURS_TO_WORK);
 
         //then
         assertEquals(Money.of(408.96, "PLN"), result);
@@ -224,8 +226,8 @@ class SalaryServiceTest {
         list.add(new Illness(ID_EMPLOYEE, LocalDate.of(2021,11,11), IllnessType.ILLNESS_80));
 
         //when
-        salaryService.calculateMinutes(list);
-        Money result = salaryService.calculateForIllness80(RATE, RATE_TYPE, HOURS_TO_WORK);
+        salaryFactory.calculateMinutes(list);
+        Money result = salaryFactory.calculateForIllness80(RATE, RATE_TYPE, HOURS_TO_WORK);
 
         //then
         assertEquals(Money.of(652.80, "PLN"), result);
@@ -242,8 +244,8 @@ class SalaryServiceTest {
         list.add(new Illness(ID_EMPLOYEE, LocalDate.of(2021,11,13), IllnessType.ILLNESS_100));
 
         //when
-        salaryService.calculateMinutes(list);
-        Money result = salaryService.calculateForIllness100(RATE, RATE_TYPE, HOURS_TO_WORK);
+        salaryFactory.calculateMinutes(list);
+        Money result = salaryFactory.calculateForIllness100(RATE, RATE_TYPE, HOURS_TO_WORK);
 
         //then
         assertEquals(Money.of(340.80, "PLN"), result);
@@ -260,8 +262,8 @@ class SalaryServiceTest {
         list.add(new Illness(ID_EMPLOYEE, LocalDate.of(2021,11,13), IllnessType.ILLNESS_100));
 
         //when
-        salaryService.calculateMinutes(list);
-        Money result = salaryService.calculateForIllness100(RATE, RATE_TYPE, HOURS_TO_WORK);
+        salaryFactory.calculateMinutes(list);
+        Money result = salaryFactory.calculateForIllness100(RATE, RATE_TYPE, HOURS_TO_WORK);
 
         //then
         assertEquals(Money.of(544, "PLN"), result);

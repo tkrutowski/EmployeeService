@@ -3,11 +3,15 @@ package net.focik.hr.employee.application;
 import lombok.AllArgsConstructor;
 import net.focik.hr.employee.api.dto.WorkTimeDto;
 import net.focik.hr.employee.api.mapper.ApiWorkTimeMapper;
-import net.focik.hr.employee.domain.port.primary.AddWorkTimeUseCase;
-import net.focik.hr.employee.domain.port.primary.GetWorkTimeRecordsUseCase;
+import net.focik.hr.employee.domain.share.PrintTypePdf;
 import net.focik.hr.employee.domain.worktimerecords.DaysToWork;
 import net.focik.hr.employee.domain.worktimerecords.IWorkTime;
 import net.focik.hr.employee.domain.worktimerecords.WorkTimeFacade;
+import net.focik.hr.employee.domain.worktimerecords.port.primary.AddWorkTimeUseCase;
+import net.focik.hr.employee.domain.worktimerecords.port.primary.DeleteWorkTimeUseCase;
+import net.focik.hr.employee.domain.worktimerecords.port.primary.GetWorkTimeRecordsUseCase;
+import net.focik.hr.employee.domain.worktimerecords.port.primary.PrintWorkTimeUseCase;
+import net.focik.hr.employee.domain.worktimerecords.share.WorkType;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
@@ -20,7 +24,7 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
-public class WorkTimeApiService implements GetWorkTimeRecordsUseCase, AddWorkTimeUseCase {
+public class WorkTimeApiService implements GetWorkTimeRecordsUseCase, AddWorkTimeUseCase, DeleteWorkTimeUseCase, PrintWorkTimeUseCase {
     WorkTimeFacade workTimeFacade;
     ApiWorkTimeMapper workTimeMapper;
 
@@ -36,11 +40,16 @@ public class WorkTimeApiService implements GetWorkTimeRecordsUseCase, AddWorkTim
         workTimeFacade.addWorkTime(workTime);
     }
 
+    @Override
+    public void deleteWorkTime(Integer idEmployee, LocalDate date, WorkType workType) {
+        workTimeFacade.deleteWorkTime(idEmployee, date, workType);
+    }
+
     /**
      * Add empty days to complete the calendar
      *
-     * @param workTimes
-     * @param date
+     * @param workTimes wokTime list
+     * @param date date to fill with empty days
      * @return completed and sort by date full month
      */
     public List<WorkTimeDto> addEmptyDays(List<IWorkTime> workTimes, LocalDate date) {
@@ -75,7 +84,7 @@ public class WorkTimeApiService implements GetWorkTimeRecordsUseCase, AddWorkTim
     }
 
 
-    public void resolveHolidays(List<WorkTimeDto> workTimeDtos, LocalDate date) {
+    private void resolveHolidays(List<WorkTimeDto> workTimeDtos, LocalDate date) {
         DaysToWork daysToWorkByDate = workTimeFacade.getDaysToWorkByDate(date.getYear(), date.getMonth().getValue());
 
         for (WorkTimeDto dto : workTimeDtos) {
@@ -86,5 +95,10 @@ public class WorkTimeApiService implements GetWorkTimeRecordsUseCase, AddWorkTim
                 dto.setIsHoliday(true);
             }
         }
+    }
+
+    @Override
+    public String createPdf(List<Integer> idEmployees, LocalDate date, PrintTypePdf printTypePdf) {
+        return workTimeFacade.createPdf(idEmployees, date, printTypePdf);
     }
 }

@@ -1,5 +1,6 @@
 package net.focik.hr.employee.domain.salary;
 
+import lombok.AllArgsConstructor;
 import net.focik.hr.employee.domain.share.RateType;
 import net.focik.hr.employee.domain.worktimerecords.IWorkTime;
 import net.focik.hr.employee.domain.worktimerecords.Work;
@@ -15,9 +16,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class SalaryServiceJulyTest {
+@AllArgsConstructor
+class SalaryFactoryJulyTest {
 
-    static SalaryService salaryService=new SalaryService();
+    static SalaryFactory salaryService;
     static List<IWorkTime> workTimeListOctober;
     static int  ID_EMPLOYEE=22;
 

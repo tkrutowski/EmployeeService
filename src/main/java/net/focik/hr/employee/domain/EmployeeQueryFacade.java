@@ -3,6 +3,7 @@ package net.focik.hr.employee.domain;
 import lombok.AllArgsConstructor;
 import net.focik.hr.employee.domain.share.EmploymentStatus;
 import net.focik.hr.employee.query.EmployeeQueryBasicDto;
+import net.focik.hr.employee.query.EmployeeQueryPrintDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -25,5 +26,7 @@ public class EmployeeQueryFacade {
         return employeeQueryService.findAllByEmploymentStatus(status);
     }
 
-
+    public List<EmployeeQueryPrintDto> getAllEmployeesByEmploymentStatusPrint(EmploymentStatus status) {
+        return employeeQueryService.findAllByEmploymentStatusPrint(status);
+    }
 }
