@@ -46,8 +46,8 @@ public class TimeSheetPdf {
     private static PdfPTable createDateTime(LocalDate date) {
         PdfPTable table = new PdfPTable(1);
         table.setWidthPercentage(100);
-        PdfPCell cellNr = new PdfPCell(new Phrase(String.format("EWIDENCJA CZASU PRACY - %s %s", date.getYear(),
-                date.getMonth().getDisplayName(TextStyle.FULL, new Locale("pl", "PL"))),
+        PdfPCell cellNr = new PdfPCell(new Phrase(String.format("EWIDENCJA CZASU PRACY - %s %s",
+                date.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, new Locale("pl", "PL")), date.getYear()),
                 FontUtil.FONT_12_BOLD));
         cellNr.setHorizontalAlignment(Element.ALIGN_CENTER);
         cellNr.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -71,7 +71,7 @@ public class TimeSheetPdf {
     }
 
     private static PdfPTable createItemTable(LocalDate date, DaysToWork daysToWork) {
-        float[] columnWidths = {1, 3.5f, 3, 3, 3, 3, 3, 3, 3};
+        float[] columnWidths = {1, 3.5f, 3.2f, 3, 3, 3, 3, 3, 3};
         PdfPTable table = new PdfPTable(columnWidths);
         table.setWidthPercentage(100);
         addTableHeader(table);
