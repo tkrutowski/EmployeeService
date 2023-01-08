@@ -5,7 +5,10 @@ import net.focik.hr.employee.domain.worktimerecords.IWorkTime;
 import net.focik.hr.employee.domain.worktimerecords.Work;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,14 +18,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@SpringBootTest
 class SalaryFactoryServiceOctoberTest {
 
-    static SalaryFactory salaryFactory;
+    @Autowired
+    SalaryFactory salaryFactory;
     static List<IWorkTime> workTimeListOctober;
     static int  ID_EMPLOYEE=22;
-
-
-
 
     @BeforeAll
     static void beforeAll() {
@@ -54,6 +56,10 @@ class SalaryFactoryServiceOctoberTest {
         workTimeListOctober.add(new Work(ID_EMPLOYEE, LocalDate.of(2021,10,28), LocalTime.of(7,0),LocalTime.of(15,50)));
         workTimeListOctober.add(new Work(ID_EMPLOYEE, LocalDate.of(2021,10,29), LocalTime.of(7,0),LocalTime.of(15,50)));
 
+    }
+
+    @BeforeEach
+    void calculateMinutes() {
         salaryFactory.calculateMinutes(workTimeListOctober);
     }
 

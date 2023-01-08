@@ -1,12 +1,19 @@
 package net.focik.hr.employee.domain.salary;
 
+import com.netflix.discovery.shared.Application;
 import lombok.AllArgsConstructor;
+import net.focik.hr.employee.application.AdvanceApiService;
+import net.focik.hr.employee.domain.advance.AdvanceFacade;
 import net.focik.hr.employee.domain.share.RateType;
 import net.focik.hr.employee.domain.worktimerecords.IWorkTime;
 import net.focik.hr.employee.domain.worktimerecords.Work;
 import org.javamoney.moneta.Money;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -16,10 +23,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@AllArgsConstructor
+@SpringBootTest
 class SalaryFactoryJulyTest {
 
-    static SalaryFactory salaryService;
+    @Autowired
+    SalaryFactory salaryFactory ;
     static List<IWorkTime> workTimeListOctober;
     static int  ID_EMPLOYEE=22;
 
@@ -58,7 +66,11 @@ class SalaryFactoryJulyTest {
         workTimeListOctober.add(new Work(ID_EMPLOYEE, LocalDate.of(2022,7,28), LocalTime.of(6,0),LocalTime.of(15,0)));
         workTimeListOctober.add(new Work(ID_EMPLOYEE, LocalDate.of(2022,7,29), LocalTime.of(6,0),LocalTime.of(15,0)));
 
-        salaryService.calculateMinutes(workTimeListOctober);
+    }
+
+    @BeforeEach
+    void calculateMinutes() {
+        salaryFactory.calculateMinutes(workTimeListOctober);
     }
 
     @Test
@@ -67,7 +79,7 @@ class SalaryFactoryJulyTest {
         int EXPECTED = 0;
 
         //then
-        assertEquals(EXPECTED, salaryService.getDayOffMinutesPay());
+        assertEquals(EXPECTED, salaryFactory.getDayOffMinutesPay());
     }
     @Test
     void should_return_0_dayOffMinutesFree_when_workTimeListOctober() {
@@ -75,7 +87,7 @@ class SalaryFactoryJulyTest {
         int EXPECTED = 0;
 
         //then
-        assertEquals(EXPECTED, salaryService.getDayOffMinutesFree());
+        assertEquals(EXPECTED, salaryFactory.getDayOffMinutesFree());
     }
 
     @Test
@@ -84,7 +96,7 @@ class SalaryFactoryJulyTest {
         int EXPECTED = 0;
 
         //then
-        assertEquals(EXPECTED, salaryService.getIllnessMinutes80());
+        assertEquals(EXPECTED, salaryFactory.getIllnessMinutes80());
     }
 
     @Test
@@ -93,7 +105,7 @@ class SalaryFactoryJulyTest {
         int EXPECTED = 0;
 
         //then
-        assertEquals(EXPECTED, salaryService.getIllnessMinutes100());
+        assertEquals(EXPECTED, salaryFactory.getIllnessMinutes100());
     }
 
     @Test
@@ -101,7 +113,7 @@ class SalaryFactoryJulyTest {
         //given
         int EXPECTED = 10035;
         //then
-        assertEquals(EXPECTED, salaryService.getWorkRegularMinutes());
+        assertEquals(EXPECTED, salaryFactory.getWorkRegularMinutes());
     }
 
     @Test
@@ -110,7 +122,7 @@ class SalaryFactoryJulyTest {
         int EXPECTED = 2680;
 
         //then
-        assertEquals(EXPECTED, salaryService.getWorkOvertime50Minutes());
+        assertEquals(EXPECTED, salaryFactory.getWorkOvertime50Minutes());
     }
 
     @Test
@@ -119,7 +131,7 @@ class SalaryFactoryJulyTest {
         int EXPECTED = 1380;
 
         //then
-        assertEquals(EXPECTED, salaryService.getWorkOvertime100Minutes());
+        assertEquals(EXPECTED, salaryFactory.getWorkOvertime100Minutes());
     }
 
 
@@ -135,7 +147,7 @@ class SalaryFactoryJulyTest {
         int HOURS_TO_WORK = 168;
 
         //when
-        Money result = salaryService.calculateForWorkRegular(RATE, RATE_TYPE, HOURS_TO_WORK);
+        Money result = salaryFactory.calculateForWorkRegular(RATE, RATE_TYPE, HOURS_TO_WORK);
 
         //then
         assertEquals(Money.of(5097.14, "PLN"), result);
@@ -147,7 +159,7 @@ class SalaryFactoryJulyTest {
         BigDecimal RATE = new BigDecimal("32");
 
         //when
-        Money result = salaryService.calculateForWorkOvertime50(RATE);
+        Money result = salaryFactory.calculateForWorkOvertime50(RATE);
 
         //then
         assertEquals(Money.of(2144, "PLN"), result);
@@ -159,7 +171,7 @@ class SalaryFactoryJulyTest {
         BigDecimal RATE = BigDecimal.valueOf(32.0d);
 
         //when
-        Money result = salaryService.calculateForWorkOvertime100(RATE);
+        Money result = salaryFactory.calculateForWorkOvertime100(RATE);
 
         //then
         assertEquals(Money.of(1472, "PLN"), result);
@@ -173,7 +185,7 @@ class SalaryFactoryJulyTest {
         int HOURS_TO_WORK = 168;
 
         //when
-        Money result = salaryService.calculateForDayOff(RATE, RATE_TYPE, HOURS_TO_WORK);
+        Money result = salaryFactory.calculateForDayOff(RATE, RATE_TYPE, HOURS_TO_WORK);
 
         //then
         assertEquals(Money.of(0, "PLN"), result);
@@ -187,7 +199,7 @@ class SalaryFactoryJulyTest {
         int HOURS_TO_WORK = 168;
 
         //when
-        Money result = salaryService.calculateForIllness80(RATE, RATE_TYPE, HOURS_TO_WORK);
+        Money result = salaryFactory.calculateForIllness80(RATE, RATE_TYPE, HOURS_TO_WORK);
 
         //then
         assertEquals(Money.of(0, "PLN"), result);
@@ -201,7 +213,7 @@ class SalaryFactoryJulyTest {
         int HOURS_TO_WORK = 168;
 
         //when
-        Money result = salaryService.calculateForIllness100(RATE, RATE_TYPE, HOURS_TO_WORK);
+        Money result = salaryFactory.calculateForIllness100(RATE, RATE_TYPE, HOURS_TO_WORK);
 
         //then
         assertEquals(Money.of(0, "PLN"), result);

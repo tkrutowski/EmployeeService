@@ -11,6 +11,8 @@ import net.focik.hr.employee.domain.worktimerecords.share.IllnessType;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,9 +22,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@AllArgsConstructor
+@SpringBootTest
 class SalaryFactoryTest {
 
+    @Autowired
     SalaryFactory salaryFactory;
     static List<IWorkTime> workTimeListNovember;
     static List<IWorkTime> workTimeListOctober;
